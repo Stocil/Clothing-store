@@ -1,73 +1,57 @@
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-
-import {
-  increaseScore,
-  decreaseScore,
-  addNewUser,
-  deleteUser,
-} from "../../store/actions";
+import { Routes, Route, Link } from "react-router-dom";
+import { Homepage } from "../../pages/Homepage";
+import { Score } from "../../pages/Score";
+import { Users } from "../../pages/Users";
+import { NotFoundPage } from "../../pages/NotFoundPage";
 
 function App() {
-  const dispatch = useDispatch();
-  const score = useSelector((state) => state.score);
-  const users = useSelector((state) => state.users);
-
-  const userList = users.map((user) => {
-    return (
-      <div style={{ display: "flex", gap: "10px" }} key={uuidv4()}>
-        <p>{user.name}</p>
-        <button onClick={() => handleDeleteUser(user.id)}>Delete user</button>
-      </div>
-    );
-  });
-
-  function onIncrease(n) {
-    dispatch(increaseScore(n));
-  }
-
-  function onDecrease(n) {
-    dispatch(decreaseScore(n));
-  }
-
-  function handleAddUser(name) {
-    if (!name) return;
-
-    const newUser = {
-      id: uuidv4(),
-      name: name,
-    };
-
-    dispatch(addNewUser(newUser));
-  }
-
-  function handleDeleteUser(id) {
-    dispatch(deleteUser(id));
-  }
-
   return (
-    <div style={{ margin: "100px" }}>
-      <div className="score__inner">
-        <p> {score.score} </p>
-        <p> </p>
-        <button onClick={() => onIncrease(5)}>Увеличить</button>
-        <button onClick={() => onDecrease(5)}>Уменьшить</button>
-      </div>
+    <div>
+      <header
+        style={{
+          display: "flex",
+          margin: "100px",
+          gap: "30px",
+        }}
+      >
+        <Link
+          to="/"
+          style={{
+            padding: "15px 10px",
+            border: "1px solid black",
+            borderRadius: "25px",
+          }}
+        >
+          Home
+        </Link>
+        <Link
+          to="/score"
+          style={{
+            padding: "15px 10px",
+            border: "1px solid black",
+            borderRadius: "25px",
+          }}
+        >
+          Score
+        </Link>
+        <Link
+          to="/users"
+          style={{
+            padding: "15px 10px",
+            border: "1px solid black",
+            borderRadius: "25px",
+          }}
+        >
+          Users
+        </Link>
+      </header>
 
-      <div className="users__inner" style={{ marginTop: "50px" }}>
-        <button
-          style={{ marginBottom: "20px" }}
-          onClick={() => handleAddUser(prompt())}
-        >
-          Добавить пользователя
-        </button>
-        <div
-          className="user__list"
-          style={{ display: "flex", flexDirection: "column", gap: "7px" }}
-        >
-          {userList}
-        </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/score" element={<Score />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 }
