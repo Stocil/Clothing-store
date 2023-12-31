@@ -1,11 +1,4 @@
-import {
-  Routes,
-  Route,
-  Link,
-  useResolvedPath,
-  useMatch,
-  NavLink,
-} from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import { Homepage } from "../../pages/Homepage";
 import { Score } from "../../pages/Score";
 import { Users } from "../../pages/Users/Users";
@@ -13,6 +6,7 @@ import { NotFoundPage } from "../../pages/NotFoundPage";
 import { User } from "../../pages/User/User";
 import { AdminUser } from "../../pages/AdminUser";
 import { UsersLayout } from "../../pages/UsersLayout";
+import { UserNotFound } from "../../pages/UserNotFound";
 
 function App() {
   return (
@@ -37,6 +31,7 @@ function App() {
           <Route index element={<Users />} />
           <Route path=":id" element={<User />} />
           <Route path="admin" element={<AdminUser />} />
+          <Route path="not-found" element={<UserNotFound />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

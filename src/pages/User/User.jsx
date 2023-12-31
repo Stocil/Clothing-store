@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 export function User() {
   const { id: currentId } = useParams();
@@ -9,7 +9,7 @@ export function User() {
   );
 
   if (!user[0]) {
-    return <h1 className="container">Пользователя не существет</h1>;
+    return <Navigate to="/users/not-found" />;
   }
 
   return (
