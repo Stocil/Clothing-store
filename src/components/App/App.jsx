@@ -1,58 +1,65 @@
-import { Routes, Route, Link } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  useResolvedPath,
+  useMatch,
+  NavLink,
+} from "react-router-dom";
 import { Homepage } from "../../pages/Homepage";
 import { Score } from "../../pages/Score";
-import { Users } from "../../pages/Users";
+import { Users } from "../../pages/Users/Users";
 import { NotFoundPage } from "../../pages/NotFoundPage";
+import { User } from "../../pages/User/User";
+import { AdminUser } from "../../pages/AdminUser";
+import { UsersLayout } from "../../pages/UsersLayout";
 
 function App() {
   return (
     <div>
-      <header
-        style={{
-          display: "flex",
-          margin: "100px",
-          gap: "30px",
-        }}
-      >
-        <Link
-          to="/"
-          style={{
-            padding: "15px 10px",
-            border: "1px solid black",
-            borderRadius: "25px",
-          }}
-        >
+      <header className="header">
+        <CustomLink to="/" className="header__link">
           Home
-        </Link>
-        <Link
-          to="/score"
-          style={{
-            padding: "15px 10px",
-            border: "1px solid black",
-            borderRadius: "25px",
-          }}
-        >
+        </CustomLink>
+        <CustomLink to="/score" className="header__link">
           Score
-        </Link>
-        <Link
-          to="/users"
-          style={{
-            padding: "15px 10px",
-            border: "1px solid black",
-            borderRadius: "25px",
-          }}
-        >
+        </CustomLink>
+        <CustomLink to="/users" className="header__link">
           Users
-        </Link>
+        </CustomLink>
       </header>
 
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/score" element={<Score />} />
-        <Route path="/users" element={<Users />} />
+
+        <Route path="/users" element={<UsersLayout />}>
+          <Route index element={<Users />} />
+          <Route path=":id" element={<User />} />
+          <Route path="admin" element={<AdminUser />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
+  );
+}
+
+// eslint-disable-next-line react/prop-types
+function CustomLink({ to, children }) {
+  // Add active class depends on where you locate, same as NavLink
+
+  // const resolvedPath = useResolvedPath(to);
+  // const isActive = useMatch({ path: resolvedPath.pathname, end: true });
+
+  // const className = isActive ? "header__link active" : "header__link";
+
+  return (
+    <li>
+      <NavLink className="header__link" to={to}>
+        {children}
+      </NavLink>
+    </li>
   );
 }
 

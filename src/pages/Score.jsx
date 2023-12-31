@@ -7,10 +7,7 @@ export function Score() {
   const score = useSelector((state) => state.score);
 
   return (
-    <div
-      className="score__inner"
-      style={{ marginTop: "50px", marginLeft: "100px" }}
-    >
+    <div className="container">
       <p> {score.score} </p>
       <p> </p>
       <button onClick={() => onIncrease(5)}>Увеличить</button>
