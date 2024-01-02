@@ -13,7 +13,7 @@ export function UsersLayout() {
         <p>{user.name}</p>
         <button onClick={() => handleDeleteUser(user.id)}>Delete user</button>
         <button>
-          <Link to={`/users/${user.id}`}>Посмотреть страницу</Link>
+          <Link to={`${user.id}`}>Посмотреть страницу</Link>
         </button>
       </div>
     );
