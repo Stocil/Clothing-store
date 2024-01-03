@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +12,9 @@ export function UserNotFound() {
   }, [navigate]);
 
   return (
-    <h1 className="container">
+    <Typography variant="h3">
       Такого пользователя не существет, перенаправление на страницу
       пользователей...
-    </h1>
+    </Typography>
   );
 }

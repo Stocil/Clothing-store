@@ -1,7 +1,11 @@
+import { Container, Typography } from "@mui/material";
+
 export function Homepage() {
   return (
-    <div className="homepage" style={{ marginLeft: "100px" }}>
-      <h1>Welcome to homepage</h1>
-    </div>
+    <Container maxWidth="xl">
+      <Typography variant="h2" sx={{ my: 3 }}>
+        Welcome to homepage
+      </Typography>
+    </Container>
   );
 }
