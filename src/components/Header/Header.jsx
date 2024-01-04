@@ -28,15 +28,7 @@ export function Header() {
   );
 }
 
-// eslint-disable-next-line react/prop-types
 function CustomLink({ to, children }) {
-  // Add active class depends on where you locate, same as NavLink
-
-  // const resolvedPath = useResolvedPath(to);
-  // const isActive = useMatch({ path: resolvedPath.pathname, end: true });
-
-  // const className = isActive ? "header__link active" : "header__link";
-
   return (
     <NavLink className="header__link" to={to}>
       <Typography variant="h5" component="p">

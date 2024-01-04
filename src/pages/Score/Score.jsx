@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { increaseScore, decreaseScore } from "../store/actions";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { increaseScore, decreaseScore } from "../../store/actions";
+import { Button, Container, Stack, Typography } from "@mui/material";
+import { ScoreInner } from "./Score.styles";
 
 export function Score() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export function Score() {
           {score.score}
         </Typography>
 
-        <Box sx={{ display: "flex", justifyContent: "center", gap: "16px" }}>
+        <ScoreInner>
           <Button
             variant={"contained"}
             size="large"
@@ -29,7 +30,7 @@ export function Score() {
           >
             Уменьшить
           </Button>
-        </Box>
+        </ScoreInner>
       </Stack>
     </Container>
   );

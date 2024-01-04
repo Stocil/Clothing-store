@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { addNewUser } from "../store/actions";
-import { Button, Typography } from "@mui/material";
+import { addNewUser } from "../../store/actions";
+import { Typography } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
+import AddUserButton from "./Users.styles";
 
 export function Users() {
   const dispatch = useDispatch();
@@ -15,13 +16,9 @@ export function Users() {
         Список пользователей:
       </Typography>
 
-      <Button
-        variant="outlined"
-        sx={{ mt: 1 }}
-        onClick={() => handleAddUser(prompt())}
-      >
+      <AddUserButton onClick={() => handleAddUser(prompt())}>
         Добавить пользователя
-      </Button>
+      </AddUserButton>
     </>
   );
 

@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import { Homepage } from "../../pages/Homepage";
-import { Score } from "../../pages/Score";
-import { Users } from "../../pages/Users";
+import { Score } from "../../pages/Score/Score";
+import { Users } from "../../pages/Users/Users";
 import { NotFoundPage } from "../../pages/NotFoundPage";
 import { User } from "../../pages/User/User";
 import { AdminUser } from "../../pages/AdminUser";
-import { UsersLayout } from "../../pages/UsersLayout";
+import { UsersLayout } from "../../pages/UsersLayout/UsersLayout";
 import { UserNotFound } from "../../pages/UserNotFound";
 import { Header } from "../Header/Header";
 
