@@ -1,11 +1,10 @@
-// import { combineReducers, createStore } from "redux";
-// import { scoreReducer } from "./reducers/scoreReducer";
-// import { userReducer } from "./reducers/userReducer";
-// import { composeWithDevTools } from "@redux-devtools/extension";
+import { combineReducers, createStore } from "redux";
+import { composeWithDevTools } from "@redux-devtools/extension";
 
-// const rootReducer = combineReducers({
-//   score: scoreReducer,
-//   users: userReducer,
-// });
+import { themeReducer } from "./reducers/themeReducer";
 
-// export const store = createStore(rootReducer, composeWithDevTools());
+const rootReducer = combineReducers({
+  theme: themeReducer,
+});
+
+export const store = createStore(rootReducer, composeWithDevTools());
