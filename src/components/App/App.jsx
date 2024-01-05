@@ -1,12 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { Homepage } from "../../pages/Homepage";
-import { Score } from "../../pages/Score/Score";
-import { Users } from "../../pages/Users/Users";
-import { NotFoundPage } from "../../pages/NotFoundPage";
-import { User } from "../../pages/User/User";
-import { AdminUser } from "../../pages/AdminUser";
-import { UsersLayout } from "../../pages/UsersLayout/UsersLayout";
-import { UserNotFound } from "../../pages/UserNotFound";
+// import { Routes, Route } from "react-router-dom";
+
 import { Header } from "../Header/Header";
 
 function App() {
@@ -14,7 +7,7 @@ function App() {
     <>
       <Header />
 
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/score" element={<Score />} />
 
@@ -26,7 +19,7 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      </Routes> */}
     </>
   );
 }
