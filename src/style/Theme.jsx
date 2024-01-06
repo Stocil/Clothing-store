@@ -26,6 +26,12 @@ export function Theme({ children }) {
             },
           }),
     },
+    typography: {
+      fontFamily: "'Quicksand', sans-serif",
+    },
+    shape: {
+      borderRadius: 10,
+    },
   });
 
   return (

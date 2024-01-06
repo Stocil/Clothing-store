@@ -1,39 +1,44 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import { Container, Stack, Toolbar, Typography, Divider } from "@mui/material";
+import { Container, Stack, Toolbar, Typography } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+
+import { SearchBar } from "./Header.styles";
 
 export function Header() {
+  const avatarSrc = "../../assets/defAvatar.svg";
+
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Stack
-            direction={"row"}
-            spacing={3}
-            divider={<Divider orientation="vertical" flexItem />}
-          >
-            <CustomLink to="/" className="header__link">
-              Home
-            </CustomLink>
-            <CustomLink to="/score" className="header__link">
-              Score
-            </CustomLink>
-            <CustomLink to="/users" className="header__link">
-              Users
-            </CustomLink>
+          <Stack direction={"row"} justifyContent={"space-between"} width={1}>
+            <Link to="/">
+              <img src="../../assets/Logo.svg" alt="logo" />
+            </Link>
+
+            <SearchBar />
+
+            <Stack direction="row" spacing={5} alignItems={"center"}>
+              <Stack direction="row" spacing={2}>
+                <Link to="/favorite">
+                  <FavoriteBorderIcon fontSize="medium" />
+                </Link>
+
+                <Link to="/basket">
+                  <ShoppingBasketIcon fontSize="medium" />
+                </Link>
+              </Stack>
+
+              <Stack direction="row" spacing={2} alignItems={"center"}>
+                <img className="header__avatar" src={avatarSrc} alt="avatar" />
+                <Typography width={1}>Stas Vashurov</Typography>
+              </Stack>
+            </Stack>
           </Stack>
         </Toolbar>
       </Container>
     </AppBar>
-  );
-}
-
-function CustomLink({ to, children }) {
-  return (
-    <NavLink className="header__link" to={to}>
-      <Typography variant="h5" component="p">
-        {children}
-      </Typography>
-    </NavLink>
   );
 }

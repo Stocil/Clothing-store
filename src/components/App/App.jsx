@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { Header } from "../Header/Header";
 import { switchTheme } from "../../store/actions";
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Container, Paper } from "@mui/material";
 
 function App() {
   const dispatch = useDispatch();
@@ -11,19 +11,23 @@ function App() {
   return (
     <>
       <Header />
-      <Button variant="contained" onClick={handleThemeSwitch}>
-        Сменить тему
-      </Button>
 
-      <Box display="flex" gap={5} justifyContent={"center"}>
-        <Paper sx={{ width: "500px", height: "500px" }}></Paper>
-        <Paper sx={{ width: "500px", height: "500px" }}></Paper>
-      </Box>
+      <Container maxWidth="lg">
+        <Button variant="contained" onClick={handleThemeSwitch}>
+          Сменить тему
+        </Button>
 
-      <Box mt={5} display="flex" gap={5} justifyContent={"center"}>
-        <Paper sx={{ width: "650px", height: "200px" }}></Paper>
-        <Paper sx={{ width: "350px", height: "200px" }}></Paper>
-      </Box>
+        <Box display="flex" gap={5} justifyContent={"space-between"}>
+          <Paper sx={{ width: "600px", height: "500px" }}></Paper>
+          <Paper sx={{ width: "550px", height: "500px" }}></Paper>
+        </Box>
+
+        <Box mt={5} display="flex" gap={5} justifyContent={"space-between"}>
+          <Paper sx={{ width: "650px", height: "200px" }}></Paper>
+          <Paper sx={{ width: "450px", height: "200px" }}></Paper>
+        </Box>
+      </Container>
+
       {/* <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/score" element={<Score />} />
