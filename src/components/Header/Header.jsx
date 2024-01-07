@@ -31,10 +31,17 @@ export function Header() {
                 </Link>
               </Stack>
 
-              <Stack direction="row" spacing={2} alignItems={"center"}>
-                <img className="header__avatar" src={avatarSrc} alt="avatar" />
-                <Typography width={1}>Stas Vashurov</Typography>
-              </Stack>
+              <Link to="/userpage">
+                <Stack direction="row" spacing={1} alignItems={"center"}>
+                  <img
+                    className="header__avatar"
+                    src={avatarSrc}
+                    alt="avatar"
+                  />
+
+                  <Typography width={1}>Stas Vashurov</Typography>
+                </Stack>
+              </Link>
             </Stack>
           </Stack>
         </Toolbar>
