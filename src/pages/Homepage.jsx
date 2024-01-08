@@ -7,25 +7,23 @@ export function Homepage() {
   const dispatch = useDispatch();
 
   return (
-    <Box>
-      <Container maxWidth="lg">
-        <Typography variant="h3">Welcome to Homepage</Typography>
+    <Container component={"section"} maxWidth="lg">
+      <Typography variant="h3">Welcome to Homepage</Typography>
 
-        <Button variant="contained" onClick={handleThemeSwitch}>
-          Сменить тему
-        </Button>
+      <Button variant="contained" onClick={handleThemeSwitch}>
+        Сменить тему
+      </Button>
 
-        <Box display="flex" gap={5} justifyContent={"space-between"}>
-          <Paper sx={{ width: "600px", height: "500px" }}></Paper>
-          <Paper sx={{ width: "550px", height: "500px" }}></Paper>
-        </Box>
+      <Box display="flex" gap={5} justifyContent={"space-between"}>
+        <Paper sx={{ width: "600px", height: "500px" }}></Paper>
+        <Paper sx={{ width: "550px", height: "500px" }}></Paper>
+      </Box>
 
-        <Box mt={5} display="flex" gap={5} justifyContent={"space-between"}>
-          <Paper sx={{ width: "650px", height: "200px" }}></Paper>
-          <Paper sx={{ width: "450px", height: "200px" }}></Paper>
-        </Box>
-      </Container>
-    </Box>
+      <Box mt={5} display="flex" gap={5} justifyContent={"space-between"}>
+        <Paper sx={{ width: "650px", height: "200px" }}></Paper>
+        <Paper sx={{ width: "450px", height: "200px" }}></Paper>
+      </Box>
+    </Container>
   );
 
   function handleThemeSwitch() {
