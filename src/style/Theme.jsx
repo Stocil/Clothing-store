@@ -12,7 +12,10 @@ export function Theme({ children }) {
         ? {
             primary: {
               main: "#191919",
-              dark: purple[500],
+              dark: purple[400],
+            },
+            secondary: {
+              main: purple[300],
             },
             background: {
               default: "#212123",

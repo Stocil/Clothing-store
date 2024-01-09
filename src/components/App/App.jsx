@@ -6,7 +6,7 @@ import { Basket } from "../../pages/Basket";
 import { Favorite } from "../../pages/Favorite";
 import { UserPage } from "../../pages/UserPage";
 import { Box } from "@mui/material";
-import { AccountManager } from "../../pages/AccountManager";
+import { AccountManager } from "../../pages/AccountManager/AccountManager";
 
 function App() {
   return (
