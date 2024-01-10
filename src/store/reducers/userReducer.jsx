@@ -8,6 +8,7 @@ export function userReducer(state = initialState, action) {
       return {
         ...state,
         name: action.payload.name,
+        email: action.payload.email,
         avatarUrl: action.payload.avatarUrl,
       };
     }

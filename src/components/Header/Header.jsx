@@ -46,7 +46,11 @@ export function Header() {
                   <Stack direction="row" spacing={1} alignItems={"center"}>
                     <img
                       className="header__avatar"
-                      src={user.avatarUrl}
+                      src={
+                        user.avatarUrl
+                          ? user.avatarUrl
+                          : "../../assets/defAvatar.svg"
+                      }
                       alt="avatar"
                     />
 
@@ -55,7 +59,9 @@ export function Header() {
                 </Link>
               ) : (
                 <Link to="/sign-in">
-                  <Button variant="contained">SIGN IN</Button>
+                  <Button variant="contained" sx={{ textTransform: "none" }}>
+                    Log in
+                  </Button>
                 </Link>
               )}
             </Stack>

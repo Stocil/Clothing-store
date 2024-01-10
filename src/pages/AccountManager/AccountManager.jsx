@@ -1,94 +1,162 @@
 import { useState } from "react";
-import {
-  Button,
-  Container,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Container, Paper, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+import { PasswordField, SubmitButton } from "./AccountManager.styles";
+import { useForm } from "./hooks/useForm";
 
 export function AccountManager() {
-  const path = useLocation().pathname;
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [passwordHelperText, setPasswordHelperText] = useState(false);
+
+  const path = useLocation().pathname;
+  const onSubmit = useForm(path, setIsPasswordError, setPasswordHelperText);
+
+  const renderTitle = () => {
+    if (path === "/sign-in") {
+      return "Log In";
+    }
+
+    if (path === "/sign-up") {
+      return "Create account";
+    }
+  };
+
+  const renderButtonText = () => {
+    if (path === "/sign-in") {
+      return "Log In";
+    }
+
+    if (path === "/sign-up") {
+      return "Create";
+    }
+  };
+
+  const renderTip = () => {
+    let text;
+    let link;
+    let linkText;
+
+    if (path === "/sign-in") {
+      text = "Don't have an account yet?";
+      link = "/sign-up";
+      linkText = "Sign Up";
+    }
+
+    if (path === "/sign-up") {
+      text = "Already have an account?";
+      link = "/sign-in";
+      linkText = "Log in";
+    }
+
+    return (
+      <Stack direction={"row"} justifyContent={"center"} mt={2}>
+        <Typography
+          variant="body2"
+          sx={{ display: "flex", alignItems: "center", gap: "5px" }}
+        >
+          {text}
+          <Link className="form__link" to={link}>
+            {linkText}
+          </Link>
+        </Typography>
+      </Stack>
+    );
+  };
+
+  const renderFields = () => {
+    let fields;
+
+    if (path === "/sign-in") {
+      fields = [
+        {
+          name: "userName",
+          id: "username",
+          label: "Username",
+          type: "text",
+        },
+        {
+          name: "password",
+          id: "password",
+          label: "Password",
+        },
+      ];
+    }
+
+    if (path === "/sign-up") {
+      fields = [
+        {
+          name: "userName",
+          id: "username",
+          label: "Username",
+          type: "text",
+        },
+        {
+          name: "email",
+          id: "email",
+          label: "Email Address",
+          type: "email",
+        },
+        {
+          name: "password",
+          id: "password",
+          label: "Password",
+        },
+        {
+          name: "repeatPassword",
+          id: "repeatPassword",
+          label: "Repeat Password",
+        },
+      ];
+    }
+
+    return fields.map((field) => {
+      if (field.name !== "password" && field.name !== "repeatPassword") {
+        return (
+          <TextField
+            key={field.name}
+            name={field.name}
+            type={field.type}
+            id={field.id}
+            label={field.label}
+            variant="outlined"
+            color="secondary"
+            required
+            fullWidth
+          />
+        );
+      }
+
+      return (
+        <PasswordField
+          isError={isPasswordError}
+          helperText={passwordHelperText}
+          key={field.name}
+          field={field}
+          isShowPassword={isShowPassword}
+          onClick={() => setIsShowPassword((show) => !show)}
+        />
+      );
+    });
+  };
 
   return (
     <Container component={"section"} sx={{ my: 12 }}>
       <Stack alignItems={"center"}>
-        <Paper sx={{ py: 6, px: 4, width: "450px" }}>
+        <Paper sx={{ p: 4, width: { sm: "450px" } }}>
           <Typography variant="h4" component={"h2"} textAlign={"center"}>
-            Sign in
+            {renderTitle()}
           </Typography>
 
-          <form autoComplete="off" className="form">
-            <TextField
-              name="userName"
-              id="username"
-              label="Username"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-            />
+          <form autoComplete="off" className="form" onSubmit={onSubmit}>
+            {renderFields()}
 
-            <TextField
-              name="email"
-              id="email"
-              label="Email"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-            />
-
-            <FormControl sx={{ width: 1 }} variant="outlined">
-              <InputLabel color="secondary" htmlFor="password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                name="password"
-                id="password"
-                label="Password"
-                color="secondary"
-                type={isShowPassword ? "text" : "password"}
-                fullWidth
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setIsShowPassword((show) => !show)}
-                      onMouseDown={(e) => e.preventDefault()}
-                      edge="end"
-                    >
-                      {isShowPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-
-            <Button variant="contained" size="large" type="submit">
-              Login
-            </Button>
-
-            <Stack direction={"row"}>
-              <Typography
-                variant="body2"
-                sx={{ display: "flex", alignItems: "center", gap: "5px" }}
-              >
-                Already have an account?
-                <Link className="form__link" to={"/sign-in"}>
-                  Sign-in
-                </Link>
-              </Typography>
-            </Stack>
+            <SubmitButton>{renderButtonText()}</SubmitButton>
           </form>
+
+          {renderTip()}
         </Paper>
       </Stack>
     </Container>

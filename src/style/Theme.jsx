@@ -25,7 +25,14 @@ export function Theme({ children }) {
         : {
             primary: {
               main: red[100],
-              dark: red[500],
+              dark: red[400],
+            },
+            secondary: {
+              main: red[500],
+            },
+            background: {
+              default: red[100],
+              paper: red[50],
             },
           }),
     },

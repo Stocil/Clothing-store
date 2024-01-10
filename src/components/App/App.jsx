@@ -20,6 +20,7 @@ function App() {
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/sign-in" element={<AccountManager />} />
+          <Route path="/sign-up" element={<AccountManager />} />
 
           {/* <Route path="/users" element={<UsersLayout />}>
           <Route index element={<Users />} />
