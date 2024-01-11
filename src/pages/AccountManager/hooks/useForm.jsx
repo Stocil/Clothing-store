@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import { addNewUser } from "../../../store/actions";
+import { addCurrentUser, addUserInUsers } from "../../../store/actions";
 
 export function useForm(path, isPasswordError, changeHeplerText) {
-  const { setStorageItem } = useLocalStorage("currentUser");
+  const { setStorageItem: setCurrentUser } = useLocalStorage("currentUser");
   const dispatch = useDispatch();
 
   function handleSubmitForm(e) {
@@ -42,11 +44,22 @@ export function useForm(path, isPasswordError, changeHeplerText) {
         const user = {
           name: form.userName.value,
           email: form.email.value,
+          password: form.password.value,
           avatarUrl: null,
+          id: uuidv4(),
         };
 
-        setStorageItem(user);
-        dispatch(addNewUser(user));
+        const currentUser = {
+          name: form.userName.value,
+          email: form.email.value,
+          avatarUrl: null,
+          id: uuidv4(),
+        };
+
+        setCurrentUser(currentUser);
+
+        dispatch(addCurrentUser(currentUser));
+        dispatch(addUserInUsers(user));
       }
 
       if (path === "/sign-in") {

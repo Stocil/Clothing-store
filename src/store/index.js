@@ -2,11 +2,13 @@ import { combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
 import { themeReducer } from "./reducers/themeReducer";
-import { userReducer } from "./reducers/userReducer";
+import { currentUserReducer } from "./reducers/currentUserReducer";
+import { usersReducer } from "./reducers/usersReducer";
 
 const rootReducer = combineReducers({
   theme: themeReducer,
-  currentUser: userReducer,
+  currentUser: currentUserReducer,
+  users: usersReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools());
