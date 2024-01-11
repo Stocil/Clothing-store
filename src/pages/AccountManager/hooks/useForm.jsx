@@ -2,10 +2,16 @@ import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import { addCurrentUser, addUserInUsers } from "../../../store/actions";
+import {
+  registerUser,
+  addUserInUsers,
+  loginUser,
+} from "../../../store/actions";
 
 export function useForm(path, isPasswordError, changeHeplerText) {
   const { setStorageItem: setCurrentUser } = useLocalStorage("currentUser");
+  const { setStorageItem: setUsers, getStorageItem: getUsers } =
+    useLocalStorage("users");
   const dispatch = useDispatch();
 
   function handleSubmitForm(e) {
@@ -49,6 +55,17 @@ export function useForm(path, isPasswordError, changeHeplerText) {
           id: uuidv4(),
         };
 
+        // const userForStorage = [
+        //   ...users,
+        //   {
+        //     name: form.userName.value,
+        //     email: form.email.value,
+        //     password: form.password.value,
+        //     avatarUrl: null,
+        //     id: uuidv4(),
+        //   },
+        // ];
+
         const currentUser = {
           name: form.userName.value,
           email: form.email.value,
@@ -58,12 +75,42 @@ export function useForm(path, isPasswordError, changeHeplerText) {
 
         setCurrentUser(currentUser);
 
-        dispatch(addCurrentUser(currentUser));
+        dispatch(registerUser(currentUser));
         dispatch(addUserInUsers(user));
       }
 
       if (path === "/sign-in") {
-        console.log("logged in");
+        const users = getUsers();
+        let isLogged = false;
+
+        users.map((user) => {
+          if (
+            user.name === form.userName.value &&
+            user.password === form.password.value
+          ) {
+            isLogged = true;
+          }
+        });
+
+        if (isLogged) {
+          const currentUser = users.filter((user) => {
+            if (user.name === form.userName.value) {
+              return user;
+            }
+          })[0];
+
+          const currentUserData = {
+            name: currentUser.name,
+            email: currentUser.email,
+            avatarUrl: currentUser.avatarUrl,
+            id: currentUser.id,
+          };
+
+          setCurrentUser(currentUserData);
+          dispatch(loginUser(currentUser));
+        } else {
+          console.log("Your email or password is invalid");
+        }
       }
     }
   }
