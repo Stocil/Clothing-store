@@ -23,8 +23,16 @@ export function SubmitButton({ children }) {
   );
 }
 
-export function PasswordField({ helperText, field, isShowPassword, onClick }) {
-  const isError = helperText ? true : false;
+export function PasswordField({
+  helperText,
+  field,
+  isShowPassword,
+  onClick,
+  path,
+}) {
+  let isError = helperText ? true : false;
+
+  if (path === "/sign-in") isError = false;
 
   return (
     <FormControl sx={{ width: 1 }} variant="outlined">

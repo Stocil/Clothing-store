@@ -183,6 +183,7 @@ export function AccountManager() {
           field={field}
           isShowPassword={isShowPassword}
           onClick={() => setIsShowPassword((show) => !show)}
+          path={path}
         />
       );
     });
