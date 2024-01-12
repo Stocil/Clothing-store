@@ -24,7 +24,7 @@ export function AccountManager() {
   );
 
   const renderError = () => {
-    return signError ? (
+    return signError && path === "/sign-in" ? (
       <Typography textAlign={"center"} color={"error"}>
         {signError}
       </Typography>
