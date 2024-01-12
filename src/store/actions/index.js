@@ -1,4 +1,10 @@
-import { REGISTER_USER, ADD_IN_USERS, SWITCH_THEME, LOGIN_USER } from "./types";
+import {
+  REGISTER_USER,
+  ADD_IN_USERS,
+  SWITCH_THEME,
+  LOGIN_USER,
+  LOGOUT_USER,
+} from "./types";
 
 export const switchTheme = () => ({
   type: SWITCH_THEME,
@@ -12,6 +18,10 @@ export const registerUser = (payload) => ({
 export const loginUser = (payload) => ({
   type: LOGIN_USER,
   payload,
+});
+
+export const logoutUser = () => ({
+  type: LOGOUT_USER,
 });
 
 export const addUserInUsers = (payload) => ({

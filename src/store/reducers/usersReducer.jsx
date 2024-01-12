@@ -16,8 +16,6 @@ export function usersReducer(state = initialState, action) {
         },
       ];
 
-      localStorage.setItem("users", JSON.stringify(newUsers));
-
       return newUsers;
     }
     default: {

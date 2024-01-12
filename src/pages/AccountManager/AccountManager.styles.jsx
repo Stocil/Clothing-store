@@ -23,13 +23,9 @@ export function SubmitButton({ children }) {
   );
 }
 
-export function PasswordField({
-  field,
-  isShowPassword,
-  onClick,
-  isError,
-  helperText,
-}) {
+export function PasswordField({ helperText, field, isShowPassword, onClick }) {
+  const isError = helperText ? true : false;
+
   return (
     <FormControl sx={{ width: 1 }} variant="outlined">
       <InputLabel color={isError ? "error" : "secondary"} htmlFor="password">

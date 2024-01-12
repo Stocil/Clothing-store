@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import { Button, Container, Stack, Toolbar, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -8,6 +8,7 @@ import { SearchBar } from "./Header.styles";
 import { useSelector } from "react-redux";
 
 export function Header() {
+  const location = useLocation();
   const user = useSelector((state) => state.currentUser);
   // const user = {
   //   name: "Stas",
@@ -58,7 +59,11 @@ export function Header() {
                   </Stack>
                 </Link>
               ) : (
-                <Link to="/sign-in">
+                <Link
+                  to="/sign-in"
+                  replace
+                  state={{ prevPath: location.pathname }}
+                >
                   <Button variant="contained" sx={{ textTransform: "none" }}>
                     Log in
                   </Button>

@@ -1,7 +1,7 @@
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import { switchTheme } from "../store/actions";
+import { logoutUser, switchTheme } from "../store/actions";
 
 export function Homepage() {
   const dispatch = useDispatch();
@@ -11,7 +11,11 @@ export function Homepage() {
       <Typography variant="h3">Welcome to Homepage</Typography>
 
       <Button variant="contained" onClick={handleThemeSwitch}>
-        Сменить тему
+        Change Theme
+      </Button>
+
+      <Button variant="contained" onClick={handleLogOut}>
+        Log out
       </Button>
 
       <Box display="flex" gap={5} justifyContent={"space-between"}>
@@ -28,5 +32,10 @@ export function Homepage() {
 
   function handleThemeSwitch() {
     dispatch(switchTheme());
+  }
+
+  function handleLogOut() {
+    localStorage.removeItem("currentUser");
+    dispatch(logoutUser());
   }
 }

@@ -8,11 +8,28 @@ import { useForm } from "./hooks/useForm";
 
 export function AccountManager() {
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
+
+  const [signError, setSignError] = useState(false);
   const [passwordHelperText, setPasswordHelperText] = useState(false);
+  const [usernameHelperText, setUsernameHelperText] = useState(false);
 
   const path = useLocation().pathname;
-  const onSubmit = useForm(path, setIsPasswordError, setPasswordHelperText);
+  const pathToNavigate = useLocation().state?.prevPath || "/";
+  const onSubmit = useForm(
+    path,
+    pathToNavigate,
+    setPasswordHelperText,
+    setSignError,
+    setUsernameHelperText
+  );
+
+  const renderError = () => {
+    return signError ? (
+      <Typography textAlign={"center"} color={"error"}>
+        {signError}
+      </Typography>
+    ) : null;
+  };
 
   const renderTitle = () => {
     if (path === "/sign-in") {
@@ -58,7 +75,11 @@ export function AccountManager() {
           sx={{ display: "flex", alignItems: "center", gap: "5px" }}
         >
           {text}
-          <Link className="form__link" to={link}>
+          <Link
+            className="form__link"
+            to={link}
+            state={{ prevPath: pathToNavigate }}
+          >
             {linkText}
           </Link>
         </Typography>
@@ -113,7 +134,11 @@ export function AccountManager() {
     }
 
     return fields.map((field) => {
-      if (field.name !== "password" && field.name !== "repeatPassword") {
+      if (
+        field.name !== "password" &&
+        field.name !== "repeatPassword" &&
+        field.name !== "userName"
+      ) {
         return (
           <TextField
             key={field.name}
@@ -129,11 +154,32 @@ export function AccountManager() {
         );
       }
 
+      if (field.name === "userName") {
+        let isUsernameError = usernameHelperText ? true : false;
+
+        if (path === "/sign-in") isUsernameError = false;
+
+        return (
+          <TextField
+            key={field.name}
+            name={field.name}
+            type={field.type}
+            id={field.id}
+            label={field.label}
+            variant="outlined"
+            color="secondary"
+            error={isUsernameError}
+            helperText={isUsernameError ? usernameHelperText : false}
+            required
+            fullWidth
+          />
+        );
+      }
+
       return (
         <PasswordField
-          isError={isPasswordError}
-          helperText={passwordHelperText}
           key={field.name}
+          helperText={passwordHelperText}
           field={field}
           isShowPassword={isShowPassword}
           onClick={() => setIsShowPassword((show) => !show)}
@@ -152,6 +198,7 @@ export function AccountManager() {
 
           <form autoComplete="off" className="form" onSubmit={onSubmit}>
             {renderFields()}
+            {renderError()}
 
             <SubmitButton>{renderButtonText()}</SubmitButton>
           </form>

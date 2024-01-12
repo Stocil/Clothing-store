@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
@@ -8,11 +9,22 @@ import {
   loginUser,
 } from "../../../store/actions";
 
-export function useForm(path, isPasswordError, changeHeplerText) {
+export function useForm(
+  path,
+  pathToNavigate,
+  changeHeplerText,
+  changeSignError,
+  changeUsernameError
+) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { setStorageItem: setCurrentUser } = useLocalStorage("currentUser");
   const { setStorageItem: setUsers, getStorageItem: getUsers } =
     useLocalStorage("users");
-  const dispatch = useDispatch();
+
+  const users = getUsers()[0] ? getUsers() : [];
+  const usersUsernames = users.map((user) => user.name);
 
   function handleSubmitForm(e) {
     e.preventDefault();
@@ -20,27 +32,31 @@ export function useForm(path, isPasswordError, changeHeplerText) {
     let canSubmit = true;
 
     if (path === "/sign-in") {
-      isPasswordError(false);
+      changeHeplerText(false);
+      changeSignError(false);
 
       if (form.password.value.length < 5) {
-        isPasswordError(true);
         changeHeplerText("The password is too short");
         canSubmit = false;
       }
     }
 
     if (path === "/sign-up") {
-      isPasswordError(false);
+      changeHeplerText(false);
+      changeUsernameError(false);
 
       if (form.password.value.length < 5) {
-        isPasswordError(true);
         changeHeplerText("The password is too short");
         canSubmit = false;
       }
 
       if (form.password.value !== form.repeatPassword.value) {
-        isPasswordError(true);
         changeHeplerText("The passwords don't match");
+        canSubmit = false;
+      }
+
+      if (usersUsernames.includes(form.userName.value)) {
+        changeUsernameError("Username is already has taken");
         canSubmit = false;
       }
     }
@@ -55,16 +71,16 @@ export function useForm(path, isPasswordError, changeHeplerText) {
           id: uuidv4(),
         };
 
-        // const userForStorage = [
-        //   ...users,
-        //   {
-        //     name: form.userName.value,
-        //     email: form.email.value,
-        //     password: form.password.value,
-        //     avatarUrl: null,
-        //     id: uuidv4(),
-        //   },
-        // ];
+        const userForStorage = [
+          ...users,
+          {
+            name: form.userName.value,
+            email: form.email.value,
+            password: form.password.value,
+            avatarUrl: null,
+            id: uuidv4(),
+          },
+        ];
 
         const currentUser = {
           name: form.userName.value,
@@ -74,13 +90,15 @@ export function useForm(path, isPasswordError, changeHeplerText) {
         };
 
         setCurrentUser(currentUser);
+        setUsers(userForStorage);
 
         dispatch(registerUser(currentUser));
         dispatch(addUserInUsers(user));
+
+        navigate(pathToNavigate, { replace: true });
       }
 
       if (path === "/sign-in") {
-        const users = getUsers();
         let isLogged = false;
 
         users.map((user) => {
@@ -108,8 +126,9 @@ export function useForm(path, isPasswordError, changeHeplerText) {
 
           setCurrentUser(currentUserData);
           dispatch(loginUser(currentUser));
+          navigate(pathToNavigate, { replace: true });
         } else {
-          console.log("Your email or password is invalid");
+          changeSignError("Email or password is invalid");
         }
       }
     }
