@@ -1,4 +1,9 @@
-import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "../actions/types";
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
+  REGISTER_USER,
+  UPDATE_USER,
+} from "../actions/types";
 
 const initialState = JSON.parse(localStorage.getItem("currentUser")) || {};
 
@@ -31,6 +36,15 @@ export function currentUserReducer(state = initialState, action) {
         email: undefined,
         avatarUrl: undefined,
         id: undefined,
+      };
+    }
+
+    case UPDATE_USER: {
+      return {
+        ...state,
+        name: action.payload.name,
+        email: action.payload.email,
+        avatarUrl: action.payload.avatarUrl,
       };
     }
 

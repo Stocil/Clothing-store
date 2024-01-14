@@ -63,12 +63,14 @@ export function useForm(
 
     if (canSubmit) {
       if (path === "/sign-up") {
+        const id = uuidv4();
+
         const user = {
           name: form.userName.value,
           email: form.email.value,
           password: form.password.value,
           avatarUrl: null,
-          id: uuidv4(),
+          id: id,
         };
 
         const userForStorage = [
@@ -78,7 +80,7 @@ export function useForm(
             email: form.email.value,
             password: form.password.value,
             avatarUrl: null,
-            id: uuidv4(),
+            id: id,
           },
         ];
 
@@ -86,7 +88,7 @@ export function useForm(
           name: form.userName.value,
           email: form.email.value,
           avatarUrl: null,
-          id: uuidv4(),
+          id: id,
         };
 
         setCurrentUser(currentUser);
@@ -126,6 +128,7 @@ export function useForm(
 
           setCurrentUser(currentUserData);
           dispatch(loginUser(currentUser));
+
           navigate(pathToNavigate, { replace: true });
         } else {
           changeSignError("Email or password is invalid");

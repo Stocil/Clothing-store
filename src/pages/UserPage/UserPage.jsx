@@ -1,6 +1,10 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+
 import { logoutUser } from "../../store/actions";
+import { SubmitButton } from "../AccountManager/AccountManager.styles";
+import { useUserpageForm } from "./hooks/useUserpageForm";
+import { useState } from "react";
 
 export function UserPage() {
   const dispatch = useDispatch();
@@ -8,35 +12,67 @@ export function UserPage() {
   const userAvatar = user.avatarUrl
     ? user.avatarUrl
     : "../../assets/defAvatar.svg";
+  const [usernameHelperText, setUsernameHelperText] = useState(false);
+
+  const handleSubmitForm = useUserpageForm(setUsernameHelperText);
 
   return (
     <Container component={"section"} maxWidth="lg" sx={{ my: 7 }}>
       <Stack direction="row" gap={20}>
         <img className="user__avatar" src={userAvatar}></img>
 
-        <Stack gap={3}>
-          <Typography variant="h2">{user.name}</Typography>
+        <form className="user__form" onSubmit={handleSubmitForm}>
+          <TextField
+            name={"Name"}
+            id={"name"}
+            label={"Name: "}
+            variant="standard"
+            color="secondary"
+            required
+            fullWidth
+            inputProps={{ style: { fontSize: "26px" } }}
+            defaultValue={user.name}
+            error={!!usernameHelperText}
+            helperText={usernameHelperText}
+          />
 
-          <Typography variant="h5" component="p">
-            Email: {user.email}
-          </Typography>
+          <TextField
+            type="email"
+            name={"Email"}
+            id={"email"}
+            label={"Email: "}
+            variant="standard"
+            color="secondary"
+            fullWidth
+            required
+            inputProps={{ style: { fontSize: "26px" } }}
+            defaultValue={user.email}
+          />
 
-          <Typography variant="h5" component="p">
-            Avatar url: {user.avatarUrl ? userAvatar : "none"}
-          </Typography>
+          <TextField
+            name={"Avatar"}
+            id={"avatar"}
+            label={"Avatar url: "}
+            variant="standard"
+            color="secondary"
+            fullWidth
+            inputProps={{ style: { fontSize: "26px" } }}
+            defaultValue={user.avatarUrl}
+          />
 
-          <Button variant="contained">Edit</Button>
-        </Stack>
+          <Stack spacing={2}>
+            <SubmitButton>Save</SubmitButton>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleLogOut}
+              sx={{ textTransform: "none" }}
+            >
+              Log out
+            </Button>
+          </Stack>
+        </form>
       </Stack>
-
-      <Button
-        variant="contained"
-        onClick={handleLogOut}
-        color="error"
-        sx={{ mt: 10 }}
-      >
-        Log out
-      </Button>
     </Container>
   );
 
