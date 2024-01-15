@@ -18,7 +18,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/basket" element={<Basket />} />
-          <Route path="/favorite" element={<Favorite />} />
+
+          <Route
+            path="/favorite"
+            element={
+              <PrivateRoute>
+                <Favorite />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/userpage"
