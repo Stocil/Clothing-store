@@ -56,6 +56,8 @@ function App() {
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Routes>
+
+        <div id="modals"></div>
       </Box>
     </>
   );

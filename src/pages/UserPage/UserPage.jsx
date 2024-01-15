@@ -5,6 +5,7 @@ import { logoutUser } from "../../store/actions";
 import { SubmitButton } from "../AccountManager/AccountManager.styles";
 import { useUserpageForm } from "./hooks/useUserpageForm";
 import { useState } from "react";
+import { UserpageModal } from "../../components/UserpageModal/UserpageModal";
 
 export function UserPage() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export function UserPage() {
     ? user.avatarUrl
     : "../../assets/defAvatar.svg";
   const [usernameHelperText, setUsernameHelperText] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmitForm = useUserpageForm(setUsernameHelperText);
 
@@ -61,7 +63,16 @@ export function UserPage() {
           />
 
           <Stack spacing={2}>
+            <Button
+              variant="contained"
+              sx={{ textTransform: "none" }}
+              onClick={handleCloseModal}
+            >
+              Change Password
+            </Button>
+
             <SubmitButton>Save</SubmitButton>
+
             <Button
               variant="contained"
               color="error"
@@ -73,11 +84,17 @@ export function UserPage() {
           </Stack>
         </form>
       </Stack>
+
+      <UserpageModal isOpen={modalOpen} handleClose={handleCloseModal} />
     </Container>
   );
 
   function handleLogOut() {
     localStorage.removeItem("currentUser");
     dispatch(logoutUser());
+  }
+
+  function handleCloseModal() {
+    setModalOpen((t) => !t);
   }
 }
