@@ -27,6 +27,9 @@ export function usersReducer(state = initialState, action) {
             name: action.payload.name,
             email: action.payload.email,
             avatarUrl: action.payload.avatarUrl,
+            password: action.payload.password
+              ? action.payload.password
+              : user.password,
           };
         }
 

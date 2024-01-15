@@ -16,17 +16,17 @@ export function useUserpageForm(changeUsernameError) {
   const users = getUsers()[0] ? getUsers() : [];
   const usersUsernames = users.map((user) => user.name);
   const currentUser = getCurrentUser();
+  const currentUserFullData = users.filter((user) => {
+    if (user.name === currentUser.name) {
+      return user;
+    }
+  })[0];
 
   function handleSubmitForm(e) {
     e.preventDefault();
 
     let canSubmit = true;
     const form = e.target;
-    const currentUserFullData = users.filter((user) => {
-      if (user.name === currentUser.name) {
-        return user;
-      }
-    })[0];
 
     changeUsernameError(false);
 
@@ -75,5 +75,77 @@ export function useUserpageForm(changeUsernameError) {
     }
   }
 
-  return handleSubmitForm;
+  function handleSubmitNewPassword(
+    e,
+    stage,
+    changeStage,
+    changePasswordError,
+    handleCloseModal
+  ) {
+    e.preventDefault();
+
+    let canSubmit = true;
+    const form = e.target;
+
+    changePasswordError(false);
+
+    if (stage === 1) {
+      if (form.EditPassword.value === currentUserFullData.password) {
+        changeStage(2);
+        changePasswordError(false);
+      } else {
+        changePasswordError("Incorrect Password!");
+      }
+    }
+
+    if (stage === 2) {
+      if (form.NewPassword.value.length < 5) {
+        changePasswordError("The password is too short");
+        canSubmit = false;
+      }
+
+      if (form.NewPassword.value.length > 20) {
+        changePasswordError("The password is too long");
+        canSubmit = false;
+      }
+
+      if (form.NewPassword.value !== form.RepeatNewPassword.value) {
+        changePasswordError("The passwords don't match");
+        canSubmit = false;
+      }
+
+      if (
+        canSubmit === true &&
+        form.NewPassword.value === currentUserFullData.password
+      ) {
+        changePasswordError("The new password must not match the old one");
+        canSubmit = false;
+      }
+
+      if (canSubmit) {
+        const updatedUserFullData = {
+          ...currentUserFullData,
+          password: form.NewPassword.value,
+        };
+
+        const updatedUserFullDataForStorage = users.map((user) => {
+          if (user.id === currentUserFullData.id) {
+            return {
+              ...user,
+              password: form.NewPassword.value,
+            };
+          }
+
+          return user;
+        });
+
+        setUsersStorage(updatedUserFullDataForStorage);
+        dispatch(updateUserInUsers(updatedUserFullData));
+
+        handleCloseModal();
+      }
+    }
+  }
+
+  return { handleSubmitForm, handleSubmitNewPassword };
 }

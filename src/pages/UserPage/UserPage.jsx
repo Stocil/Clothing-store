@@ -16,7 +16,9 @@ export function UserPage() {
   const [usernameHelperText, setUsernameHelperText] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleSubmitForm = useUserpageForm(setUsernameHelperText);
+  const { handleSubmitForm, handleSubmitNewPassword } = useUserpageForm(
+    setUsernameHelperText
+  );
 
   return (
     <Container component={"section"} maxWidth="lg" sx={{ my: 7 }}>
@@ -63,6 +65,8 @@ export function UserPage() {
           />
 
           <Stack spacing={2}>
+            <SubmitButton>Save</SubmitButton>
+
             <Button
               variant="contained"
               sx={{ textTransform: "none" }}
@@ -70,8 +74,6 @@ export function UserPage() {
             >
               Change Password
             </Button>
-
-            <SubmitButton>Save</SubmitButton>
 
             <Button
               variant="contained"
@@ -85,7 +87,11 @@ export function UserPage() {
         </form>
       </Stack>
 
-      <UserpageModal isOpen={modalOpen} handleClose={handleCloseModal} />
+      <UserpageModal
+        isOpen={modalOpen}
+        handleClose={() => handleCloseModal()}
+        onSubmit={handleSubmitNewPassword}
+      />
     </Container>
   );
 

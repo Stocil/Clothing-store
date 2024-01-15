@@ -1,12 +1,10 @@
-import { Button, Modal, Stack, Typography, styled } from "@mui/material";
-import { UiPasswordButton } from "../Uikit/UiPasswordButton";
 import { useState } from "react";
+import { Button, Modal, Stack, Typography } from "@mui/material";
+import { UiPasswordButton } from "../Uikit/UiPasswordButton";
 
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress";
+import { BorderLinearProgress, ModalInner } from "./UserpageModal.styles";
 
-export function UserpageModal({ isOpen, handleClose }) {
+export function UserpageModal({ isOpen, handleClose, onSubmit }) {
   const [editPasswordHelperText, setEditPasswordHelperText] = useState(false);
   const [isEditPasswordShow, setIsEditPasswordShow] = useState(false);
 
@@ -16,35 +14,84 @@ export function UserpageModal({ isOpen, handleClose }) {
     return null;
   }
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
+  const renderTitle = () => {
+    if (stage === 1) return "Enter your account password";
 
-    bgcolor: "background.paper",
-    borderColor: "erorr",
-    borderRadius: 4,
-    boxShadow: 24,
-    p: 4,
+    if (stage === 2) return "Enter new password";
   };
 
-  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-    height: 10,
-    borderRadius: 5,
-    [`&.${linearProgressClasses.colorPrimary}`]: {
-      backgroundColor:
-        theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
-    },
-    [`& .${linearProgressClasses.bar}`]: {
-      borderRadius: 5,
-      backgroundColor:
-        theme.palette.mode === "light"
-          ? theme.palette.primary.main
-          : theme.palette.primary.dark,
-    },
-  }));
+  const renderImage = () => {
+    if (stage === 1) {
+      return (
+        <img
+          src="../../../assets/password.png"
+          className="user__password-image"
+        ></img>
+      );
+    }
+
+    return null;
+  };
+
+  const renderModalFields = () => {
+    if (stage === 1) {
+      return (
+        <>
+          <UiPasswordButton
+            key="EditPassword"
+            helperText={editPasswordHelperText}
+            isShowPassword={isEditPasswordShow}
+            handleShowPassword={() => setIsEditPasswordShow((show) => !show)}
+            fieldName={"EditPassword"}
+            label={"Enter Password"}
+            id={"editPassword"}
+          />
+
+          <Button
+            variant="contained"
+            type="submit"
+            size="large"
+            sx={{ width: 0.5, alignSelf: "center", textTransform: "none" }}
+          >
+            Continue
+          </Button>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <UiPasswordButton
+          key="NewPassword"
+          helperText={editPasswordHelperText}
+          isShowPassword={isEditPasswordShow}
+          handleShowPassword={() => setIsEditPasswordShow((show) => !show)}
+          fieldName={"NewPassword"}
+          label={"Enter new Password"}
+          id={"newPassword"}
+        />
+
+        <UiPasswordButton
+          key="RepeatNewPassword"
+          helperText={editPasswordHelperText}
+          isShowPassword={isEditPasswordShow}
+          handleShowPassword={() => setIsEditPasswordShow((show) => !show)}
+          fieldName={"RepeatNewPassword"}
+          label={"Repeat Password"}
+          id={"repeatNewPassword"}
+        />
+
+        <Button
+          variant="contained"
+          type="submit"
+          size="large"
+          sx={{ width: 0.5, alignSelf: "center", textTransform: "none" }}
+        >
+          Save
+        </Button>
+      </>
+    );
+  };
 
   return (
     <Modal
@@ -52,16 +99,9 @@ export function UserpageModal({ isOpen, handleClose }) {
         backdropFilter: "blur(7px)",
       }}
       open={isOpen}
-      onClose={() => handleClose()}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      onClose={() => handleCloseModal()}
     >
-      <Stack
-        sx={style}
-        alignItems="center"
-        justifyContent={"space-between"}
-        spacing={5}
-      >
+      <ModalInner>
         <Stack alignItems="center" spacing={2}>
           <Typography variant="h6" component="h2" textAlign="center">
             {stage}/2
@@ -73,37 +113,36 @@ export function UserpageModal({ isOpen, handleClose }) {
             sx={{ width: "200px" }}
           />
 
-          <img
-            src="../../../assets/password.png"
-            className="user__password-image"
-          ></img>
+          {renderImage()}
 
           <Typography variant="h4" component="h2" textAlign="center">
-            Enter your account password
+            {renderTitle()}
           </Typography>
         </Stack>
 
         <Stack spacing={5} alignItems="center">
-          <form className="user__form">
-            <UiPasswordButton
-              helperText={editPasswordHelperText}
-              isShowPassword={isEditPasswordShow}
-              handleShowPassword={() => setIsEditPasswordShow((show) => !show)}
-              fieldName={"EditPassword"}
-              label={"Enter Password"}
-              id={"editPassword"}
-            />
-          </form>
-
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ textTransform: "none", width: 0.5 }}
+          <form
+            className="user__form"
+            onSubmit={(e) =>
+              onSubmit(
+                e,
+                stage,
+                setStage,
+                setEditPasswordHelperText,
+                handleCloseModal
+              )
+            }
           >
-            Сontinue
-          </Button>
+            {renderModalFields()}
+          </form>
         </Stack>
-      </Stack>
+      </ModalInner>
     </Modal>
   );
+
+  function handleCloseModal() {
+    handleClose();
+    setStage(1);
+    setEditPasswordHelperText(false);
+  }
 }

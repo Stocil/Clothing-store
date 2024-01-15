@@ -16,6 +16,7 @@ export function UiPasswordButton({
   fieldName,
   label,
   id,
+  defaultValue = null,
 }) {
   let isError = helperText ? true : false;
 
@@ -34,6 +35,7 @@ export function UiPasswordButton({
         color="secondary"
         type={isShowPassword ? "text" : "password"}
         fullWidth
+        defaultValue={defaultValue}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
