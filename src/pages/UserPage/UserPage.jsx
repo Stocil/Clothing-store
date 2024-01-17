@@ -1,14 +1,13 @@
 import { Button, Container, Stack, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { logoutUser } from "../../store/actions";
 import { SubmitButton } from "../AccountManager/AccountManager.styles";
 import { useUserpageForm } from "./hooks/useUserpageForm";
 import { useState } from "react";
 import { UserpageModal } from "../../components/UserpageModal/UserpageModal";
+import { useUserpage } from "./hooks/useUserpage";
 
 export function UserPage() {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser);
   const userAvatar = user.avatarUrl
     ? user.avatarUrl
@@ -19,6 +18,8 @@ export function UserPage() {
   const { handleSubmitForm, handleSubmitNewPassword } = useUserpageForm(
     setUsernameHelperText
   );
+
+  const { handleLogOut, handleCloseModal } = useUserpage(setModalOpen);
 
   return (
     <Container component={"section"} maxWidth="lg" sx={{ my: 7 }}>
@@ -94,13 +95,4 @@ export function UserPage() {
       />
     </Container>
   );
-
-  function handleLogOut() {
-    localStorage.removeItem("currentUser");
-    dispatch(logoutUser());
-  }
-
-  function handleCloseModal() {
-    setModalOpen((t) => !t);
-  }
 }
