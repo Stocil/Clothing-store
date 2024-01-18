@@ -3,14 +3,12 @@ import { Button, Modal, Stack, Typography } from "@mui/material";
 import { UiPasswordButton } from "../Uikit/UiPasswordButton";
 
 import { BorderLinearProgress, ModalInner } from "./UserpageModal.styles";
-import { useUserpage } from "../../pages/UserPage/hooks/useUserpage";
 
 export function UserpageModal({ isOpen, handleClose, onSubmit }) {
   const [editPasswordHelperText, setEditPasswordHelperText] = useState(false);
   const [isEditPasswordShow, setIsEditPasswordShow] = useState(false);
 
   const [stage, setStage] = useState(1);
-  const { handleSubmitModal } = useUserpage();
 
   if (!isOpen) {
     return null;
@@ -101,7 +99,7 @@ export function UserpageModal({ isOpen, handleClose, onSubmit }) {
         backdropFilter: "blur(7px)",
       }}
       open={isOpen}
-      onClose={() => handleSubmitModal()}
+      onClose={() => handleCloseModal()}
     >
       <ModalInner>
         <Stack alignItems="center" spacing={2}>
@@ -131,7 +129,7 @@ export function UserpageModal({ isOpen, handleClose, onSubmit }) {
                 stage,
                 setStage,
                 setEditPasswordHelperText,
-                handleSubmitModal
+                handleCloseModal
               )
             }
           >
@@ -141,4 +139,10 @@ export function UserpageModal({ isOpen, handleClose, onSubmit }) {
       </ModalInner>
     </Modal>
   );
+
+  function handleCloseModal() {
+    handleClose();
+    setStage(1);
+    setEditPasswordHelperText(false);
+  }
 }

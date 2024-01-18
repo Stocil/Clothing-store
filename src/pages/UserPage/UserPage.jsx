@@ -1,11 +1,11 @@
 import { Button, Container, Stack, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
-
-import { SubmitButton } from "../AccountManager/AccountManager.styles";
 import { useUserpageForm } from "./hooks/useUserpageForm";
 import { useState } from "react";
 import { UserpageModal } from "../../components/UserpageModal/UserpageModal";
+
 import { useUserpage } from "./hooks/useUserpage";
+import { SubmitButton } from "../AccountManager/AccountManager.styles";
 
 export function UserPage() {
   const user = useSelector((state) => state.currentUser);
@@ -18,7 +18,6 @@ export function UserPage() {
   const { handleSubmitForm, handleSubmitNewPassword } = useUserpageForm(
     setUsernameHelperText
   );
-
   const { handleLogOut, handleCloseModal } = useUserpage(setModalOpen);
 
   return (

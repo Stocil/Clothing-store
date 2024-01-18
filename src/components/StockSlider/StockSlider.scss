@@ -1,0 +1,27 @@
+.homepage {
+  &__slider {
+    max-height: 290px;
+    border-radius: 20px;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+
+  &::after {
+    font-weight: 700;
+    font-size: 20px;
+    color: #ab47bc;
+  }
+}
+
+.swiper-pagination-bullet {
+  width: 30px;
+  height: 4px;
+  border-radius: 5px;
+  background-color: #ab47bc;
+}

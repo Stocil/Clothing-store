@@ -13,11 +13,5 @@ export function useUserpage(setModalOpen) {
     setModalOpen((t) => !t);
   }
 
-  function handleSubmitModal() {
-    handleClose();
-    setStage(1);
-    setEditPasswordHelperText(false);
-  }
-
-  return { handleLogOut, handleCloseModal, handleSubmitModal };
+  return { handleLogOut, handleCloseModal };
 }
