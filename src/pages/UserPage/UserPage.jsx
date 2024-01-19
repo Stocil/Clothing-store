@@ -12,6 +12,7 @@ export function UserPage() {
   const userAvatar = user.avatarUrl
     ? user.avatarUrl
     : "../../assets/defAvatar.svg";
+
   const [usernameHelperText, setUsernameHelperText] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 

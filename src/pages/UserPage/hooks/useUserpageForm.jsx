@@ -75,6 +75,8 @@ export function useUserpageForm(changeUsernameError) {
     }
   }
 
+  // passwordEdit
+
   function handleSubmitNewPassword(
     e,
     stage,
