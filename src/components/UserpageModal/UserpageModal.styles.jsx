@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Modal, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
