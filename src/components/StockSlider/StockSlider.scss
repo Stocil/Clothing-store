@@ -3,6 +3,12 @@
     max-height: 290px;
     border-radius: 20px;
   }
+
+  &__slide-text {
+    position: absolute;
+    color: black;
+    font-weight: 700;
+  }
 }
 
 .swiper-button-next,
