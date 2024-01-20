@@ -43,20 +43,22 @@ export function Categories() {
   );
 
   return (
-    <Container component={"section"} maxWidth="lg" sx={{ my: 7 }}>
-      <Typography variant="h3" fontWeight={700}>
-        Categories
-      </Typography>
-
-      {isLoading ? (
-        <Typography variant="h5" fontWeight={700}>
-          Loading...
+    <>
+      <Container component={"section"} maxWidth="lg" sx={{ mt: 10 }}>
+        <Typography variant="h3" fontWeight={700}>
+          Categories
         </Typography>
-      ) : (
-        <Stack direction="row" spacing={8} justifyContent="center" mt={5}>
-          {isError ? isError : categoriesList}
-        </Stack>
-      )}
-    </Container>
+
+        {isLoading ? (
+          <Typography variant="h5" fontWeight={700}>
+            Loading...
+          </Typography>
+        ) : (
+          <Stack direction="row" spacing={8} justifyContent="center" mt={5}>
+            {isError ? isError : categoriesList}
+          </Stack>
+        )}
+      </Container>
+    </>
   );
 }
