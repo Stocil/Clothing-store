@@ -26,7 +26,7 @@ export function Header() {
   // };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Stack
