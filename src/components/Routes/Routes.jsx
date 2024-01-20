@@ -3,17 +3,21 @@ import { Routes, Route } from "react-router-dom";
 import { AccountManager } from "../../pages/AccountManager/AccountManager";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
 import { Homepage } from "../../pages/Homepage/Homepage";
-import { Basket } from "../../pages/Basket";
-import { Favorite } from "../../pages/Favorite";
+import { Basket } from "../../pages/Basket/Basket";
+import { Favorite } from "../../pages/Favorite/Favorite";
 import { UserPage } from "../../pages/UserPage/UserPage";
 import { Category } from "../Category/Category";
+import { HomepageLayout } from "../HomepageLayout/HomepageLayout";
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Homepage />} />
       <Route path="/basket" element={<Basket />} />
-      <Route path="/categories/:id" element={<Category />} />
+
+      <Route path="/" element={<HomepageLayout />}>
+        <Route index element={<Homepage />} />
+        <Route path="/categories/:id" element={<Category />} />
+      </Route>
 
       <Route
         path="/favorite"
@@ -52,17 +56,4 @@ export function AppRoutes() {
       />
     </Routes>
   );
-}
-
-{
-  /* <Route path="/users" element={<UsersLayout />}>
-            <Route index element={<Users />} />
-            <Route path=":id" element={<User />} />
-            <Route path="admin" element={<AdminUser />} />
-            <Route path="not-found" element={<UserNotFound />} />
-          </Route> */
-}
-
-{
-  /* <Route path="*" element={<NotFoundPage />} /> */
 }
