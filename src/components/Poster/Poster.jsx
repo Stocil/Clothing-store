@@ -3,8 +3,13 @@ import { Box, Typography } from "@mui/material";
 export function Poster() {
   return (
     <Box position="relative">
-      <Typography variant="h1" position="absolute" top="150px" left="32%">
-        Vikoletto store
+      <Typography
+        variant="h1"
+        position="absolute"
+        top="150px"
+        left="calc(50% - 250px);"
+      >
+        Spark store
       </Typography>
 
       <img

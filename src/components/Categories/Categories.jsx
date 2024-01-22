@@ -21,7 +21,11 @@ export function Categories() {
   const categoriesList = categoryList.map((category, index) => {
     if (index < 4) {
       return (
-        <NavLink key={category.id} to={`/categories/${category.id}`}>
+        <NavLink
+          key={category.id}
+          to={`/categories/${category.id}`}
+          state={{ category: category }}
+        >
           <CategoryInner>
             <Typography variant="h6" component="p">
               {category.name}
@@ -54,7 +58,7 @@ export function Categories() {
             Loading...
           </Typography>
         ) : (
-          <Stack direction="row" spacing={8} justifyContent="center" mt={5}>
+          <Stack direction="row" justifyContent="space-between" mt={5}>
             {isError ? isError : categoriesList}
           </Stack>
         )}

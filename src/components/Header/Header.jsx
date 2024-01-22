@@ -20,10 +20,6 @@ export function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.currentUser);
-  // const user = {
-  //   name: "Stas",
-  //   avatarUrl: "../../assets/defAvatar.svg",
-  // };
 
   return (
     <AppBar position="fixed">
