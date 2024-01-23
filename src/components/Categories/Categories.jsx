@@ -21,11 +21,7 @@ export function Categories() {
   const categoriesList = categoryList.map((category, index) => {
     if (index < 4) {
       return (
-        <NavLink
-          key={category.id}
-          to={`/categories/${category.id}`}
-          state={{ category: category }}
-        >
+        <NavLink key={category.id} to={`/categories/${category.id}`}>
           <CategoryInner>
             <Typography variant="h6" component="p">
               {category.name}

@@ -9,6 +9,12 @@ import {
   GET_CATEGORIES,
   GET_CATEGORIES_SUCCESS,
   GET_CATEGORIES_ERROR,
+  GET_PRODUCTS,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_ERROR,
+  GET_CATEGORY_PRODUCTS,
+  GET_CATEGORY_PRODUCTS_SUCCESS,
+  GET_CATEGORY_PRODUCTS_ERROR,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -61,5 +67,33 @@ export const getCategoriesDataSuccess = (payload) => ({
 
 export const getCategoriesDataError = (payload) => ({
   type: GET_CATEGORIES_ERROR,
+  payload,
+});
+
+export const getProductsData = () => ({
+  type: GET_PRODUCTS,
+});
+
+export const getProductsDataSuccess = (payload) => ({
+  type: GET_PRODUCTS_SUCCESS,
+  payload,
+});
+
+export const getProductsDataError = (payload) => ({
+  type: GET_PRODUCTS_ERROR,
+  payload,
+});
+
+export const getCategoryProductsData = () => ({
+  type: GET_CATEGORY_PRODUCTS,
+});
+
+export const getCategoryProductsDataSuccess = (payload) => ({
+  type: GET_CATEGORY_PRODUCTS_SUCCESS,
+  payload,
+});
+
+export const getCategoryProductsDataError = (payload) => ({
+  type: GET_CATEGORY_PRODUCTS_ERROR,
   payload,
 });
