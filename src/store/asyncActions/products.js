@@ -18,7 +18,9 @@ export function getProducts() {
 
       dispatch(getProductsDataSuccess(productsList));
     } catch {
-      dispatch(getProductsDataError("Products not found"));
+      dispatch(
+        getProductsDataError("Failed to load products, please reload page")
+      );
     }
   };
 }
@@ -37,7 +39,9 @@ export function getCategoryProducts(id) {
       dispatch(getCategoryProductsDataSuccess(categoryProductsList));
     } catch {
       dispatch(
-        getCategoryProductsDataError("Products in this category not found")
+        getCategoryProductsDataError(
+          "Failed to load products from this category, please reload page"
+        )
       );
     }
   };
