@@ -10,11 +10,14 @@ export function Products({
   isError = false,
   isLoading = false,
   maxProduct = null,
+  title = null,
 }) {
   const productsList = products.map((product, index) => {
     if (maxProduct && index >= maxProduct) {
       return null;
     }
+
+    if (!product.images[0] || !product.price || !product.title) return null;
 
     return (
       <Grid key={product.id} item xs={1} display="flex">
@@ -49,9 +52,13 @@ export function Products({
     }
 
     return (
-      <Grid container spacing={5} columns={3}>
-        {content}
-      </Grid>
+      <>
+        {title ? <Typography variant="h3">{title}</Typography> : null}
+
+        <Grid container spacing={5} columns={3}>
+          {content}
+        </Grid>
+      </>
     );
   };
 

@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getCategoryProducts } from "../../../store/asyncActions/products";
+import {
+  getCategoryProducts,
+  getProducts,
+} from "../../../store/asyncActions/products";
 
 export function useCategory() {
   const products = useSelector((state) => state.products.products);
@@ -13,7 +16,11 @@ export function useCategory() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getCategoryProducts(id));
+    if (id === "0") {
+      dispatch(getProducts());
+    } else {
+      dispatch(getCategoryProducts(id));
+    }
   }, [dispatch, id]);
 
   return { products, isError, isLoading };
