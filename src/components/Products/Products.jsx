@@ -1,9 +1,17 @@
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import {
   ProductErrorText,
   ProductImageInner,
   ProductItemInner,
 } from "./Products.styles";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export function Products({
   products = [],
@@ -26,11 +34,26 @@ export function Products({
             <img className="product__image" src={product.images[0]} />
           </ProductImageInner>
 
-          <Typography variant="h6" component="p" fontWeight={700} mt={2}>
-            ${product.price}
-          </Typography>
+          <Stack direction="row" justifyContent="space-between" mt={2}>
+            <Box>
+              <Typography variant="h6" component="p" fontWeight={700}>
+                ${product.price}
+              </Typography>
 
-          <Typography component="p">{product.title}</Typography>
+              <Typography component="p">{product.title}</Typography>
+            </Box>
+
+            <Stack justifyContent="center">
+              <IconButton
+                sx={{
+                  bgcolor: (theme) => theme.palette.primary.dark,
+                  "&:hover": { bgcolor: (theme) => theme.palette.primary.dark },
+                }}
+              >
+                <AddShoppingCartIcon />
+              </IconButton>
+            </Stack>
+          </Stack>
         </ProductItemInner>
       </Grid>
     );
