@@ -1,4 +1,12 @@
-import { Box, Paper, Typography, styled } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  styled,
+} from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export const ProductErrorText = styled(Typography)({
   marginTop: "80px",
@@ -8,6 +16,8 @@ export const ProductErrorText = styled(Typography)({
 
 export const ProductItemInner = styled(Paper)({
   padding: "20px",
+  display: "flex",
+  flexDirection: "column",
 });
 
 export const ProductImageInner = styled(Box)({
@@ -15,3 +25,30 @@ export const ProductImageInner = styled(Box)({
   borderRadius: "20px",
   display: "flex",
 });
+
+export const ProductInfoInner = styled(Stack)({
+  justifyContent: "space-between",
+  marginTop: "16px",
+});
+
+export const ProductLastSectionInner = styled(Stack)({
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "start",
+  gap: "8px",
+});
+
+const ProductCardButtonStyle = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.dark,
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
+
+export const ProductCardButton = ({ onClick }) => {
+  return (
+    <ProductCardButtonStyle onClick={onClick}>
+      <AddShoppingCartIcon />
+    </ProductCardButtonStyle>
+  );
+};

@@ -1,17 +1,12 @@
+import { Container, Grid, Typography } from "@mui/material";
 import {
-  Box,
-  Container,
-  Grid,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
-import {
+  ProductCardButton,
   ProductErrorText,
   ProductImageInner,
+  ProductInfoInner,
   ProductItemInner,
+  ProductLastSectionInner,
 } from "./Products.styles";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export function Products({
   products = [],
@@ -25,7 +20,13 @@ export function Products({
       return null;
     }
 
-    if (!product.images[0] || !product.price || !product.title) return null;
+    if (
+      !product.images[0] ||
+      !product.images[0].startsWith("https") ||
+      !product.price ||
+      !product.title
+    )
+      return null;
 
     return (
       <Grid key={product.id} item xs={1} display="flex">
@@ -34,26 +35,17 @@ export function Products({
             <img className="product__image" src={product.images[0]} />
           </ProductImageInner>
 
-          <Stack direction="row" justifyContent="space-between" mt={2}>
-            <Box>
-              <Typography variant="h6" component="p" fontWeight={700}>
-                ${product.price}
-              </Typography>
+          <ProductInfoInner>
+            <Typography variant="h6" component="p" fontWeight={700}>
+              ${product.price}
+            </Typography>
 
+            <ProductLastSectionInner>
               <Typography component="p">{product.title}</Typography>
-            </Box>
 
-            <Stack justifyContent="center">
-              <IconButton
-                sx={{
-                  bgcolor: (theme) => theme.palette.primary.dark,
-                  "&:hover": { bgcolor: (theme) => theme.palette.primary.dark },
-                }}
-              >
-                <AddShoppingCartIcon />
-              </IconButton>
-            </Stack>
-          </Stack>
+              <ProductCardButton onClick={() => console.log("Add to card")} />
+            </ProductLastSectionInner>
+          </ProductInfoInner>
         </ProductItemInner>
       </Grid>
     );
