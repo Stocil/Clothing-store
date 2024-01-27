@@ -1,0 +1,12 @@
+.product {
+  &__side-image {
+    width: 190px;
+    height: 190px;
+
+    border-radius: 20px;
+  }
+
+  &__main-image {
+    border-radius: 20px;
+  }
+}

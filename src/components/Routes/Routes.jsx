@@ -8,11 +8,13 @@ import { Homepage } from "../../pages/Homepage/Homepage";
 import { Favorite } from "../../pages/Favorite/Favorite";
 import { UserPage } from "../../pages/UserPage/UserPage";
 import { Category } from "../../pages/Category/Category";
+import { Product } from "../../pages/Product/Product";
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route path="/basket" element={<Basket />} />
+      <Route path="/product/:id" element={<Product />} />
 
       <Route path="/" element={<HomepageLayout />}>
         <Route index element={<Homepage />} />

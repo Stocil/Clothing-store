@@ -15,6 +15,9 @@ import {
   GET_CATEGORY_PRODUCTS,
   GET_CATEGORY_PRODUCTS_SUCCESS,
   GET_CATEGORY_PRODUCTS_ERROR,
+  GET_ONE_PRODUCT,
+  GET_ONE_PRODUCT_SUCCESS,
+  GET_ONE_PRODUCT_ERROR,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -70,6 +73,8 @@ export const getCategoriesDataError = (payload) => ({
   payload,
 });
 
+// All products
+
 export const getProductsData = () => ({
   type: GET_PRODUCTS,
 });
@@ -84,6 +89,8 @@ export const getProductsDataError = (payload) => ({
   payload,
 });
 
+// Products form category
+
 export const getCategoryProductsData = () => ({
   type: GET_CATEGORY_PRODUCTS,
 });
@@ -95,5 +102,21 @@ export const getCategoryProductsDataSuccess = (payload) => ({
 
 export const getCategoryProductsDataError = (payload) => ({
   type: GET_CATEGORY_PRODUCTS_ERROR,
+  payload,
+});
+
+// Single product
+
+export const getSingleProductData = () => ({
+  type: GET_ONE_PRODUCT,
+});
+
+export const getSingleProductDataSuccess = (payload) => ({
+  type: GET_ONE_PRODUCT_SUCCESS,
+  payload,
+});
+
+export const getSingleProductDataError = (payload) => ({
+  type: GET_ONE_PRODUCT_ERROR,
   payload,
 });

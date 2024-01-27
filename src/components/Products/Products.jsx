@@ -7,6 +7,7 @@ import {
   ProductItemInner,
   ProductLastSectionInner,
 } from "./Products.styles";
+import { Link } from "react-router-dom";
 
 export function Products({
   products = [],
@@ -32,7 +33,9 @@ export function Products({
       <Grid key={product.id} item xs={1} display="flex">
         <ProductItemInner>
           <ProductImageInner>
-            <img className="product__image" src={product.images[0]} />
+            <Link to={`/product/${product.id}`}>
+              <img className="product__image" src={product.images[0]} />
+            </Link>
           </ProductImageInner>
 
           <ProductInfoInner>

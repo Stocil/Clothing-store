@@ -5,6 +5,9 @@ import {
   getProductsData,
   getProductsDataError,
   getProductsDataSuccess,
+  getSingleProductData,
+  getSingleProductDataError,
+  getSingleProductDataSuccess,
 } from "../actions";
 
 export function getProducts() {
@@ -42,6 +45,24 @@ export function getCategoryProducts(id) {
         getCategoryProductsDataError(
           "Failed to load products from this category, please reload page"
         )
+      );
+    }
+  };
+}
+
+export function getSingleProduct(id) {
+  return async function getSingleProductThunk(dispatch) {
+    try {
+      dispatch(getSingleProductData());
+
+      const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`);
+
+      const productList = await res.json();
+
+      dispatch(getSingleProductDataSuccess(productList));
+    } catch {
+      dispatch(
+        getSingleProductDataError("Failed to load product, please reload page")
       );
     }
   };
