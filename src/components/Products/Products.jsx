@@ -1,13 +1,13 @@
 import { Container, Grid, Typography } from "@mui/material";
 import {
   ProductCardButton,
-  ProductErrorText,
   ProductImageInner,
   ProductInfoInner,
   ProductItemInner,
   ProductLastSectionInner,
 } from "./Products.styles";
 import { Link } from "react-router-dom";
+import { ErrorMessage } from "../Uikit/ErrorMessage";
 
 export function Products({
   products = [],
@@ -58,12 +58,16 @@ export function Products({
     let content;
 
     if (isError) {
-      content = <ProductErrorText variant="h4">{isError}</ProductErrorText>;
+      content = (
+        <ErrorMessage variant="h4" mt={5} ml={5}>
+          {isError}
+        </ErrorMessage>
+      );
     } else if (productsList.length === 0) {
       content = (
-        <ProductErrorText variant="h4">
+        <ErrorMessage variant="h4" mt={5} ml={5}>
           There are no products in this Category
-        </ProductErrorText>
+        </ErrorMessage>
       );
     } else {
       content = productsList;

@@ -1,18 +1,5 @@
-import {
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Box, IconButton, Paper, Stack, styled } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-
-export const ProductErrorText = styled(Typography)({
-  marginTop: "80px",
-  fontWeight: "700",
-  marginLeft: "40px",
-});
 
 export const ProductItemInner = styled(Paper)({
   padding: "20px",

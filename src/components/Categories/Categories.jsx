@@ -6,6 +6,7 @@ import { CategoryInner } from "./Categories.styles";
 import { NavLink } from "react-router-dom";
 
 import "../Categories/Categories.scss";
+import { ErrorMessage } from "../Uikit/ErrorMessage";
 
 export function Categories() {
   const dispatch = useDispatch();
@@ -55,7 +56,11 @@ export function Categories() {
           </Typography>
         ) : (
           <Stack direction="row" justifyContent="space-between" mt={5}>
-            {isError ? isError : categoriesList}
+            {isError ? (
+              <ErrorMessage variant="h5">{isError}</ErrorMessage>
+            ) : (
+              categoriesList
+            )}
           </Stack>
         )}
       </Container>
