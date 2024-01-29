@@ -57,13 +57,20 @@ export function getSingleProduct(id) {
 
       const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`);
 
-      const productList = await res.json();
+      if (res.status !== 200) {
+        throw new Error(res.status);
+      }
 
-      dispatch(getSingleProductDataSuccess(productList));
-    } catch {
-      dispatch(
-        getSingleProductDataError("Failed to load product, please reload page")
-      );
+      const product = await res.json();
+
+      dispatch(getSingleProductDataSuccess(product));
+    } catch (e) {
+      const error =
+        e.message === "404"
+          ? "Request error, there is no such product"
+          : "Failed to load product, please reload page";
+
+      dispatch(getSingleProductDataError(error));
     }
   };
 }
