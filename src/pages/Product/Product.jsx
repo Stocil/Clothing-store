@@ -1,17 +1,30 @@
-import { Button, Container, Paper, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link } from "react-router-dom";
+
 import { useProduct } from "./hooks/useProduct";
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { getSizes } from "../../utils/getSizes";
+import {
+  AddButton,
+  CardInner,
+  ErrorTypography,
+  GoBackButton,
+  SizeButton,
+  TransparentText,
+} from "./Product.styles";
 
 export function Product() {
-  const { product, isError, isLoading } = useProduct();
-  const [mainImage, setMainImage] = useState(0);
-  const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
-  const allSizes = getSizes(product.category?.name) || [];
+  const {
+    product,
+    isError,
+    isLoading,
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectSize = searchParams.get("size");
+    setSearchParams,
+    selectSize,
+    mainImage,
+    setMainImage,
+    peoplePurchased,
+    allSizes,
+  } = useProduct();
 
   const renderImages = () => {
     if (!product.images) return;
@@ -46,16 +59,13 @@ export function Product() {
   const renderSizes = () => {
     const sizeButtons = allSizes.map((size) => {
       return (
-        <Button
+        <SizeButton
           key={size}
-          variant="contained"
-          color={size === selectSize ? "secondary" : "primary"}
-          size="small"
-          sx={{ minWidth: "40px", fontSize: "16px" }}
+          selected={size === selectSize}
           onClick={() => setSearchParams({ size: size }, { replace: true })}
         >
           {size}
-        </Button>
+        </SizeButton>
       );
     });
 
@@ -63,7 +73,7 @@ export function Product() {
 
     return (
       <Stack direction="row" spacing={1} alignItems="center">
-        <Typography sx={{ opacity: 0.6 }}>Sizes: </Typography>
+        <TransparentText>Sizes: </TransparentText>
 
         {sizeButtons}
       </Stack>
@@ -71,31 +81,13 @@ export function Product() {
   };
 
   return (
-    <Container component={"section"} maxWidth="lg" sx={{ my: 5 }}>
+    <Container sx={{ my: 5, position: "relative" }}>
       {isLoading || isError ? (
-        <Typography
-          variant="h4"
-          fontWeight={700}
-          sx={
-            isError
-              ? {
-                  padding: "20px",
-                  border: "2px solid #d32f2f",
-                  borderRadius: "20px",
-                }
-              : {}
-          }
-        >
+        <ErrorTypography isError={isError}>
           {isLoading ? "Loading..." : isError}
-        </Typography>
+        </ErrorTypography>
       ) : (
-        <Paper
-          sx={{
-            padding: "20px",
-            display: "flex",
-            gap: "32px",
-          }}
-        >
+        <CardInner>
           {renderImages()}
 
           <Stack justifyContent="space-between">
@@ -108,44 +100,35 @@ export function Product() {
 
               {renderSizes()}
 
-              <Typography variant="h6" sx={{ opacity: 0.6 }}>
+              <TransparentText variant="h6">
                 {product.description}
-              </Typography>
+              </TransparentText>
 
               <Stack direction="row" spacing={3}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  sx={{
-                    textTransform: "none",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                >
-                  Add to cart
-                </Button>
+                <AddButton color="secondary">Add to cart</AddButton>
 
-                <Button
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    textTransform: "none",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                >
-                  Add to favorites
-                </Button>
+                <AddButton>Add to favorites</AddButton>
               </Stack>
             </Stack>
 
-            <Typography sx={{ opacity: 0.4 }}>
+            <TransparentText>
               {peoplePurchased} people purchased
-            </Typography>
+            </TransparentText>
           </Stack>
-        </Paper>
+        </CardInner>
       )}
+
+      <Link
+        to={
+          product.category
+            ? `/categories/${product.category?.id}`
+            : "/categories/0"
+        }
+      >
+        <GoBackButton size="large">
+          <ArrowBackIcon />
+        </GoBackButton>
+      </Link>
     </Container>
   );
 }

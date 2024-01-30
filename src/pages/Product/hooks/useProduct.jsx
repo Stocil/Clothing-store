@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+
 import { getSingleProduct } from "../../../store/asyncActions/products";
+import { getSizes } from "../../../utils/getSizes";
 
 export function useProduct() {
   const { id } = useParams();
@@ -10,9 +12,26 @@ export function useProduct() {
   const isError = useSelector((state) => state.products.error);
   const isLoading = useSelector((state) => state.products.loading);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectSize = searchParams.get("size");
+
+  const [mainImage, setMainImage] = useState(0);
+  const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
+  const allSizes = getSizes(product.category?.name) || [];
+
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
 
-  return { product, isError, isLoading };
+  return {
+    product,
+    isError,
+    isLoading,
+    setSearchParams,
+    selectSize,
+    mainImage,
+    setMainImage,
+    peoplePurchased,
+    allSizes,
+  };
 }
