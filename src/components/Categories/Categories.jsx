@@ -45,7 +45,7 @@ export function Categories() {
 
   return (
     <>
-      <Container component={"section"} maxWidth="lg" sx={{ mt: 10 }}>
+      <Container sx={{ mt: 10 }}>
         <Typography variant="h3" fontWeight={700}>
           Categories
         </Typography>

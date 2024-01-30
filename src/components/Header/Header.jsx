@@ -23,7 +23,7 @@ export function Header() {
 
   return (
     <AppBar position="fixed">
-      <Container maxWidth="lg">
+      <Container>
         <Toolbar disableGutters>
           <Stack
             direction={"row"}

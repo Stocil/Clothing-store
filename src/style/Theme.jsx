@@ -42,6 +42,15 @@ export function Theme({ children }) {
     shape: {
       borderRadius: 10,
     },
+
+    components: {
+      MuiContainer: {
+        defaultProps: {
+          component: "section",
+          maxWidth: "lg",
+        },
+      },
+    },
   });
 
   return (
