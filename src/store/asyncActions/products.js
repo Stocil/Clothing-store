@@ -66,7 +66,7 @@ export function getSingleProduct(id) {
       dispatch(getSingleProductDataSuccess(product));
     } catch (e) {
       const error =
-        e.message === "404"
+        e.message === "404" || e.message === "400"
           ? "Request error, there is no such product"
           : "Failed to load product, please reload page";
 
