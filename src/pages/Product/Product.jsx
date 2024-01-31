@@ -3,6 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 
 import { useProduct } from "./hooks/useProduct";
+import { SalePriceText } from "../../components/Uikit/SalePriceText";
 import {
   AddButton,
   CardInner,
@@ -24,6 +25,7 @@ export function Product() {
     setMainImage,
     peoplePurchased,
     allSizes,
+    newPrice,
   } = useProduct();
 
   const renderImages = () => {
@@ -94,9 +96,17 @@ export function Product() {
             <Stack spacing={3}>
               <Typography variant="h4">{product.title}</Typography>
 
-              <Typography variant="h5" component="p" fontWeight="700">
-                {product.price}$
-              </Typography>
+              <Stack direction="row" spacing={2} alignItems="end">
+                {newPrice ? (
+                  <Typography variant="h4" component="p" fontWeight="700">
+                    {newPrice}
+                  </Typography>
+                ) : null}
+
+                <SalePriceText isSale={newPrice} variant="h5">
+                  {product.price}$
+                </SalePriceText>
+              </Stack>
 
               {renderSizes()}
 

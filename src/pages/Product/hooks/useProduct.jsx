@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 import { getSingleProduct } from "../../../store/asyncActions/products";
 import { getSizes } from "../../../utils/getSizes";
@@ -12,6 +12,7 @@ export function useProduct() {
   const isError = useSelector((state) => state.products.error);
   const isLoading = useSelector((state) => state.products.loading);
 
+  const [newPrice] = useState(useLocation().state?.newPrice);
   const [searchParams, setSearchParams] = useSearchParams();
   const selectSize = searchParams.get("size");
 
@@ -33,5 +34,6 @@ export function useProduct() {
     setMainImage,
     peoplePurchased,
     allSizes,
+    newPrice,
   };
 }

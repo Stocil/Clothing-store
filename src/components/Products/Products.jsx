@@ -1,4 +1,6 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import {
   ProductCardButton,
   ProductImageInner,
@@ -6,8 +8,9 @@ import {
   ProductItemInner,
   ProductLastSectionInner,
 } from "./Products.styles";
-import { Link } from "react-router-dom";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
+import { getSale } from "../../utils/getSale";
+import { SalePriceText } from "../Uikit/SalePriceText";
 
 export function Products({
   products = [],
@@ -16,32 +19,57 @@ export function Products({
   maxProduct = null,
   title = null,
 }) {
-  const productsList = products.map((product, index) => {
-    if (maxProduct && index >= maxProduct) {
-      return null;
-    }
+  const sortedProducts = products
+    .map((product, index) => {
+      if (maxProduct && index >= maxProduct) {
+        return null;
+      }
 
-    if (
-      !product.images[0] ||
-      !product.images[0].startsWith("https") ||
-      !product.price ||
-      !product.title
-    )
-      return null;
+      if (
+        !product.images[0] ||
+        !product.images[0].startsWith("https") ||
+        !product.price ||
+        !product.title
+      )
+        return null;
 
+      return product;
+    })
+    .filter((product) => product);
+
+  const sortedProductsWithSales = getSale(sortedProducts);
+
+  const productsList = sortedProductsWithSales.map((product) => {
     return (
       <Grid key={product.id} item xs={1} display="flex">
         <ProductItemInner>
           <ProductImageInner>
-            <Link to={`/product/${product.id}`}>
+            <Link
+              to={`/product/${product.id}`}
+              state={
+                product.sale
+                  ? {
+                      newPrice: product.newPrice + "$",
+                    }
+                  : null
+              }
+            >
               <img className="product__image" src={product.images[0]} />
             </Link>
           </ProductImageInner>
 
           <ProductInfoInner>
-            <Typography variant="h6" component="p" fontWeight={700}>
-              ${product.price}
-            </Typography>
+            <Stack direction="row" spacing={1}>
+              {product.sale ? (
+                <Typography variant="h6" component="p" fontWeight={700}>
+                  ${product.newPrice}
+                </Typography>
+              ) : null}
+
+              <SalePriceText isSale={product.sale}>
+                ${product.price}
+              </SalePriceText>
+            </Stack>
 
             <ProductLastSectionInner>
               <Typography component="p">{product.title}</Typography>
