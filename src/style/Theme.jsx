@@ -50,6 +50,16 @@ export function Theme({ children }) {
           maxWidth: "lg",
         },
       },
+      MuiButton: {
+        defaultProps: {
+          variant: "contained",
+        },
+        styleOverrides: {
+          root: {
+            textTransform: "none",
+          },
+        },
+      },
     },
   });
 

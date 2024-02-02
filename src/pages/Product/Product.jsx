@@ -94,18 +94,26 @@ export function Product() {
 
           <Stack justifyContent="space-between">
             <Stack spacing={3}>
-              <Typography variant="h4">{product.title}</Typography>
+              <Typography variant="h4" fontWeight="700">
+                {product.title}
+              </Typography>
 
-              <Stack direction="row" spacing={2} alignItems="end">
-                {newPrice ? (
-                  <Typography variant="h4" component="p" fontWeight="700">
-                    {newPrice}
-                  </Typography>
-                ) : null}
+              <Stack>
+                <Typography variant="h6" component="p" sx={{ opacity: 0.6 }}>
+                  Price
+                </Typography>
 
-                <SalePriceText isSale={newPrice} variant="h5">
-                  {product.price}$
-                </SalePriceText>
+                <Stack direction="row" spacing={2} alignItems="end">
+                  {newPrice ? (
+                    <Typography variant="h4" component="p" fontWeight="700">
+                      {newPrice}
+                    </Typography>
+                  ) : null}
+
+                  <SalePriceText isSale={newPrice} variant="h5">
+                    {product.price}$
+                  </SalePriceText>
+                </Stack>
               </Stack>
 
               {renderSizes()}

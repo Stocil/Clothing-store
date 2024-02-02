@@ -1,4 +1,11 @@
-import { Box, IconButton, Paper, Stack, styled } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  styled,
+} from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export const ProductItemInner = styled(Paper)({
@@ -16,6 +23,8 @@ export const ProductImageInner = styled(Box)({
 export const ProductInfoInner = styled(Stack)({
   justifyContent: "space-between",
   marginTop: "16px",
+  gap: "8px",
+  position: "relative",
 });
 
 export const ProductLastSectionInner = styled(Stack)({
@@ -27,6 +36,9 @@ export const ProductLastSectionInner = styled(Stack)({
 
 const ProductCardButtonStyle = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
+  position: "absolute",
+  top: "0",
+  right: "0",
   "&:hover": {
     backgroundColor: theme.palette.secondary.main,
   },
@@ -39,3 +51,11 @@ export const ProductCardButton = ({ onClick }) => {
     </ProductCardButtonStyle>
   );
 };
+
+export const ProductCategoryLabel = styled(Typography)(({ theme }) => ({
+  alignSelf: "start",
+  padding: "6px 12px",
+  border: "1px solid",
+  borderRadius: "25px",
+  backgroundColor: theme.palette.primary.main,
+}));

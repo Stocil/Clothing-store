@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import {
   ProductCardButton,
+  ProductCategoryLabel,
   ProductImageInner,
   ProductInfoInner,
   ProductItemInner,
@@ -18,6 +19,7 @@ export function Products({
   isLoading = false,
   maxProduct = null,
   title = null,
+  mt = 7,
 }) {
   const sortedProducts = products
     .map((product, index) => {
@@ -42,7 +44,7 @@ export function Products({
   const productsList = sortedProductsWithSales.map((product) => {
     return (
       <Grid key={product.id} item xs={1} display="flex">
-        <ProductItemInner>
+        <ProductItemInner variant="outlined">
           <ProductImageInner>
             <Link
               to={`/product/${product.id}`}
@@ -59,23 +61,33 @@ export function Products({
           </ProductImageInner>
 
           <ProductInfoInner>
-            <Stack direction="row" spacing={1}>
-              {product.sale ? (
-                <Typography variant="h6" component="p" fontWeight={700}>
-                  ${product.newPrice}
-                </Typography>
-              ) : null}
-
-              <SalePriceText isSale={product.sale}>
-                ${product.price}
-              </SalePriceText>
-            </Stack>
-
             <ProductLastSectionInner>
-              <Typography component="p">{product.title}</Typography>
+              <Typography fontWeight="700" pr="40px">
+                {product.title}
+              </Typography>
 
               <ProductCardButton onClick={() => console.log("Add to card")} />
             </ProductLastSectionInner>
+
+            <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>
+
+            <Stack>
+              <Typography fontSize="12px" sx={{ opacity: 0.6 }}>
+                Price
+              </Typography>
+
+              <Stack direction="row" spacing={1}>
+                {product.sale ? (
+                  <Typography variant="h6" component="p" fontWeight={700}>
+                    ${product.newPrice}
+                  </Typography>
+                ) : null}
+
+                <SalePriceText isSale={product.sale}>
+                  ${product.price}
+                </SalePriceText>
+              </Stack>
+            </Stack>
           </ProductInfoInner>
         </ProductItemInner>
       </Grid>
@@ -103,7 +115,11 @@ export function Products({
 
     return (
       <>
-        {title ? <Typography variant="h3">{title}</Typography> : null}
+        {title ? (
+          <Typography fontWeight="700" variant="h3" py={2} textAlign="center">
+            {title}
+          </Typography>
+        ) : null}
 
         <Grid container spacing={5} columns={3}>
           {content}
@@ -113,7 +129,7 @@ export function Products({
   };
 
   return (
-    <Container component={"section"} maxWidth="lg" sx={{ my: 7 }}>
+    <Container component={"section"} maxWidth="lg" sx={{ mt: mt, mb: 2 }}>
       {isLoading ? (
         <Typography variant="h4" fontWeight={700}>
           Loading...
