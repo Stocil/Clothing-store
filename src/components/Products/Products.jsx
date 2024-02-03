@@ -10,7 +10,7 @@ import {
   ProductLastSectionInner,
 } from "./Products.styles";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
-import { getSale } from "../../utils/getSale";
+import { getSale } from "../../utils/getSale.js";
 import { SalePriceText } from "../Uikit/SalePriceText";
 
 export function Products({
@@ -20,6 +20,7 @@ export function Products({
   maxProduct = null,
   title = null,
   mt = 7,
+  errorJustify = "start",
 }) {
   const sortedProducts = products
     .map((product, index) => {
@@ -121,7 +122,7 @@ export function Products({
           </Typography>
         ) : null}
 
-        <Grid container spacing={5} columns={3}>
+        <Grid container spacing={5} columns={3} justifyContent={errorJustify}>
           {content}
         </Grid>
       </>

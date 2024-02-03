@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 import { getSingleProduct } from "../../../store/asyncActions/products";
-import { getSizes } from "../../../utils/getSizes";
+import { getSizes } from "../../../utils/getSizes.js";
 
 export function useProduct() {
   const { id } = useParams();
