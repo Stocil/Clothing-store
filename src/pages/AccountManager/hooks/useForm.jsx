@@ -34,11 +34,6 @@ export function useForm(
     if (path === "/sign-in") {
       changeHeplerText(false);
       changeSignError(false);
-
-      if (form.password.value.length < 5) {
-        changeHeplerText("The password is too short");
-        canSubmit = false;
-      }
     }
 
     if (path === "/sign-up") {
