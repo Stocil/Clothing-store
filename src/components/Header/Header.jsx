@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {
@@ -13,7 +14,6 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import { SearchBar } from "./Header.styles";
-import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/actions";
 
 export function Header() {
@@ -22,7 +22,7 @@ export function Header() {
   const user = useSelector((state) => state.currentUser);
 
   return (
-    <AppBar position="fixed">
+    <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
       <Container>
         <Toolbar disableGutters>
           <Stack

@@ -190,7 +190,7 @@ export function AccountManager() {
   };
 
   return (
-    <Container sx={{ my: 12 }}>
+    <Container sx={{ my: 12, pt: 8 }}>
       <Stack alignItems={"center"}>
         <Paper sx={{ p: 4, width: { sm: "450px" } }}>
           <Typography variant="h4" component={"h2"} textAlign={"center"}>

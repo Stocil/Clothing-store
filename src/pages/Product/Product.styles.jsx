@@ -66,7 +66,7 @@ export const AddButton = ({ children, color }) => {
 
 export const GoBackButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
-  top: "0",
+  top: " 64px",
   right: "calc(100% - 5px)",
   backgroundColor: theme.palette.secondary.main,
   ":hover": { backgroundColor: theme.palette.primary.dark },

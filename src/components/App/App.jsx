@@ -8,7 +8,7 @@ function App() {
     <>
       <Header />
 
-      <Box component="main" pt={8}>
+      <Box component="main">
         <AppRoutes />
       </Box>
     </>

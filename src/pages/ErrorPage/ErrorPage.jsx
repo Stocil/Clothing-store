@@ -2,7 +2,7 @@ import { Container, Stack, Typography } from "@mui/material";
 
 export function ErrorPage() {
   return (
-    <Container>
+    <Container sx={{ pt: 8 }}>
       <Typography
         variant="h2"
         sx={{ mt: 5, textAlign: "center", fontWeight: "700" }}

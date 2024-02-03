@@ -22,7 +22,7 @@ export function UserPage() {
   const { handleLogOut, handleCloseModal } = useUserpage(setModalOpen);
 
   return (
-    <Container sx={{ my: 7 }}>
+    <Container sx={{ my: 7, pt: 8 }}>
       <Stack direction="row" gap={20}>
         <img className="user__avatar" src={userAvatar}></img>
 

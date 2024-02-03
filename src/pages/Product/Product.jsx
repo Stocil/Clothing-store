@@ -83,7 +83,7 @@ export function Product() {
   };
 
   return (
-    <Container sx={{ my: 5, position: "relative" }}>
+    <Container sx={{ my: 5, position: "relative", pt: 8 }}>
       {isLoading || isError ? (
         <ErrorTypography isError={isError}>
           {isLoading ? "Loading..." : isError}
