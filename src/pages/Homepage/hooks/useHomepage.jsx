@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getProducts } from "../../../store/asyncActions/products";
 import { getSortedProducts } from "../../../utils/getSortedProducts";
 import { getShuffledArray } from "../../../utils/getShuffledArray";
+import { getSale } from "../../../utils/getSale";
 
 export function useHomepage() {
   const dispatch = useDispatch();
@@ -20,5 +21,12 @@ export function useHomepage() {
   const sortedProducts = getSortedProducts(productList);
   const trandingProducts = getShuffledArray(sortedProducts);
 
-  return { trandingProducts, isError, isLoading };
+  const shuffledSaleProducts = getShuffledArray(sortedProducts);
+  const saleProducts = getSale(shuffledSaleProducts).filter((product) => {
+    if (product.sale) {
+      return product;
+    }
+  });
+
+  return { trandingProducts, saleProducts, isError, isLoading };
 }

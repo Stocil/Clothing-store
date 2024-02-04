@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { ProductSectionInner } from "./Homepage.styles";
 
 import { StocksSlider } from "../../components/StockSlider/StockSlider";
@@ -6,13 +6,11 @@ import { Products } from "../../components/Products/Products";
 import { useHomepage } from "./hooks/useHomepage";
 
 export function Homepage() {
-  const { trandingProducts, isLoading, isError } = useHomepage();
+  const { trandingProducts, saleProducts, isLoading, isError } = useHomepage();
 
   return (
     <Container>
-      <StocksSlider />
-
-      <ProductSectionInner variant="outlined">
+      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
         <Products
           products={trandingProducts}
           isError={isError}
@@ -22,10 +20,20 @@ export function Homepage() {
           title={"Trending"}
           errorJustify="center"
         />
+      </ProductSectionInner>
 
-        <Button color="secondary" size="large">
-          See more
-        </Button>
+      <StocksSlider />
+
+      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+        <Products
+          products={saleProducts}
+          isError={isError}
+          isLoading={isLoading}
+          maxProduct={3}
+          mt={1}
+          title={"Sale"}
+          errorJustify="center"
+        />
       </ProductSectionInner>
     </Container>
   );

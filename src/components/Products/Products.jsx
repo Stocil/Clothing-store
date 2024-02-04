@@ -8,6 +8,7 @@ import {
   ProductInfoInner,
   ProductItemInner,
   ProductLastSectionInner,
+  ProductsTitleText,
 } from "./Products.styles";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
@@ -43,6 +44,10 @@ export function Products({
   const sortedProductsWithSales = getSale(sortedProducts);
 
   const productsList = sortedProductsWithSales.map((product) => {
+    if (product.title?.length > 29) {
+      product.title = product.title.substr(0, 26) + "...";
+    }
+
     return (
       <Grid key={product.id} item xs={1} display="flex">
         <ProductItemInner variant="outlined">
@@ -63,9 +68,7 @@ export function Products({
 
           <ProductInfoInner>
             <ProductLastSectionInner>
-              <Typography fontWeight="700" pr="40px">
-                {product.title}
-              </Typography>
+              <ProductsTitleText>{product.title}</ProductsTitleText>
 
               <ProductCardButton onClick={() => console.log("Add to card")} />
             </ProductLastSectionInner>

@@ -17,7 +17,5 @@ export function getShuffledArray(array) {
     }
   });
 
-  console.log(shuffledArray);
-
   return shuffledArray;
 }

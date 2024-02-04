@@ -59,3 +59,10 @@ export const ProductCategoryLabel = styled(Typography)(({ theme }) => ({
   borderRadius: "25px",
   backgroundColor: theme.palette.primary.main,
 }));
+
+export const ProductsTitleText = styled(Typography)({
+  fontWeight: "700",
+  width: "calc(100% - 40px)",
+  wordWrap: "break-word",
+  maxWidth: "250px",
+});
