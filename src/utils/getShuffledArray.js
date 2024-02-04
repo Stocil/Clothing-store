@@ -1,6 +1,7 @@
 export function getShuffledArray(array) {
   const selectedIndexesArray = [];
   const selectedIndexes = new Set([]);
+  const shuffledArray = [];
 
   for (let index = 0; index < array.length; index++) {
     selectedIndexes.add(Math.round(Math.random() * (array.length - 1)));
@@ -10,11 +11,13 @@ export function getShuffledArray(array) {
     selectedIndexesArray.push(value);
   });
 
-  const shuffledArray = array
-    .map((product, index) => {
-      if (selectedIndexesArray.includes(index)) return product;
-    })
-    .filter((product) => product);
+  selectedIndexes.forEach((product) => {
+    if (selectedIndexesArray.includes(product)) {
+      shuffledArray.push(array[product]);
+    }
+  });
+
+  console.log(shuffledArray);
 
   return shuffledArray;
 }
