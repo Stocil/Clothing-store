@@ -12,6 +12,8 @@ import {
   SizeButton,
   TransparentText,
 } from "./Product.styles";
+import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
+import { Products } from "../../components/Products/Products";
 
 export function Product() {
   const {
@@ -26,6 +28,7 @@ export function Product() {
     peoplePurchased,
     allSizes,
     newPrice,
+    worthSeeingProducts,
   } = useProduct();
 
   const renderImages = () => {
@@ -147,6 +150,18 @@ export function Product() {
           <ArrowBackIcon />
         </GoBackButton>
       </Link>
+
+      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+        <Products
+          products={worthSeeingProducts}
+          isError={isError}
+          isLoading={isLoading}
+          maxProduct={3}
+          mt={1}
+          title={"Worth Seeing"}
+          errorJustify="center"
+        />
+      </ProductSectionInner>
     </Container>
   );
 }
