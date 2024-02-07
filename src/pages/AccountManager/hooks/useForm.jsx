@@ -76,6 +76,7 @@ export function useForm(
             password: form.password.value,
             avatarUrl: null,
             id: id,
+            recentProducts: [],
           },
         ];
 
@@ -84,6 +85,7 @@ export function useForm(
           email: form.email.value,
           avatarUrl: null,
           id: id,
+          recentProducts: [],
         };
 
         setCurrentUser(currentUser);
@@ -119,6 +121,7 @@ export function useForm(
             email: currentUser.email,
             avatarUrl: currentUser.avatarUrl,
             id: currentUser.id,
+            recentProducts: currentUser.recentProducts,
           };
 
           setCurrentUser(currentUserData);

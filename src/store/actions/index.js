@@ -18,6 +18,8 @@ import {
   GET_ONE_PRODUCT,
   GET_ONE_PRODUCT_SUCCESS,
   GET_ONE_PRODUCT_ERROR,
+  UPDATE_USER_RECENT_PRODUCTS,
+  UPDATE_USERS_RECENT_PRODUCTS,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -45,6 +47,11 @@ export const updateUser = (payload) => ({
   payload,
 });
 
+export const updateCurrentUserRecentProducts = (payload) => ({
+  type: UPDATE_USER_RECENT_PRODUCTS,
+  payload,
+});
+
 // users
 
 export const addUserInUsers = (payload) => ({
@@ -54,6 +61,11 @@ export const addUserInUsers = (payload) => ({
 
 export const updateUserInUsers = (payload) => ({
   type: UPDATE_IN_USERS,
+  payload,
+});
+
+export const updateUsersRecentProducts = (payload) => ({
+  type: UPDATE_USERS_RECENT_PRODUCTS,
   payload,
 });
 

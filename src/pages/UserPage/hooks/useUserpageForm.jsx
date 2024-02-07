@@ -44,6 +44,7 @@ export function useUserpageForm(changeUsernameError) {
         email: form.Email.value,
         avatarUrl: form.Avatar.value ? form.Avatar.value : null,
         id: currentUser.id,
+        recentProducts: currentUser.recentProducts,
       };
 
       const updatedUserFullData = {
@@ -61,6 +62,7 @@ export function useUserpageForm(changeUsernameError) {
             name: updatedUserFullData.name,
             email: updatedUserFullData.email,
             avatarUrl: updatedUserFullData.avatarUrl,
+            recentProducts: currentUser.recentProducts,
           };
         }
 

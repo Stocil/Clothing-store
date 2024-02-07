@@ -3,6 +3,7 @@ import {
   LOGOUT_USER,
   REGISTER_USER,
   UPDATE_USER,
+  UPDATE_USER_RECENT_PRODUCTS,
 } from "../actions/types";
 
 const initialState = JSON.parse(localStorage.getItem("currentUser")) || {};
@@ -16,6 +17,7 @@ export function currentUserReducer(state = initialState, action) {
         email: action.payload.email,
         avatarUrl: action.payload.avatarUrl,
         id: action.payload.id,
+        recentProducts: action.payload.recentProducts,
       };
     }
 
@@ -26,6 +28,7 @@ export function currentUserReducer(state = initialState, action) {
         email: action.payload.email,
         avatarUrl: action.payload.avatarUrl,
         id: action.payload.id,
+        recentProducts: action.payload.recentProducts,
       };
     }
 
@@ -36,6 +39,7 @@ export function currentUserReducer(state = initialState, action) {
         email: undefined,
         avatarUrl: undefined,
         id: undefined,
+        recentProducts: undefined,
       };
     }
 
@@ -45,6 +49,13 @@ export function currentUserReducer(state = initialState, action) {
         name: action.payload.name,
         email: action.payload.email,
         avatarUrl: action.payload.avatarUrl,
+      };
+    }
+
+    case UPDATE_USER_RECENT_PRODUCTS: {
+      return {
+        ...state,
+        recentProducts: [...state.recentProducts, action.payload],
       };
     }
 
