@@ -9,11 +9,7 @@ import {
 import { getSizes } from "../../../utils/getSizes.js";
 import { getSortedProducts } from "../../../utils/getSortedProducts.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
-import {
-  updateCurrentUserRecentProducts,
-  updateUsersRecentProducts,
-} from "../../../store/actions/index.js";
-import { useLocalStorage } from "../../../hooks/useLocalStorage.jsx";
+import { useUpdateUsersData } from "../../../hooks/useUpdateUsersData.jsx";
 
 export function useProduct() {
   const { id } = useParams();
@@ -38,58 +34,7 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
-  // const {
-  //   setStorageItem: setCurrentUserStorage,
-  //   getStorageItem: getCurrentUser,
-  // } = useLocalStorage("currentUser");
-
-  // const { setStorageItem: setUsersStorage, getStorageItem: getUsers } =
-  //   useLocalStorage("users");
-
-  // const currentUser = getCurrentUser();
-
-  // if (currentUser.id) {
-  //   const users = getUsers()[0] ? getUsers() : [];
-  //   const currentUserFullData = users.filter((user) => {
-  //     if (user.name === currentUser.name) {
-  //       return user;
-  //     }
-  //   })[0];
-
-  //   const updatedCurrentUser = {
-  //     name: currentUser.name,
-  //     email: currentUser.email,
-  //     avatarUrl: currentUser.avatarUrl,
-  //     id: currentUser.id,
-  //     recentProducts: [...currentUser.recentProducts, product.id],
-  //   };
-
-  //   const updatedUserFullData = {
-  //     name: currentUser.name,
-  //     email: currentUser.email,
-  //     avatarUrl: currentUser.avatarUrl,
-  //     id: currentUser.id,
-  //     password: currentUserFullData.password,
-  //     recentProducts: [...currentUser.recentProducts, product.id],
-  //   };
-
-  //   const updatedUserFullDataForStorage = users.map((user) => {
-  //     if (user.id === updatedUserFullData.id) {
-  //       return {
-  //         ...user,
-  //         name: updatedUserFullData.name,
-  //         email: updatedUserFullData.email,
-  //         avatarUrl: updatedUserFullData.avatarUrl,
-  //         recentProducts: updatedUserFullData.recentProducts,
-  //       };
-  //     }
-
-  //     return user;
-  //   });
-
-  //   setCurrentUserStorage(updatedCurrentUser);
-  //   setUsersStorage(updatedUserFullDataForStorage);
-  // }
+  useUpdateUsersData();
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
@@ -100,18 +45,6 @@ export function useProduct() {
 
     dispatch(getCategoryProducts(product.category?.id));
   }, [dispatch, product.category?.id]);
-
-  // useEffect(() => {
-  //   if (!product.id || !currentUser.id) return;
-
-  //   dispatch(updateCurrentUserRecentProducts(product.id));
-  //   dispatch(
-  //     updateUsersRecentProducts({
-  //       id: currentUser.id,
-  //       productId: product.id,
-  //     })
-  //   );
-  // }, [dispatch, product.id, currentUser.id]);
 
   return {
     product,
