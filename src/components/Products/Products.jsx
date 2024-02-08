@@ -133,7 +133,7 @@ export function Products({
   };
 
   return (
-    <Container component={"section"} maxWidth="lg" sx={{ mt: mt, mb: 2 }}>
+    <Container component="div" maxWidth="lg" sx={{ mt: mt, mb: 2 }}>
       {isLoading ? (
         <Typography variant="h4" fontWeight={700}>
           Loading...

@@ -8,7 +8,7 @@ import "swiper/scss/pagination";
 
 export function StocksSlider() {
   return (
-    <Container sx={{ my: 7 }}>
+    <Container sx={{ my: 7 }} component="div">
       <Swiper
         className="homepage__slider"
         modules={[Navigation, Pagination, Autoplay]}
