@@ -34,7 +34,7 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
-  useUpdateUsersData();
+  useUpdateUsersData({ recentProducts: id }, product.id);
 
   useEffect(() => {
     dispatch(getSingleProduct(id));

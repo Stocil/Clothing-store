@@ -3,12 +3,20 @@ import {
   updateUsersRecentProducts,
 } from "../store/actions/index.js";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocalStorage } from "./useLocalStorage.jsx";
 
-export function useUpdateUsersData() {
+export function useUpdateUsersData(
+  {
+    name = null,
+    email = null,
+    avatarUrl = null,
+    password = null,
+    recentProducts = null,
+  },
+  id = null
+) {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.products.oneProduct);
 
   const {
     setStorageItem: setCurrentUserStorage,
@@ -28,21 +36,41 @@ export function useUpdateUsersData() {
       }
     })[0];
 
+    let newRecentProducts = currentUser.recentProducts;
+
+    if (currentUser.recentProducts.includes(recentProducts)) {
+      newRecentProducts = newRecentProducts.filter(
+        (product) => product !== recentProducts
+      );
+    } else {
+      newRecentProducts = currentUser.recentProducts;
+    }
+
+    newRecentProducts.unshift(recentProducts);
+
+    const recentProductForStorage = recentProducts
+      ? newRecentProducts
+      : currentUser.recentProducts.filter((product) => {
+          if (product) {
+            return product;
+          }
+        });
+
     const updatedCurrentUser = {
-      name: currentUser.name,
-      email: currentUser.email,
-      avatarUrl: currentUser.avatarUrl,
+      name: name ? name : currentUser.name,
+      email: email ? email : currentUser.email,
+      avatarUrl: avatarUrl ? avatarUrl : currentUser.avatarUrl,
       id: currentUser.id,
-      recentProducts: [...currentUser.recentProducts, product.id],
+      recentProducts: recentProductForStorage,
     };
 
     const updatedUserFullData = {
-      name: currentUser.name,
-      email: currentUser.email,
-      avatarUrl: currentUser.avatarUrl,
-      id: currentUser.id,
-      password: currentUserFullData.password,
-      recentProducts: [...currentUser.recentProducts, product.id],
+      name: updatedCurrentUser.name,
+      email: updatedCurrentUser.email,
+      avatarUrl: updatedCurrentUser.avatarUrl,
+      id: updatedCurrentUser.id,
+      password: password ? password : currentUserFullData.password,
+      recentProducts: updatedCurrentUser.recentProducts,
     };
 
     const updatedUserFullDataForStorage = users.map((user) => {
@@ -52,6 +80,7 @@ export function useUpdateUsersData() {
           name: updatedUserFullData.name,
           email: updatedUserFullData.email,
           avatarUrl: updatedUserFullData.avatarUrl,
+          password: updatedUserFullData.password,
           recentProducts: updatedUserFullData.recentProducts,
         };
       }
@@ -63,15 +92,16 @@ export function useUpdateUsersData() {
     setUsersStorage(updatedUserFullDataForStorage);
   }
 
-  // useEffect(() => {
-  //   if (!product.id || !currentUser.id) return;
+  useEffect(() => {
+    if (!recentProducts) return;
+    if (!id || !currentUser.id) return;
 
-  //   dispatch(updateCurrentUserRecentProducts(product.id));
-  //   dispatch(
-  //     updateUsersRecentProducts({
-  //       id: currentUser.id,
-  //       productId: product.id,
-  //     })
-  //   );
-  // }, [dispatch, product.id, currentUser.id]);
+    dispatch(updateCurrentUserRecentProducts(recentProducts));
+    dispatch(
+      updateUsersRecentProducts({
+        id: currentUser.id,
+        productId: recentProducts,
+      })
+    );
+  }, [dispatch, id, currentUser.id, recentProducts]);
 }

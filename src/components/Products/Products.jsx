@@ -1,18 +1,8 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Container, Grid, Typography } from "@mui/material";
 
-import {
-  ProductCardButton,
-  ProductCategoryLabel,
-  ProductImageInner,
-  ProductInfoInner,
-  ProductItemInner,
-  ProductLastSectionInner,
-  ProductsTitleText,
-} from "./Products.styles";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
-import { SalePriceText } from "../Uikit/SalePriceText";
+import { ProductsList } from "../ProductsList/ProductsList.jsx";
 
 export function Products({
   products = [],
@@ -48,54 +38,7 @@ export function Products({
       product.title = product.title.substr(0, 26) + "...";
     }
 
-    return (
-      <Grid key={product.id} item xs={1} display="flex">
-        <ProductItemInner variant="outlined">
-          <ProductImageInner>
-            <Link
-              to={`/product/${product.id}`}
-              state={
-                product.sale
-                  ? {
-                      newPrice: product.newPrice + "$",
-                    }
-                  : null
-              }
-            >
-              <img className="product__image" src={product.images[0]} />
-            </Link>
-          </ProductImageInner>
-
-          <ProductInfoInner>
-            <ProductLastSectionInner>
-              <ProductsTitleText>{product.title}</ProductsTitleText>
-
-              <ProductCardButton onClick={() => console.log("Add to card")} />
-            </ProductLastSectionInner>
-
-            <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>
-
-            <Stack>
-              <Typography fontSize="12px" sx={{ opacity: 0.6 }}>
-                Price
-              </Typography>
-
-              <Stack direction="row" spacing={1}>
-                {product.sale ? (
-                  <Typography variant="h6" component="p" fontWeight={700}>
-                    ${product.newPrice}
-                  </Typography>
-                ) : null}
-
-                <SalePriceText isSale={product.sale}>
-                  ${product.price}
-                </SalePriceText>
-              </Stack>
-            </Stack>
-          </ProductInfoInner>
-        </ProductItemInner>
-      </Grid>
-    );
+    return <ProductsList key={product.id} product={product} />;
   });
 
   const renderContent = () => {

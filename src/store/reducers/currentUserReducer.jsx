@@ -53,9 +53,21 @@ export function currentUserReducer(state = initialState, action) {
     }
 
     case UPDATE_USER_RECENT_PRODUCTS: {
+      let newRecentProducts = state.recentProducts;
+
+      if (state.recentProducts.includes(action.payload)) {
+        newRecentProducts = newRecentProducts.filter(
+          (product) => product !== action.payload
+        );
+      } else {
+        newRecentProducts = state.recentProducts;
+      }
+
+      newRecentProducts.unshift(action.payload);
+
       return {
         ...state,
-        recentProducts: [...state.recentProducts, action.payload],
+        recentProducts: [...newRecentProducts],
       };
     }
 
