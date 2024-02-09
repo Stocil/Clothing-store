@@ -28,7 +28,7 @@ export function useUpdateUsersData(
 
   const currentUser = getCurrentUser();
 
-  if (currentUser.id) {
+  if (currentUser.id && +recentProducts) {
     const users = getUsers()[0] ? getUsers() : [];
     const currentUserFullData = users.filter((user) => {
       if (user.name === currentUser.name) {
