@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
-import {
-  getCategoryProducts,
-  getSingleProduct,
-} from "../../../store/asyncActions/products";
+import { getSingleProduct } from "../../../store/asyncActions/products";
 import { getSizes } from "../../../utils/getSizes.js";
 import { getSortedProducts } from "../../../utils/getSortedProducts.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
@@ -34,17 +31,11 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
-  useUpdateUsersData({ recentProducts: id }, product.id);
-
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    if (!product.category?.id) return;
-
-    dispatch(getCategoryProducts(product.category?.id));
-  }, [dispatch, product.category?.id]);
+  useUpdateUsersData({ recentProducts: id }, id);
 
   return {
     product,

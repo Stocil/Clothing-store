@@ -28,6 +28,19 @@ export function useUpdateUsersData(
 
   const currentUser = getCurrentUser();
 
+  useEffect(() => {
+    if (!recentProducts) return;
+    if (!id || !currentUser.id) return;
+
+    dispatch(updateCurrentUserRecentProducts(recentProducts));
+    dispatch(
+      updateUsersRecentProducts({
+        id: currentUser.id,
+        productId: recentProducts,
+      })
+    );
+  }, [dispatch, id, currentUser.id, recentProducts]);
+
   if (currentUser.id && +recentProducts) {
     const users = getUsers()[0] ? getUsers() : [];
     const currentUserFullData = users.filter((user) => {
@@ -56,6 +69,7 @@ export function useUpdateUsersData(
           }
         });
 
+    // USERS DATA
     const updatedCurrentUser = {
       name: name ? name : currentUser.name,
       email: email ? email : currentUser.email,
@@ -90,18 +104,7 @@ export function useUpdateUsersData(
 
     setCurrentUserStorage(updatedCurrentUser);
     setUsersStorage(updatedUserFullDataForStorage);
+
+    return { updatedCurrentUser, updatedUserFullData };
   }
-
-  useEffect(() => {
-    if (!recentProducts) return;
-    if (!id || !currentUser.id) return;
-
-    dispatch(updateCurrentUserRecentProducts(recentProducts));
-    dispatch(
-      updateUsersRecentProducts({
-        id: currentUser.id,
-        productId: recentProducts,
-      })
-    );
-  }, [dispatch, id, currentUser.id, recentProducts]);
 }
