@@ -6,6 +6,8 @@ import { UserpageModal } from "../../components/UserpageModal/UserpageModal";
 
 import { useUserpage } from "./hooks/useUserpage";
 import { SubmitButton } from "../AccountManager/AccountManager.styles";
+import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
+import { Products } from "../../components/Products/Products";
 
 export function UserPage() {
   const user = useSelector((state) => state.currentUser);
@@ -86,6 +88,18 @@ export function UserPage() {
             </Button>
           </Stack>
         </form>
+
+        {/* <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+          <Products
+            products={worthSeeingProducts}
+            isError={isError}
+            isLoading={isLoading}
+            maxProduct={3}
+            mt={1}
+            title={"Worth Seeing"}
+            errorJustify="center"
+          />
+        </ProductSectionInner> */}
       </Stack>
 
       <UserpageModal
