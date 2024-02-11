@@ -151,17 +151,19 @@ export function Product() {
         </GoBackButton>
       </Link>
 
-      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
-        <Products
-          products={worthSeeingProducts}
-          isError={isError}
-          isLoading={isLoading}
-          maxProduct={3}
-          mt={1}
-          title={"Worth Seeing"}
-          errorJustify="center"
-        />
-      </ProductSectionInner>
+      {!isError ? (
+        <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+          <Products
+            products={worthSeeingProducts}
+            isError={isError}
+            isLoading={isLoading}
+            maxProduct={3}
+            mt={1}
+            title={"Worth Seeing"}
+            errorJustify="center"
+          />
+        </ProductSectionInner>
+      ) : null}
     </Container>
   );
 }

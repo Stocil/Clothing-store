@@ -5,6 +5,11 @@ export function Category() {
   const { products, isError, isLoading } = useCategory();
 
   return (
-    <Products products={products} isError={isError} isLoading={isLoading} />
+    <Products
+      products={products}
+      isError={isError}
+      isLoading={isLoading}
+      errorJustify="center"
+    />
   );
 }

@@ -11,7 +11,7 @@ export function Products({
   maxProduct = null,
   title = null,
   mt = 7,
-  errorJustify = "start",
+  errorJustify = null,
 }) {
   const sortedProducts = products
     .map((product, index) => {
@@ -46,13 +46,13 @@ export function Products({
 
     if (isError) {
       content = (
-        <ErrorMessage variant="h4" mt={5} ml={5}>
+        <ErrorMessage variant="h4" m={errorJustify ? "40px auto" : "40px 0"}>
           {isError}
         </ErrorMessage>
       );
     } else if (productsList.length === 0) {
       content = (
-        <ErrorMessage variant="h4" mt={5} ml={5}>
+        <ErrorMessage variant="h4" m={errorJustify ? "40px auto" : "40px 0"}>
           There are no products in this Category
         </ErrorMessage>
       );
@@ -68,7 +68,7 @@ export function Products({
           </Typography>
         ) : null}
 
-        <Grid container spacing={5} columns={3} justifyContent={errorJustify}>
+        <Grid container spacing={5} columns={3}>
           {content}
         </Grid>
       </>
