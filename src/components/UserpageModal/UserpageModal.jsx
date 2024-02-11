@@ -122,7 +122,7 @@ export function UserpageModal({ isOpen, handleClose, onSubmit }) {
 
         <Stack spacing={5} alignItems="center">
           <form
-            className="user__form"
+            className="user__form user__modal-form"
             onSubmit={(e) =>
               onSubmit(
                 e,
