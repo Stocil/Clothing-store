@@ -21,11 +21,12 @@ export function UserPage() {
   const { handleSubmitForm, handleSubmitNewPassword } = useUserpageForm(
     setUsernameHelperText
   );
-  const { handleLogOut, handleCloseModal } = useUserpage(setModalOpen);
+  const { handleLogOut, handleToggleModal, productsData } =
+    useUserpage(setModalOpen);
 
   return (
     <Container sx={{ my: 7, pt: 8 }}>
-      <Stack direction="row" gap={20}>
+      <Stack direction="row" justifyContent="space-between">
         <img className="user__avatar" src={userAvatar}></img>
 
         <form className="user__form" onSubmit={handleSubmitForm}>
@@ -71,14 +72,16 @@ export function UserPage() {
             <SubmitButton>Save</SubmitButton>
 
             <Button
+              size="large"
               variant="contained"
-              sx={{ textTransform: "none" }}
-              onClick={handleCloseModal}
+              color="secondary"
+              onClick={handleToggleModal}
             >
               Change Password
             </Button>
 
             <Button
+              size="large"
               variant="contained"
               color="error"
               onClick={handleLogOut}
@@ -88,23 +91,23 @@ export function UserPage() {
             </Button>
           </Stack>
         </form>
-
-        {/* <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
-          <Products
-            products={worthSeeingProducts}
-            isError={isError}
-            isLoading={isLoading}
-            maxProduct={3}
-            mt={1}
-            title={"Worth Seeing"}
-            errorJustify="center"
-          />
-        </ProductSectionInner> */}
       </Stack>
+
+      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+        <Products
+          products={productsData.products}
+          isError={productsData.isError}
+          isLoading={productsData.isLoading}
+          maxProduct={3}
+          mt={1}
+          title={"Last viewed"}
+          errorJustify="center"
+        />
+      </ProductSectionInner>
 
       <UserpageModal
         isOpen={modalOpen}
-        handleClose={() => handleCloseModal()}
+        handleClose={() => handleToggleModal()}
         onSubmit={handleSubmitNewPassword}
       />
     </Container>

@@ -7,36 +7,44 @@ import { getProducts } from "../../../store/asyncActions/products";
 export function useUserpage(setModalOpen) {
   const dispatch = useDispatch();
 
-  const recentProducts = [];
-  const products = useSelector((state) => state.products.products);
-  const recentProductsList = useSelector(
-    (state) => state.currentUser.recentProducts
-  );
-
-  searchRecentProducts();
-
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  function searchRecentProducts() {
-    for (let index = 0; index < recentProductsList.length; index++) {
-      products.map((product) => {
-        if (recentProductsList[index] === product?.id + "") {
-          recentProducts.push(product);
-        }
-      });
-    }
-  }
+  const products = useSelector((state) => state.products.products);
+  const productsData = {
+    isError: useSelector((state) => state.products.error),
+    isLoading: useSelector((state) => state.products.loading),
+  };
+
+  const recentProductsList = useSelector(
+    (state) => state.currentUser.recentProducts
+  );
+
+  productsData.products = getProductsByIds(products, recentProductsList);
 
   function handleLogOut() {
     localStorage.removeItem("currentUser");
     dispatch(logoutUser());
   }
 
-  function handleCloseModal() {
+  function handleToggleModal() {
     setModalOpen((t) => !t);
   }
 
-  return { handleLogOut, handleCloseModal };
+  return { handleLogOut, handleToggleModal, productsData };
+}
+
+function getProductsByIds(products, idsList) {
+  const selectedProducts = [];
+
+  for (let index = 0; index < idsList.length; index++) {
+    products.map((product) => {
+      if (idsList[index] === product?.id + "") {
+        selectedProducts.push(product);
+      }
+    });
+  }
+
+  return selectedProducts;
 }

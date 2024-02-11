@@ -1,17 +1,18 @@
 .user {
   &__avatar {
-    width: 350px;
-    height: 350px;
+    max-height: 500px;
+    aspect-ratio: 1/1;
 
-    border-radius: 50%;
+    border-radius: 35px;
   }
 
   &__form {
-    width: 450px;
+    width: 500px;
 
     display: flex;
     flex-direction: column;
-    gap: 32px;
+
+    justify-content: space-between;
   }
 
   &__password-image {
