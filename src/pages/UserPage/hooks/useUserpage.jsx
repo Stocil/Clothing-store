@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../store/actions";
 
 import { getProducts } from "../../../store/asyncActions/products";
+import { getProductsByIds } from "../../../utils/getProductsByIds";
 
 export function useUserpage(setModalOpen) {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ export function useUserpage(setModalOpen) {
 
   productsData.products = getProductsByIds(products, recentProductsList);
 
+  console.log(productsData);
+
   function handleLogOut() {
     localStorage.removeItem("currentUser");
     dispatch(logoutUser());
@@ -33,18 +36,4 @@ export function useUserpage(setModalOpen) {
   }
 
   return { handleLogOut, handleToggleModal, productsData };
-}
-
-function getProductsByIds(products, idsList) {
-  const selectedProducts = [];
-
-  for (let index = 0; index < idsList.length; index++) {
-    products.map((product) => {
-      if (idsList[index] === product?.id + "") {
-        selectedProducts.push(product);
-      }
-    });
-  }
-
-  return selectedProducts;
 }
