@@ -1,5 +1,4 @@
 import { Button, Container, Stack, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
 import { useUserpageForm } from "./hooks/useUserpageForm";
 import { useState } from "react";
 import { UserpageModal } from "../../components/UserpageModal/UserpageModal";
@@ -10,19 +9,22 @@ import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner"
 import { Products } from "../../components/Products/Products";
 
 export function UserPage() {
-  const user = useSelector((state) => state.currentUser);
-  const userAvatar = user.avatarUrl
-    ? user.avatarUrl
-    : "../../assets/defAvatar.svg";
-
   const [usernameHelperText, setUsernameHelperText] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const { handleSubmitForm, handleSubmitNewPassword } = useUserpageForm(
     setUsernameHelperText
   );
-  const { handleLogOut, handleToggleModal, productsData } =
-    useUserpage(setModalOpen);
+  const {
+    user,
+    userAvatar,
+    handleLogOut,
+    handleToggleModal,
+    productsData,
+    recentProductsPage,
+    recentProductsMaxPage,
+    handleChangeRecentProductsPage,
+  } = useUserpage(setModalOpen);
 
   return (
     <Container sx={{ my: 7, pt: 8 }}>
@@ -98,11 +100,18 @@ export function UserPage() {
           products={productsData.products}
           isError={productsData.isError}
           isLoading={productsData.isLoading}
-          maxProduct={3}
+          maxProduct={recentProductsPage * 3}
           mt={1}
           title={"Last viewed"}
           errorJustify="center"
         />
+
+        {recentProductsPage < recentProductsMaxPage ? (
+          <Button color="secondary" onClick={handleChangeRecentProductsPage}>
+            {" "}
+            See more{" "}
+          </Button>
+        ) : null}
       </ProductSectionInner>
 
       <UserpageModal
