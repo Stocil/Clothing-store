@@ -15,10 +15,11 @@ import {
 
 const initialState = {
   products: [],
+  productsOver: false,
+
   loading: false,
-  partLoading: false,
   error: null,
-  partError: false,
+
   oneProduct: {},
 };
 
@@ -89,26 +90,26 @@ export function productsReducer(state = initialState, action) {
     case GET_PART_OF_PRODUCTS: {
       return {
         ...state,
-        partLoading: true,
-        partError: false,
+        loading: true,
+        error: false,
+        productsOver: false,
       };
     }
 
     case GET_PART_OF_PRODUCTS_SUCCESS: {
-      const newProducts = action.payload.map((product) => product);
-
       return {
         ...state,
-        products: [...state.products, ...newProducts],
-        partLoading: false,
+        products: action.payload.map((product) => product),
+        loading: false,
+        productsOver: action.payload.length !== 6,
       };
     }
 
     case GET_PART_OF_PRODUCTS_ERROR: {
       return {
         ...state,
-        partLoading: false,
-        partError: action.payload,
+        loading: false,
+        error: action.payload,
       };
     }
 

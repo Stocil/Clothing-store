@@ -53,7 +53,7 @@ export function Products({
     } else if (productsList.length === 0) {
       content = (
         <ErrorMessage variant="h4" m={errorJustify ? "40px auto" : "40px 0"}>
-          There are no products in this Category
+          There are no products
         </ErrorMessage>
       );
     } else {

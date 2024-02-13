@@ -78,41 +78,28 @@ export function getSingleProduct(id) {
   };
 }
 
-export function updateProductList({ id = null, currentOffset }) {
+export function updateProductList({ id = null, currentOffset, limit = 6 }) {
   return async function updateProductListThunk(dispatch) {
     try {
-      if (currentOffset === 0) {
-        dispatch(getProductsData());
-      } else {
-        dispatch(getPartOfProducts());
-      }
+      dispatch(getPartOfProducts());
+
       let res;
 
       if (id) {
         res = await fetch(
-          `https://api.escuelajs.co/api/v1/categories/${id}/products?offset=${currentOffset}&limit=6`
+          `https://api.escuelajs.co/api/v1/categories/${id}/products?offset=${currentOffset}&limit=${limit}`
         );
       } else {
         res = await fetch(
-          `https://api.escuelajs.co/api/v1/products?offset=${currentOffset}&limit=6`
+          `https://api.escuelajs.co/api/v1/products?offset=${currentOffset}&limit=${limit}`
         );
       }
 
       const updatedProductList = await res.json();
 
-      if (currentOffset === 0) {
-        dispatch(getProductsDataSuccess(updatedProductList));
-      } else {
-        dispatch(getPartOfProductsSuccess(updatedProductList));
-      }
+      dispatch(getPartOfProductsSuccess(updatedProductList));
     } catch (e) {
-      if (currentOffset === 0) {
-        dispatch(
-          getProductsDataError("Failed to load products, please reload page")
-        );
-      } else {
-        dispatch(getPartOfProductsError("Error to upload new products"));
-      }
+      dispatch(getPartOfProductsError("Error to upload new products"));
     }
   };
 }
