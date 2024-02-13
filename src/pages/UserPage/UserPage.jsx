@@ -95,7 +95,7 @@ export function UserPage() {
         </form>
       </Stack>
 
-      <ProductSectionInner variant="outlined" sx={{ mt: 7 }}>
+      <ProductSectionInner variant="outlined" sx={{ mt: 15 }}>
         <Products
           products={productsData.products}
           isError={productsData.isError}
@@ -108,8 +108,7 @@ export function UserPage() {
 
         {recentProductsPage < recentProductsMaxPage ? (
           <Button color="secondary" onClick={handleChangeRecentProductsPage}>
-            {" "}
-            See more{" "}
+            See more
           </Button>
         ) : null}
       </ProductSectionInner>

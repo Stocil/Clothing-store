@@ -27,9 +27,7 @@ export function useUserpage(setModalOpen) {
   );
 
   productsData.products = getProductsByIds(products, recentProductsList);
-  const recentProductsMaxPage = Math.round(productsData.products.length / 3);
-
-  console.log(recentProductsMaxPage);
+  const recentProductsMaxPage = Math.ceil(productsData.products.length / 3);
 
   useEffect(() => {
     dispatch(getProducts());

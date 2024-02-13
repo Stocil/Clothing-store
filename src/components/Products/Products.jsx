@@ -19,13 +19,13 @@ export function Products({
         return null;
       }
 
-      // if (
-      //   !product.images[0] ||
-      //   !product.images[0].startsWith("https") ||
-      //   !product.price ||
-      //   !product.title
-      // )
-      //   return null;
+      if (
+        !product.images[0] ||
+        !product.images[0].startsWith("https") ||
+        !product.price ||
+        !product.title
+      )
+        return null;
 
       return product;
     })

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import {
   getCategoryProducts,
   getProducts,
+  updateProductList,
 } from "../../../store/asyncActions/products";
 
 export function useCategory() {
@@ -15,13 +16,24 @@ export function useCategory() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentOffset = +searchParams.get("offset") || 0;
+
+  console.log(products);
+
   useEffect(() => {
     if (id === "0") {
-      dispatch(getProducts());
+      dispatch(updateProductList({ currentOffset }));
+      // dispatch(getProducts());
     } else {
-      dispatch(getCategoryProducts(id));
+      dispatch(updateProductList({ id, currentOffset }));
+      // dispatch(getCategoryProducts(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, currentOffset]);
 
-  return { products, isError, isLoading };
+  function handleChangeOffset() {
+    setSearchParams({ offset: currentOffset + 6 }, { replace: true });
+  }
+
+  return { products, isError, isLoading, handleChangeOffset };
 }

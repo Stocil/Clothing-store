@@ -20,6 +20,9 @@ import {
   GET_ONE_PRODUCT_ERROR,
   UPDATE_USER_RECENT_PRODUCTS,
   UPDATE_USERS_RECENT_PRODUCTS,
+  GET_PART_OF_PRODUCTS,
+  GET_PART_OF_PRODUCTS_SUCCESS,
+  GET_PART_OF_PRODUCTS_ERROR,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -130,5 +133,21 @@ export const getSingleProductDataSuccess = (payload) => ({
 
 export const getSingleProductDataError = (payload) => ({
   type: GET_ONE_PRODUCT_ERROR,
+  payload,
+});
+
+// Pagination
+
+export const getPartOfProducts = () => ({
+  type: GET_PART_OF_PRODUCTS,
+});
+
+export const getPartOfProductsSuccess = (payload) => ({
+  type: GET_PART_OF_PRODUCTS_SUCCESS,
+  payload,
+});
+
+export const getPartOfProductsError = (payload) => ({
+  type: GET_PART_OF_PRODUCTS_ERROR,
   payload,
 });
