@@ -26,7 +26,14 @@ export function ProductsList({ product }) {
                 : null
             }
           >
-            <img className="product__image" src={product.images[0]} />
+            <img
+              className="product__image"
+              src={
+                product.images[0].startsWith("https")
+                  ? product.images[0]
+                  : "https://wallpapersmug.com/download/2048x1152/ca0da6/blury-background-gradient.jpg"
+              }
+            />
           </Link>
         </ProductImageInner>
 

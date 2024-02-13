@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
-import { getSingleProduct } from "../../../store/asyncActions/products";
+import {
+  getSingleProduct,
+  updateProductList,
+} from "../../../store/asyncActions/products";
 import { getSizes } from "../../../utils/getSizes.js";
 import { getSortedProducts } from "../../../utils/getSortedProducts.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
@@ -34,6 +37,18 @@ export function useProduct() {
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (products.length >= 10 || !product.id || product.id !== +id) return;
+
+    dispatch(
+      updateProductList({
+        id: product.category?.id,
+        currentOffset: 0,
+        limit: 10,
+      })
+    );
+  }, [dispatch, product, products, id]);
 
   useUpdateUsersData({ recentProducts: id }, id);
 

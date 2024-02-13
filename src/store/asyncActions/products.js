@@ -72,21 +72,21 @@ export function updateProductList({ id = null, currentOffset, limit = 6 }) {
 
       const updatedProductList = await res.json();
 
-      const allowedProductsList = updatedProductList
-        .map((product) => {
-          if (
-            !product.images[0] ||
-            !product.images[0].startsWith("https") ||
-            !product.price ||
-            !product.title
-          )
-            return null;
+      // const allowedProductsList = updatedProductList
+      //   .map((product) => {
+      //     if (
+      //       !product.images[0] ||
+      //       !product.images[0].startsWith("https") ||
+      //       !product.price ||
+      //       !product.title
+      //     )
+      //       return null;
 
-          return product;
-        })
-        .filter((product) => product);
+      //     return product;
+      //   })
+      //   .filter((product) => product);
 
-      dispatch(getPartOfProductsSuccess(allowedProductsList));
+      dispatch(getPartOfProductsSuccess(updatedProductList));
     } catch (e) {
       dispatch(getPartOfProductsError("Error to upload new products"));
     }
