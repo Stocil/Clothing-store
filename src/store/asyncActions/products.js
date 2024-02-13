@@ -1,7 +1,4 @@
 import {
-  getCategoryProductsData,
-  getCategoryProductsDataError,
-  getCategoryProductsDataSuccess,
   getPartOfProducts,
   getPartOfProductsError,
   getPartOfProductsSuccess,
@@ -26,28 +23,6 @@ export function getProducts() {
     } catch {
       dispatch(
         getProductsDataError("Failed to load products, please reload page")
-      );
-    }
-  };
-}
-
-export function getCategoryProducts(id) {
-  return async function getCategoryProductsThunk(dispatch) {
-    try {
-      dispatch(getCategoryProductsData());
-
-      const res = await fetch(
-        `https://api.escuelajs.co/api/v1/categories/${id}/products`
-      );
-
-      const categoryProductsList = await res.json();
-
-      dispatch(getCategoryProductsDataSuccess(categoryProductsList));
-    } catch {
-      dispatch(
-        getCategoryProductsDataError(
-          "Failed to load products from this category, please reload page"
-        )
       );
     }
   };
@@ -97,7 +72,21 @@ export function updateProductList({ id = null, currentOffset, limit = 6 }) {
 
       const updatedProductList = await res.json();
 
-      dispatch(getPartOfProductsSuccess(updatedProductList));
+      const allowedProductsList = updatedProductList
+        .map((product) => {
+          if (
+            !product.images[0] ||
+            !product.images[0].startsWith("https") ||
+            !product.price ||
+            !product.title
+          )
+            return null;
+
+          return product;
+        })
+        .filter((product) => product);
+
+      dispatch(getPartOfProductsSuccess(allowedProductsList));
     } catch (e) {
       dispatch(getPartOfProductsError("Error to upload new products"));
     }

@@ -61,3 +61,7 @@ export function ProductsList({ product }) {
     </Grid>
   );
 }
+
+// function addToCard(product) {
+//   return {};
+// }
