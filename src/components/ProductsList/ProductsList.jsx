@@ -31,7 +31,8 @@ export function ProductsList({ product }) {
               src={
                 product.images[0].startsWith("https")
                   ? product.images[0]
-                  : "https://wallpapersmug.com/download/2048x1152/ca0da6/blury-background-gradient.jpg"
+                  : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+                // https://wallpapersmug.com/download/2048x1152/ca0da6/blury-background-gradient.jpg
               }
             />
           </Link>

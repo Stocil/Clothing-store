@@ -35,6 +35,8 @@ export function Product() {
     if (!product.images) return;
 
     const images = product.images.map((imageUrl, index) => {
+      if (!imageUrl.startsWith("https")) return null;
+
       return (
         <img
           key={imageUrl}
@@ -49,7 +51,11 @@ export function Product() {
       <Stack gap={2} maxWidth="600px" flexShrink="0">
         <Stack>
           <img
-            src={product.images[mainImage]}
+            src={
+              product.images[mainImage].startsWith("https")
+                ? product.images[mainImage]
+                : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+            }
             className="product__main-image"
           />
         </Stack>
