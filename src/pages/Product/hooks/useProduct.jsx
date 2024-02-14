@@ -7,7 +7,6 @@ import {
   updateProductList,
 } from "../../../store/asyncActions/products";
 import { getSizes } from "../../../utils/getSizes.js";
-import { getSortedProducts } from "../../../utils/getSortedProducts.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
 import { useUpdateUsersData } from "../../../hooks/useUpdateUsersData.jsx";
 
@@ -19,9 +18,9 @@ export function useProduct() {
   const isError = useSelector((state) => state.products.error);
   const isLoading = useSelector((state) => state.products.loading);
 
-  const products = getSortedProducts(
-    useSelector((state) => state.products.products)
-  );
+  // There was a getSortedProduct func
+  const products = useSelector((state) => state.products.products);
+
   const worthSeeingProducts = getShuffledArray(products).filter((product) => {
     if (product.id !== +id) return product;
   });
@@ -39,7 +38,7 @@ export function useProduct() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (products.length >= 10 || !product.id || product.id !== +id) return;
+    if (!product.id || product.id !== +id) return;
 
     dispatch(
       updateProductList({
@@ -48,7 +47,7 @@ export function useProduct() {
         limit: 10,
       })
     );
-  }, [dispatch, product, products, id]);
+  }, [dispatch, product, id]);
 
   useUpdateUsersData({ recentProducts: id }, id);
 
