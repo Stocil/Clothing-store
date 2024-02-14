@@ -62,31 +62,41 @@ export function updateProductList({ id = null, currentOffset, limit = 6 }) {
 
       if (id) {
         res = await fetch(
-          `https://api.escuelajs.co/api/v1/categories/${id}/products?offset=${currentOffset}&limit=${limit}`
+          `https://api.escuelajs.co/api/v1/categories/${id}/products?offset=${currentOffset}&limit=${
+            limit + 1
+          }`
         );
       } else {
         res = await fetch(
-          `https://api.escuelajs.co/api/v1/products?offset=${currentOffset}&limit=${limit}`
+          `https://api.escuelajs.co/api/v1/products?offset=${currentOffset}&limit=${
+            limit + 1
+          }`
         );
       }
 
-      const updatedProductList = await res.json();
+      let updatedProductList = await res.json();
 
-      // const allowedProductsList = updatedProductList
-      //   .map((product) => {
-      //     if (
-      //       !product.images[0] ||
-      //       !product.images[0].startsWith("https") ||
-      //       !product.price ||
-      //       !product.title
-      //     )
-      //       return null;
+      if (updatedProductList[updatedProductList.length - 1].id > 51) {
+        updatedProductList = updatedProductList.filter((product) => {
+          if (product.id <= 51) {
+            return product;
+          }
+        });
+      }
 
-      //     return product;
-      //   })
-      //   .filter((product) => product);
+      const limitedProductList = updatedProductList.filter(
+        (_, index) => index < limit
+      );
 
-      dispatch(getPartOfProductsSuccess(updatedProductList));
+      if (updatedProductList.length !== limit + 1) {
+        dispatch(
+          getPartOfProductsSuccess({ limitedProductList, isOver: true })
+        );
+      } else {
+        dispatch(
+          getPartOfProductsSuccess({ limitedProductList, isOver: false })
+        );
+      }
     } catch (e) {
       dispatch(getPartOfProductsError("Error to upload new products"));
     }

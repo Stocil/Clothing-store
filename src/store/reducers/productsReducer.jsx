@@ -77,9 +77,9 @@ export function productsReducer(state = initialState, action) {
     case GET_PART_OF_PRODUCTS_SUCCESS: {
       return {
         ...state,
-        products: action.payload.map((product) => product),
+        products: action.payload.limitedProductList.map((product) => product),
         loading: false,
-        productsOver: action.payload.length !== 6,
+        productsOver: action.payload.isOver,
       };
     }
 
