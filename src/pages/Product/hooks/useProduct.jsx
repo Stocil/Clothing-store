@@ -9,7 +9,7 @@ import {
 import { getSizes } from "../../../utils/getSizes.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
 import { useUpdateUsersData } from "../../../hooks/useUpdateUsersData.jsx";
-import { updateCurrentUserBasket } from "../../../store/actions/index.js";
+import { useAddProduct } from "../../../hooks/useAddProduct.jsx";
 
 export function useProduct() {
   const { id } = useParams();
@@ -34,6 +34,8 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
+  const { handleAddToBasket } = useAddProduct(product, newPrice);
+
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
@@ -51,21 +53,6 @@ export function useProduct() {
   }, [dispatch, product, id]);
 
   useUpdateUsersData({ recentProducts: id }, id);
-
-  function handleAddToBasket() {
-    const finalPrice = newPrice
-      ? +newPrice.substr(0, newPrice.length - 1)
-      : null;
-
-    const fullProductData = {
-      ...product,
-      finalPrice: finalPrice ? finalPrice : product.price,
-    };
-
-    console.log(fullProductData);
-
-    dispatch(updateCurrentUserBasket(fullProductData));
-  }
 
   return {
     product,

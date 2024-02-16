@@ -76,7 +76,7 @@ export function usersReducer(state = initialState, action) {
         if (user.id === action.payload.id) {
           return {
             ...user,
-            basket: [action.payload, ...user.basket],
+            basket: [action.payload.products, ...user.basket],
           };
         }
 
