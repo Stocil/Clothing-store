@@ -18,7 +18,8 @@ export function useHomepage() {
   const isError = useSelector((state) => state.products.error);
   const isLoading = useSelector((state) => state.products.loading);
 
-  const sortedProducts = getSortedProducts(productList);
+  // const sortedProducts = getSortedProducts(productList);
+  const sortedProducts = productList;
   const trandingProducts = getShuffledArray(sortedProducts);
 
   const shuffledSaleProducts = getShuffledArray(sortedProducts);

@@ -1,6 +1,8 @@
 import {
   ADD_IN_USERS,
   UPDATE_IN_USERS,
+  UPDATE_USERS_BASKET,
+  UPDATE_USERS_FAVOURITE,
   UPDATE_USERS_RECENT_PRODUCTS,
 } from "../actions/types";
 
@@ -18,6 +20,8 @@ export function usersReducer(state = initialState, action) {
           avatarUrl: action.payload.avatarUrl,
           id: action.payload.id,
           recentProducts: [],
+          basket: [],
+          favourite: [],
         },
       ];
 
@@ -60,6 +64,32 @@ export function usersReducer(state = initialState, action) {
           return {
             ...user,
             recentProducts: newRecentProducts,
+          };
+        }
+
+        return user;
+      });
+    }
+
+    case UPDATE_USERS_BASKET: {
+      return state.map((user) => {
+        if (user.id === action.payload.id) {
+          return {
+            ...user,
+            basket: [action.payload, ...user.basket],
+          };
+        }
+
+        return user;
+      });
+    }
+
+    case UPDATE_USERS_FAVOURITE: {
+      return state.map((user) => {
+        if (user.id === action.payload.id) {
+          return {
+            ...user,
+            favourite: [action.payload, ...user.favourite],
           };
         }
 

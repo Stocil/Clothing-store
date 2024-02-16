@@ -77,6 +77,8 @@ export function useForm(
             avatarUrl: null,
             id: id,
             recentProducts: [],
+            basket: [],
+            favourite: [],
           },
         ];
 
@@ -86,6 +88,8 @@ export function useForm(
           avatarUrl: null,
           id: id,
           recentProducts: [],
+          basket: [],
+          favourite: [],
         };
 
         setCurrentUser(currentUser);
@@ -122,7 +126,11 @@ export function useForm(
             avatarUrl: currentUser.avatarUrl,
             id: currentUser.id,
             recentProducts: currentUser.recentProducts,
+            basket: currentUser.basket,
+            favourite: currentUser.favourite,
           };
+
+          console.log(currentUser, currentUserData);
 
           setCurrentUser(currentUserData);
           dispatch(loginUser(currentUser));

@@ -42,7 +42,7 @@ export function ProductsList({ product }) {
           <ProductLastSectionInner>
             <ProductsTitleText>{product.title}</ProductsTitleText>
 
-            <ProductCardButton onClick={() => console.log("Add to card")} />
+            <ProductCardButton onClick={() => console.log(product)} />
           </ProductLastSectionInner>
 
           <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>

@@ -29,6 +29,8 @@ export function Product() {
     allSizes,
     newPrice,
     worthSeeingProducts,
+
+    handleAddToBasket,
   } = useProduct();
 
   const renderImages = () => {
@@ -132,7 +134,9 @@ export function Product() {
               </TransparentText>
 
               <Stack direction="row" spacing={3}>
-                <AddButton color="secondary">Add to cart</AddButton>
+                <AddButton color="secondary" onClick={handleAddToBasket}>
+                  Add to cart
+                </AddButton>
 
                 <AddButton>Add to favorites</AddButton>
               </Stack>

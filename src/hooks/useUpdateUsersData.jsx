@@ -76,6 +76,8 @@ export function useUpdateUsersData(
       avatarUrl: avatarUrl ? avatarUrl : currentUser.avatarUrl,
       id: currentUser.id,
       recentProducts: recentProductForStorage,
+      basket: currentUser.basket,
+      favourite: currentUser.favourite,
     };
 
     const updatedUserFullData = {
@@ -85,6 +87,8 @@ export function useUpdateUsersData(
       id: updatedCurrentUser.id,
       password: password ? password : currentUserFullData.password,
       recentProducts: updatedCurrentUser.recentProducts,
+      basket: updatedCurrentUser.basket,
+      favourite: updatedCurrentUser.favourite,
     };
 
     const updatedUserFullDataForStorage = users.map((user) => {
@@ -96,6 +100,8 @@ export function useUpdateUsersData(
           avatarUrl: updatedUserFullData.avatarUrl,
           password: updatedUserFullData.password,
           recentProducts: updatedUserFullData.recentProducts,
+          basket: updatedUserFullData.basket,
+          favourite: updatedUserFullData.favourite,
         };
       }
 

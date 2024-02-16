@@ -78,7 +78,7 @@ export function updateProductList({ id = null, currentOffset, limit = 6 }) {
 
       if (updatedProductList[updatedProductList.length - 1].id > 51) {
         updatedProductList = updatedProductList.filter((product) => {
-          if (product.id <= 51) {
+          if (product.id <= 510) {
             return product;
           }
         });

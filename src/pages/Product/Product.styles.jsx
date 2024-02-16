@@ -50,7 +50,7 @@ export const CardInner = styled(Paper)({
   gap: "32px",
 });
 
-export const AddButton = ({ children, color }) => {
+export const AddButton = ({ children, color, onClick }) => {
   const StyledAddButton = styled(Button)({
     textTransform: "none",
     fontWeight: "700",
@@ -58,7 +58,12 @@ export const AddButton = ({ children, color }) => {
   });
 
   return (
-    <StyledAddButton variant="contained" size="large" color={color}>
+    <StyledAddButton
+      variant="contained"
+      size="large"
+      color={color}
+      onClick={onClick}
+    >
       {children}
     </StyledAddButton>
   );

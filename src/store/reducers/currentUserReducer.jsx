@@ -3,6 +3,8 @@ import {
   LOGOUT_USER,
   REGISTER_USER,
   UPDATE_USER,
+  UPDATE_USER_BASKET,
+  UPDATE_USER_FAVOURITE,
   UPDATE_USER_RECENT_PRODUCTS,
 } from "../actions/types";
 
@@ -17,7 +19,9 @@ export function currentUserReducer(state = initialState, action) {
         email: action.payload.email,
         avatarUrl: action.payload.avatarUrl,
         id: action.payload.id,
-        recentProducts: action.payload.recentProducts,
+        recentProducts: [],
+        basket: [],
+        favourite: [],
       };
     }
 
@@ -29,6 +33,8 @@ export function currentUserReducer(state = initialState, action) {
         avatarUrl: action.payload.avatarUrl,
         id: action.payload.id,
         recentProducts: action.payload.recentProducts,
+        basket: action.payload.basket,
+        favourite: action.payload.favourite,
       };
     }
 
@@ -68,6 +74,20 @@ export function currentUserReducer(state = initialState, action) {
       return {
         ...state,
         recentProducts: [...newRecentProducts],
+      };
+    }
+
+    case UPDATE_USER_BASKET: {
+      return {
+        ...state,
+        basket: [action.payload, ...state.basket],
+      };
+    }
+
+    case UPDATE_USER_FAVOURITE: {
+      return {
+        ...state,
+        favourite: [action.payload, ...state.favourite],
       };
     }
 

@@ -20,6 +20,10 @@ import {
   GET_PART_OF_PRODUCTS,
   GET_PART_OF_PRODUCTS_SUCCESS,
   GET_PART_OF_PRODUCTS_ERROR,
+  UPDATE_USER_BASKET,
+  UPDATE_USERS_BASKET,
+  UPDATE_USER_FAVOURITE,
+  UPDATE_USERS_FAVOURITE,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -52,6 +56,16 @@ export const updateCurrentUserRecentProducts = (payload) => ({
   payload,
 });
 
+export const updateCurrentUserBasket = (payload) => ({
+  type: UPDATE_USER_BASKET,
+  payload,
+});
+
+export const updateCurrentUserFavourite = (payload) => ({
+  type: UPDATE_USER_FAVOURITE,
+  payload,
+});
+
 // users
 
 export const addUserInUsers = (payload) => ({
@@ -66,6 +80,16 @@ export const updateUserInUsers = (payload) => ({
 
 export const updateUsersRecentProducts = (payload) => ({
   type: UPDATE_USERS_RECENT_PRODUCTS,
+  payload,
+});
+
+export const updateUsersBasket = (payload) => ({
+  type: UPDATE_USERS_BASKET,
+  payload,
+});
+
+export const updateUsersFavourite = (payload) => ({
+  type: UPDATE_USERS_FAVOURITE,
   payload,
 });
 
