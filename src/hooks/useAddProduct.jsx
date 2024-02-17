@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -7,55 +7,70 @@ export function useAddProduct(product, newPrice) {
 
   const finalPrice = newPrice ? +newPrice.substr(0, newPrice.length - 1) : null;
 
-  const {
-    setStorageItem: setCurrentUserStorage,
-    getStorageItem: getCurrentUser,
-  } = useLocalStorage("currentUser");
+  const { setStorageItem: setUsersStorage } = useLocalStorage("users");
+  const { setStorageItem: setCurrentUserStorage } =
+    useLocalStorage("currentUser");
 
-  const { setStorageItem: setUsersStorage, getStorageItem: getUsers } =
-    useLocalStorage("users");
+  const currentUser = useSelector((state) => state.currentUser);
+  const currentUserBasket = currentUser.basket;
+  let users = useSelector((state) => state.users);
+  users = users[0] ? users : [];
 
-  const currentUser = getCurrentUser();
-  const users = getUsers()[0] ? getUsers() : [];
-  const currentUserFullData = users.filter((user) => {
-    if (user.name === currentUser.name) {
-      return user;
-    }
-  })[0];
+  const updatedCurrentUser = currentUser;
 
-  // For storage, dispatch
-  const updatedCurrentUser = {
-    ...currentUser,
-  };
-
-  // For storage
-  const updatedUserFullDataForStorage = users.map((user) => {
+  let currentUserIndex;
+  const updatedUserFullDataForStorage = users.map((user, index) => {
     if (user.id === currentUser.id) {
-      return {
-        ...updatedCurrentUser,
-        password: currentUserFullData.password,
-      };
+      currentUserIndex = index;
+
+      return user;
     }
 
     return user;
   });
 
   function handleAddToBasket() {
-    const fullProductData = {
-      ...product,
-      finalPrice: finalPrice ? finalPrice : product.price,
-    };
+    const isProductInBasket =
+      currentUserBasket.filter((basketProduct) => {
+        if (product.id === basketProduct.id) {
+          return basketProduct;
+        }
+      })[0] || false;
 
-    // TODO: Check whether the product is in the cart or not, then change
-    // updatedCurrentUser basket field and then refreshLocalStorage
+    let updatedBasket = currentUserBasket;
 
-    // setCurrentUserStorage(updatedCurrentUser);
-    // setUsersStorage(updatedUserFullDataForStorage);
+    if (isProductInBasket) {
+      updatedBasket = updatedBasket.map((basketProduct) => {
+        if (product.id === basketProduct.id) {
+          return {
+            ...basketProduct,
+            count: basketProduct.count + 1,
+          };
+        }
 
-    dispatch(updateCurrentUserBasket(fullProductData));
+        return basketProduct;
+      });
+    } else {
+      const fullProductData = {
+        ...product,
+        finalPrice: finalPrice ? finalPrice : product.price,
+        count: 1,
+      };
+
+      updatedBasket.unshift(fullProductData);
+    }
+
+    // Update data for storage
+    updatedCurrentUser.basket = updatedBasket;
+    updatedUserFullDataForStorage[currentUserIndex].basket = updatedBasket;
+
+    setCurrentUserStorage(updatedCurrentUser);
+    setUsersStorage(updatedUserFullDataForStorage);
+
+    dispatch(updateCurrentUserBasket(updatedBasket));
     dispatch(
       updateUsersBasket({
-        products: fullProductData,
+        products: updatedBasket,
         id: currentUser.id,
       })
     );

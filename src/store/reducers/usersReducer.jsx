@@ -76,7 +76,7 @@ export function usersReducer(state = initialState, action) {
         if (user.id === action.payload.id) {
           return {
             ...user,
-            basket: [action.payload.products, ...user.basket],
+            basket: action.payload.products,
           };
         }
 
@@ -89,7 +89,7 @@ export function usersReducer(state = initialState, action) {
         if (user.id === action.payload.id) {
           return {
             ...user,
-            favourite: [action.payload, ...user.favourite],
+            favourite: action.payload.favourite,
           };
         }
 

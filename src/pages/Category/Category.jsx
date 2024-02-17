@@ -25,7 +25,7 @@ export function Category() {
         errorJustify="center"
       />
 
-      {!isLoading ? (
+      {!isLoading && !isError ? (
         <Stack direction="row" gap={7} mt={5}>
           {currentOffset !== 0 ? (
             <Button color="secondary" size="large" onClick={handlePreviousPage}>

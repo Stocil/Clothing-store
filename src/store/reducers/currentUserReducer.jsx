@@ -80,14 +80,14 @@ export function currentUserReducer(state = initialState, action) {
     case UPDATE_USER_BASKET: {
       return {
         ...state,
-        basket: [action.payload, ...state.basket],
+        basket: action.payload,
       };
     }
 
     case UPDATE_USER_FAVOURITE: {
       return {
         ...state,
-        favourite: [action.payload, ...state.favourite],
+        favourite: action.payload,
       };
     }
 
