@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
+import { useState } from "react";
 
 export function useAddProduct(product, newPrice, size) {
   const dispatch = useDispatch();
 
+  const [snackOpen, setSnackOpen] = useState(false);
   const finalPrice = newPrice ? +newPrice.substr(0, newPrice.length - 1) : null;
 
   const { setStorageItem: setUsersStorage } = useLocalStorage("users");
@@ -42,7 +44,6 @@ export function useAddProduct(product, newPrice, size) {
     if (isProductInBasket) {
       updatedBasket = updatedBasket.map((basketProduct) => {
         if (product.id === basketProduct.id && basketProduct.size === size) {
-          console.log(basketProduct);
           return {
             ...basketProduct,
             count: basketProduct.count + 1,
@@ -76,7 +77,13 @@ export function useAddProduct(product, newPrice, size) {
         id: currentUser.id,
       })
     );
+
+    handleToggleSnack();
   }
 
-  return { handleAddToBasket };
+  function handleToggleSnack() {
+    setSnackOpen((current) => !current);
+  }
+
+  return { handleAddToBasket, handleToggleSnack, snackOpen };
 }

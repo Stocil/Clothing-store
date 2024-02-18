@@ -14,6 +14,7 @@ import {
 } from "./Product.styles";
 import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
 import { Products } from "../../components/Products/Products";
+import { AlertSnackbar } from "../../components/Uikit/AlertSnackbar";
 
 export function Product() {
   const {
@@ -31,6 +32,8 @@ export function Product() {
     worthSeeingProducts,
 
     handleAddToBasket,
+    handleToggleSnack,
+    snackOpen,
   } = useProduct();
 
   const renderImages = () => {
@@ -174,6 +177,10 @@ export function Product() {
           />
         </ProductSectionInner>
       ) : null}
+
+      <AlertSnackbar open={snackOpen} handleClose={handleToggleSnack}>
+        The product has been added
+      </AlertSnackbar>
     </Container>
   );
 }
