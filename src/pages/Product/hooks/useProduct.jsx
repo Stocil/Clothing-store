@@ -34,7 +34,7 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
-  const { handleAddToBasket } = useAddProduct(product, newPrice);
+  const { handleAddToBasket } = useAddProduct(product, newPrice, selectSize);
 
   useEffect(() => {
     dispatch(getSingleProduct(id));

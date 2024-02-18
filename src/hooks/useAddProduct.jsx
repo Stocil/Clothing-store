@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
 
-export function useAddProduct(product, newPrice) {
+export function useAddProduct(product, newPrice, size) {
   const dispatch = useDispatch();
 
   const finalPrice = newPrice ? +newPrice.substr(0, newPrice.length - 1) : null;
@@ -32,7 +32,7 @@ export function useAddProduct(product, newPrice) {
   function handleAddToBasket() {
     const isProductInBasket =
       currentUserBasket.filter((basketProduct) => {
-        if (product.id === basketProduct.id) {
+        if (product.id === basketProduct.id && basketProduct.size === size) {
           return basketProduct;
         }
       })[0] || false;
@@ -41,7 +41,8 @@ export function useAddProduct(product, newPrice) {
 
     if (isProductInBasket) {
       updatedBasket = updatedBasket.map((basketProduct) => {
-        if (product.id === basketProduct.id) {
+        if (product.id === basketProduct.id && basketProduct.size === size) {
+          console.log(basketProduct);
           return {
             ...basketProduct,
             count: basketProduct.count + 1,
@@ -53,6 +54,7 @@ export function useAddProduct(product, newPrice) {
     } else {
       const fullProductData = {
         ...product,
+        size: size ? size : null,
         finalPrice: finalPrice ? finalPrice : product.price,
         count: 1,
       };
