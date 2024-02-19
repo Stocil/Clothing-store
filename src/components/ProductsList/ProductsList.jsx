@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
+import { Button, Grid, Stack, Typography } from "@mui/material";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+
 import {
+  ProductBasketAmountInput,
   ProductCardButton,
   ProductCategoryLabel,
   ProductImageInner,
@@ -8,13 +13,24 @@ import {
   ProductLastSectionInner,
   ProductsTitleText,
 } from "./ProductsList.styles";
-import { Grid, Stack, Typography } from "@mui/material";
 import { SalePriceText } from "../Uikit/SalePriceText";
+import { useAddProduct } from "../../hooks/useAddProduct.jsx";
+import { useState } from "react";
 
-export function ProductsList({ product }) {
+export function ProductsList({ product, direction }) {
+  // const [productCount, setProductCount] = useState(product.count);
+
+  const { handleAddToBasket: handleAddProductCount } = useAddProduct({
+    product,
+    selectSize: product.size,
+  });
+
   return (
-    <Grid item xs={1} display="flex">
-      <ProductItemInner variant="outlined">
+    <Grid item xs={1} display={direction === "row" ? "flex" : null}>
+      <ProductItemInner
+        variant="outlined"
+        sx={{ flexDirection: direction === "row" ? "column" : "row" }}
+      >
         <ProductImageInner>
           <Link
             to={`/product/${product.id}`}
@@ -27,25 +43,42 @@ export function ProductsList({ product }) {
             }
           >
             <img
+              data-size={direction === "row" ? "large" : "small"}
               className="product__image"
               src={
                 product.images[0].startsWith("https")
                   ? product.images[0]
                   : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-                // https://wallpapersmug.com/download/2048x1152/ca0da6/blury-background-gradient.jpg
               }
             />
           </Link>
         </ProductImageInner>
 
-        <ProductInfoInner>
+        <ProductInfoInner
+          justifyContent={direction === "row" ? "space-between" : "start"}
+        >
           <ProductLastSectionInner>
-            <ProductsTitleText>{product.title}</ProductsTitleText>
+            <ProductsTitleText
+              fontSize={direction === "row" ? "16px" : "22px"}
+              maxWidth={direction === "row" ? "250px" : null}
+            >
+              {product.title}
+            </ProductsTitleText>
 
-            <ProductCardButton onClick={() => console.log(product)} />
+            {direction === "row" ? <ProductCardButton /> : null}
           </ProductLastSectionInner>
 
-          <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>
+          <Stack direction="row" spacing={1}>
+            <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>
+
+            {product.size ? (
+              <ProductCategoryLabel
+                bgcolor={(theme) => theme.palette.primary.dark}
+              >
+                {product.size}
+              </ProductCategoryLabel>
+            ) : null}
+          </Stack>
 
           <Stack>
             <Typography fontSize="12px" sx={{ opacity: 0.6 }}>
@@ -60,16 +93,44 @@ export function ProductsList({ product }) {
               ) : null}
 
               <SalePriceText isSale={product.sale}>
-                ${product.price}
+                $
+                {product.finalPrice
+                  ? product.finalPrice * product.count
+                  : product.price}
               </SalePriceText>
             </Stack>
+
+            {product.count ? (
+              <Stack direction="row" alignItems="center" spacing={1} mt={2}>
+                <Button
+                  size="small"
+                  sx={{ py: "10px" }}
+                  disabled={product.count === 1}
+                >
+                  <RemoveIcon fontSize="small" />
+                </Button>
+
+                <ProductBasketAmountInput
+                  // count={productCount}
+                  count={product.count}
+                  onChange={handleAddProductCount}
+                />
+
+                <Button
+                  size="small"
+                  sx={{ py: "10px" }}
+                  onClick={() => {
+                    handleAddProductCount({});
+                    // setProductCount((count) => count + 1);
+                  }}
+                >
+                  <AddIcon fontSize="small" />
+                </Button>
+              </Stack>
+            ) : null}
           </Stack>
         </ProductInfoInner>
       </ProductItemInner>
     </Grid>
   );
 }
-
-// function addToCard(product) {
-//   return {};
-// }

@@ -3,6 +3,7 @@ import {
   IconButton,
   Paper,
   Stack,
+  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -11,7 +12,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 export const ProductItemInner = styled(Paper)({
   padding: "20px",
   display: "flex",
-  flexDirection: "column",
+  gap: "30px",
 });
 
 export const ProductImageInner = styled(Box)({
@@ -21,8 +22,6 @@ export const ProductImageInner = styled(Box)({
 });
 
 export const ProductInfoInner = styled(Stack)({
-  justifyContent: "space-between",
-  marginTop: "16px",
   gap: "8px",
   position: "relative",
 });
@@ -52,17 +51,38 @@ export const ProductCardButton = ({ onClick }) => {
   );
 };
 
-export const ProductCategoryLabel = styled(Typography)(({ theme }) => ({
+export const ProductCategoryLabel = styled(Typography)({
   alignSelf: "start",
   padding: "6px 12px",
   border: "1px solid",
   borderRadius: "25px",
-  backgroundColor: theme.palette.primary.main,
-}));
+});
 
 export const ProductsTitleText = styled(Typography)({
   fontWeight: "700",
-  width: "calc(100% - 40px)",
   wordWrap: "break-word",
-  maxWidth: "250px",
 });
+
+export const ProductBasketAmountInput = ({ count, onChange }) => {
+  console.log(count);
+  return (
+    <TextField
+      type="number"
+      variant="outlined"
+      color="secondary"
+      defaultValue={count}
+      onChange={(e) => onChange({ amount: +e.target.value })}
+      onBlur={(e) => (e.target.value = count)}
+      inputProps={{
+        style: {
+          fontSize: "24px",
+          textAlign: "center",
+          padding: "5px 10px",
+        },
+      }}
+      sx={{
+        maxWidth: "70px",
+      }}
+    />
+  );
+};

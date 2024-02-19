@@ -12,6 +12,8 @@ export function Products({
   title = null,
   mt = 7,
   errorJustify = null,
+  direction = "row",
+  sales = true,
 }) {
   const sortedProducts = products
     .map((product, index) => {
@@ -19,26 +21,26 @@ export function Products({
         return null;
       }
 
-      // if (
-      //   !product.images[0] ||
-      //   !product.images[0].startsWith("https") ||
-      //   !product.price ||
-      //   !product.title
-      // )
-      //   return null;
-
       return product;
     })
     .filter((product) => product);
 
-  const sortedProductsWithSales = getSale(sortedProducts);
+  const sortedProductsWithSales = sales
+    ? getSale(sortedProducts)
+    : sortedProducts;
 
   const productsList = sortedProductsWithSales.map((product) => {
     if (product.title?.length > 29) {
       product.title = product.title.substr(0, 26) + "...";
     }
 
-    return <ProductsList key={product.id} product={product} />;
+    return (
+      <ProductsList
+        key={product.size ? product.size + product.id : product.id}
+        product={product}
+        direction={direction}
+      />
+    );
   });
 
   const renderContent = () => {
@@ -68,7 +70,7 @@ export function Products({
           </Typography>
         ) : null}
 
-        <Grid container spacing={5} columns={3}>
+        <Grid container spacing={5} columns={direction === "row" ? 3 : 1}>
           {content}
         </Grid>
       </>

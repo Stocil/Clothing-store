@@ -34,11 +34,11 @@ export function useProduct() {
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
 
-  const { handleAddToBasket, handleToggleSnack, snackOpen } = useAddProduct(
+  const { handleAddToBasket, handleToggleSnack, snackOpen } = useAddProduct({
     product,
     newPrice,
-    selectSize
-  );
+    selectSize,
+  });
 
   useEffect(() => {
     dispatch(getSingleProduct(id));

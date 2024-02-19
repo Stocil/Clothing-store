@@ -3,7 +3,7 @@ import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
 import { useState } from "react";
 
-export function useAddProduct(product, newPrice, size) {
+export function useAddProduct({ product, newPrice = null, selectSize = null }) {
   const dispatch = useDispatch();
 
   const [snackOpen, setSnackOpen] = useState(false);
@@ -31,10 +31,13 @@ export function useAddProduct(product, newPrice, size) {
     return user;
   });
 
-  function handleAddToBasket() {
+  function handleAddToBasket({ amount = null }) {
     const isProductInBasket =
       currentUserBasket.filter((basketProduct) => {
-        if (product.id === basketProduct.id && basketProduct.size === size) {
+        if (
+          product.id === basketProduct.id &&
+          basketProduct.size === selectSize
+        ) {
           return basketProduct;
         }
       })[0] || false;
@@ -43,10 +46,14 @@ export function useAddProduct(product, newPrice, size) {
 
     if (isProductInBasket) {
       updatedBasket = updatedBasket.map((basketProduct) => {
-        if (product.id === basketProduct.id && basketProduct.size === size) {
+        if (
+          product.id === basketProduct.id &&
+          basketProduct.size === selectSize
+        ) {
           return {
             ...basketProduct,
-            count: basketProduct.count + 1,
+            count:
+              amount || amount === 0 ? amount || 1 : basketProduct.count + 1,
           };
         }
 
@@ -55,7 +62,7 @@ export function useAddProduct(product, newPrice, size) {
     } else {
       const fullProductData = {
         ...product,
-        size: size ? size : null,
+        size: selectSize ? selectSize : null,
         finalPrice: finalPrice ? finalPrice : product.price,
         count: 1,
       };
