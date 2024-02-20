@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
@@ -15,13 +15,24 @@ import {
 } from "./ProductsList.styles";
 import { SalePriceText } from "../Uikit/SalePriceText";
 import { useAddProduct } from "../../hooks/useAddProduct.jsx";
-import { useState } from "react";
+import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
+// import { useState } from "react";
 
 export function ProductsList({ product, direction }) {
   // const [productCount, setProductCount] = useState(product.count);
 
-  const { handleAddToBasket: handleAddProductCount } = useAddProduct({
+  const notInBasket = useLocation().pathname.substr(1) !== "basket";
+  const productKey = `${product.id}-${product.size ? product.size : 0}-${
+    product.count
+  }`;
+
+  const {
+    handleAddToBasket: handleAddProductCount,
+    handleToggleSnack,
+    snackOpen,
+  } = useAddProduct({
     product,
+    newPrice: product.newPrice ? product.newPrice + "$" : null,
     selectSize: product.size,
   });
 
@@ -65,7 +76,9 @@ export function ProductsList({ product, direction }) {
               {product.title}
             </ProductsTitleText>
 
-            {direction === "row" ? <ProductCardButton /> : null}
+            {direction === "row" ? (
+              <ProductCardButton onClick={handleAddProductCount} />
+            ) : null}
           </ProductLastSectionInner>
 
           <Stack direction="row" spacing={1}>
@@ -86,13 +99,13 @@ export function ProductsList({ product, direction }) {
             </Typography>
 
             <Stack direction="row" spacing={1}>
-              {product.sale ? (
+              {product.sale && !product.finalPrice ? (
                 <Typography variant="h6" component="p" fontWeight={700}>
                   ${product.newPrice}
                 </Typography>
               ) : null}
 
-              <SalePriceText isSale={product.sale}>
+              <SalePriceText isSale={product.sale && !product.finalPrice}>
                 $
                 {product.finalPrice
                   ? product.finalPrice * product.count
@@ -106,23 +119,28 @@ export function ProductsList({ product, direction }) {
                   size="small"
                   sx={{ py: "10px" }}
                   disabled={product.count === 1}
+                  onClick={() =>
+                    handleAddProductCount({ amount: product.count - 1 })
+                  }
                 >
                   <RemoveIcon fontSize="small" />
                 </Button>
+
+                {/* <Typography fontSize="24px" onClick={() => console.log("1h1h")}>
+                  {product.count}
+                </Typography> */}
 
                 <ProductBasketAmountInput
                   // count={productCount}
                   count={product.count}
                   onChange={handleAddProductCount}
+                  pKey={productKey}
                 />
 
                 <Button
                   size="small"
                   sx={{ py: "10px" }}
-                  onClick={() => {
-                    handleAddProductCount({});
-                    // setProductCount((count) => count + 1);
-                  }}
+                  onClick={handleAddProductCount}
                 >
                   <AddIcon fontSize="small" />
                 </Button>
@@ -131,6 +149,13 @@ export function ProductsList({ product, direction }) {
           </Stack>
         </ProductInfoInner>
       </ProductItemInner>
+
+      <AlertSnackbar
+        open={notInBasket ? snackOpen : false}
+        handleClose={handleToggleSnack}
+      >
+        The product has been added
+      </AlertSnackbar>
     </Grid>
   );
 }

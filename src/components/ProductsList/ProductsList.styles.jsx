@@ -63,10 +63,10 @@ export const ProductsTitleText = styled(Typography)({
   wordWrap: "break-word",
 });
 
-export const ProductBasketAmountInput = ({ count, onChange }) => {
-  console.log(count);
+export const ProductBasketAmountInput = ({ count, onChange, pKey }) => {
   return (
     <TextField
+      key={pKey}
       type="number"
       variant="outlined"
       color="secondary"

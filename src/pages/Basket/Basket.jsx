@@ -11,7 +11,7 @@ import { Products } from "../../components/Products/Products";
 import { useBasket } from "./hooks/useBasket";
 
 export function Basket() {
-  const { basketProducts: products, totalPrice } = useBasket();
+  const { basketProducts: products, totalPrice, totalProducts } = useBasket();
 
   return (
     <Container sx={{ my: 7, pt: 8 }}>
@@ -43,7 +43,7 @@ export function Basket() {
                   Your basket
                 </Typography>
 
-                <Typography variant="p">Products: {products.length}</Typography>
+                <Typography variant="p">Products: {totalProducts}</Typography>
 
                 <Typography variant="h4" component="p" fontWeight="700">
                   Total: {totalPrice} $
