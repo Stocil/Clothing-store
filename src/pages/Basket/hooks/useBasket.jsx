@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 export function useBasket() {
   const currentUser = useSelector((state) => state.currentUser);
+  const isLogged = currentUser.id || false;
 
   const basketProducts = currentUser.basket || [];
 
@@ -32,5 +33,6 @@ export function useBasket() {
     handleToggleAgree,
     isBasketSnackOpen,
     handleToggleSnack,
+    isLogged,
   };
 }

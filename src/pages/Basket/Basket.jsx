@@ -20,6 +20,7 @@ export function Basket() {
     basketProducts: products,
     totalPrice,
     totalProducts,
+    isLogged,
 
     isAgree,
     handleToggleAgree,
@@ -101,17 +102,19 @@ export function Basket() {
             Use the search to find everything you need
           </Typography>
 
-          <Typography variant="h6" component="p" mt={2}>
-            If you had products in your shopping cart,
-            <Link
-              className="header__link"
-              to="/sign-in"
-              state={{ prevPath: "/basket" }}
-            >
-              {" log in "}
-            </Link>
-            to your profile
-          </Typography>
+          {!isLogged ? (
+            <Typography variant="h6" component="p" mt={2}>
+              If you had products in your shopping cart,
+              <Link
+                className="header__link"
+                to="/sign-in"
+                state={{ prevPath: "/basket" }}
+              >
+                {" log in "}
+              </Link>
+              to your profile
+            </Typography>
+          ) : null}
         </Box>
       )}
 

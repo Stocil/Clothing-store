@@ -32,6 +32,8 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
   });
 
   function handleAddToBasket({ amount = null }) {
+    if (!currentUser.id) return;
+
     const isProductInBasket =
       currentUserBasket.filter((basketProduct) => {
         if (

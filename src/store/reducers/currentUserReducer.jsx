@@ -46,6 +46,8 @@ export function currentUserReducer(state = initialState, action) {
         avatarUrl: undefined,
         id: undefined,
         recentProducts: undefined,
+        basket: undefined,
+        favourite: undefined,
       };
     }
 
