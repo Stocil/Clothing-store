@@ -1,14 +1,15 @@
 import { Alert } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import GppBadIcon from "@mui/icons-material/GppBad";
 
-export function AlertSnackbar({ handleClose, open, children }) {
+export function AlertSnackbar({ handleClose, open, children, error = false }) {
   return (
     <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
       <Alert
-        icon={<AddShoppingCartIcon />}
+        icon={error ? <GppBadIcon></GppBadIcon> : <AddShoppingCartIcon />}
         onClose={handleClose}
-        severity="success"
+        severity={error ? "error" : "success"}
         variant="filled"
       >
         {children}

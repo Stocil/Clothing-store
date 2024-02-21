@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
   ProductBasketAmountInput,
@@ -16,15 +17,18 @@ import {
 import { SalePriceText } from "../Uikit/SalePriceText";
 import { useAddProduct } from "../../hooks/useAddProduct.jsx";
 import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
-// import { useState } from "react";
+import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
 
 export function ProductsList({ product, direction }) {
-  // const [productCount, setProductCount] = useState(product.count);
-
   const notInBasket = useLocation().pathname.substr(1) !== "basket";
   const productKey = `${product.id}-${product.size ? product.size : 0}-${
     product.count
   }`;
+
+  const { handleDeleteProductFromBasket } = useDeleteProduct({
+    productId: product.id,
+    selectSize: product.size,
+  });
 
   const {
     handleAddToBasket: handleAddProductCount,
@@ -40,7 +44,10 @@ export function ProductsList({ product, direction }) {
     <Grid item xs={1} display={direction === "row" ? "flex" : null}>
       <ProductItemInner
         variant="outlined"
-        sx={{ flexDirection: direction === "row" ? "column" : "row" }}
+        sx={{
+          flexDirection: direction === "row" ? "column" : "row",
+          position: "relative",
+        }}
       >
         <ProductImageInner>
           <Link
@@ -114,36 +121,40 @@ export function ProductsList({ product, direction }) {
             </Stack>
 
             {product.count ? (
-              <Stack direction="row" alignItems="center" spacing={1} mt={2}>
-                <Button
+              <Stack direction="row" alignItems="end" gap="20px">
+                <Stack direction="row" alignItems="center" spacing={1} mt={2}>
+                  <Button
+                    size="small"
+                    sx={{ py: "10px" }}
+                    disabled={product.count === 1}
+                    onClick={() =>
+                      handleAddProductCount({ amount: product.count - 1 })
+                    }
+                  >
+                    <RemoveIcon fontSize="small" />
+                  </Button>
+
+                  <ProductBasketAmountInput
+                    count={product.count}
+                    onChange={handleAddProductCount}
+                    pKey={productKey}
+                  />
+
+                  <Button
+                    size="small"
+                    sx={{ py: "10px" }}
+                    onClick={handleAddProductCount}
+                  >
+                    <AddIcon fontSize="small" />
+                  </Button>
+                </Stack>
+
+                <IconButton
                   size="small"
-                  sx={{ py: "10px" }}
-                  disabled={product.count === 1}
-                  onClick={() =>
-                    handleAddProductCount({ amount: product.count - 1 })
-                  }
+                  onClick={handleDeleteProductFromBasket}
                 >
-                  <RemoveIcon fontSize="small" />
-                </Button>
-
-                {/* <Typography fontSize="24px" onClick={() => console.log("1h1h")}>
-                  {product.count}
-                </Typography> */}
-
-                <ProductBasketAmountInput
-                  // count={productCount}
-                  count={product.count}
-                  onChange={handleAddProductCount}
-                  pKey={productKey}
-                />
-
-                <Button
-                  size="small"
-                  sx={{ py: "10px" }}
-                  onClick={handleAddProductCount}
-                >
-                  <AddIcon fontSize="small" />
-                </Button>
+                  <DeleteIcon color="error" fontSize="large" />
+                </IconButton>
               </Stack>
             ) : null}
           </Stack>

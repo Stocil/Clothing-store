@@ -15,13 +15,21 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/basket" element={<Basket />} />
-      <Route path="/product/:id" element={<Product />} />
       <Route path="*" element={<ErrorPage />} />
 
       <Route path="/" element={<HomepageLayout />}>
         <Route index element={<Homepage />} />
         <Route path="/categories/:id" element={<Category />} />
       </Route>
+
+      <Route
+        path="/product/:id"
+        element={
+          <PrivateRoute>
+            <Product />
+          </PrivateRoute>
+        }
+      />
 
       <Route
         path="/favorite"

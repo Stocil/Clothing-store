@@ -130,8 +130,6 @@ export function useForm(
             favourite: currentUser.favourite,
           };
 
-          console.log(currentUser, currentUserData);
-
           setCurrentUser(currentUserData);
           dispatch(loginUser(currentUser));
 

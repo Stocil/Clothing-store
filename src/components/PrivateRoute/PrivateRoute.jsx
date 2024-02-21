@@ -5,9 +5,6 @@ export function PrivateRoute({ children }) {
   const user = useSelector((state) => state.currentUser)?.name;
   const path = useLocation().pathname;
 
-  //???
-  // const prevPath = useLocation().state?.prevPath || "/";
-
   if (path === "/sign-in" || path === "/sign-up") {
     if (user) {
       return <Navigate to={"/userpage"} />;
