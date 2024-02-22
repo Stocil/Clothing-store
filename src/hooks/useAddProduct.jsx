@@ -38,7 +38,7 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
   });
 
   const isProductInFavourite =
-    currentUserFavourite.filter((favouriteProduct) => {
+    currentUserFavourite?.filter((favouriteProduct) => {
       if (
         product.id === favouriteProduct.id &&
         selectSize === favouriteProduct.size
@@ -124,8 +124,8 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
     updatedUserFullDataForStorage[currentUserIndex].favourite =
       updatedFavourite;
 
-    // setCurrentUserStorage(updatedCurrentUser);
-    // setUsersStorage(updatedUserFullDataForStorage);
+    setCurrentUserStorage(updatedCurrentUser);
+    setUsersStorage(updatedUserFullDataForStorage);
 
     dispatch(updateCurrentUserFavourite(updatedFavourite));
     dispatch(

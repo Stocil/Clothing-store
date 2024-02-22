@@ -14,6 +14,7 @@ export function Products({
   errorJustify = null,
   direction = "row",
   sales = true,
+  favourite = false,
 }) {
   const sortedProducts = products
     .map((product, index) => {
@@ -39,6 +40,7 @@ export function Products({
         key={product.size ? product.size + product.id : product.id}
         product={product}
         direction={direction}
+        favourite={favourite}
       />
     );
   });

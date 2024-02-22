@@ -5,7 +5,7 @@ import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
 import { HomepageLayout } from "../HomepageLayout/HomepageLayout";
 import { Basket } from "../../pages/Basket/Basket";
 import { Homepage } from "../../pages/Homepage/Homepage";
-import { Favorite } from "../../pages/Favorite/Favorite";
+import { Favourite } from "../../pages/Favorite/Favourite";
 import { UserPage } from "../../pages/UserPage/UserPage";
 import { Category } from "../../pages/Category/Category";
 import { Product } from "../../pages/Product/Product";
@@ -35,7 +35,7 @@ export function AppRoutes() {
         path="/favorite"
         element={
           <PrivateRoute>
-            <Favorite />
+            <Favourite />
           </PrivateRoute>
         }
       />

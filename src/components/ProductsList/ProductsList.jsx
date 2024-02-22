@@ -3,6 +3,7 @@ import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import {
   ProductBasketAmountInput,
@@ -19,16 +20,17 @@ import { useAddProduct } from "../../hooks/useAddProduct.jsx";
 import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
 
-export function ProductsList({ product, direction }) {
+export function ProductsList({ product, direction, favourite }) {
   const notInBasket = useLocation().pathname.substr(1) !== "basket";
   const productKey = `${product.id}-${product.size ? product.size : 0}-${
     product.count
   }`;
 
-  const { handleDeleteProductFromBasket } = useDeleteProduct({
-    productId: product.id,
-    selectSize: product.size,
-  });
+  const { handleDeleteProductFromBasket, handleDeleteProductFromFavourite } =
+    useDeleteProduct({
+      productId: product.id,
+      selectSize: product.size,
+    });
 
   const {
     handleAddToBasket: handleAddProductCount,
@@ -98,6 +100,15 @@ export function ProductsList({ product, direction }) {
                 {product.size}
               </ProductCategoryLabel>
             ) : null}
+
+            {favourite ? (
+              <IconButton
+                size="small"
+                onClick={handleDeleteProductFromFavourite}
+              >
+                <FavoriteIcon color="secondary" fontSize="large" />
+              </IconButton>
+            ) : null}
           </Stack>
 
           <Stack>
@@ -115,7 +126,7 @@ export function ProductsList({ product, direction }) {
               <SalePriceText isSale={product.sale && !product.finalPrice}>
                 $
                 {product.finalPrice
-                  ? product.finalPrice * product.count
+                  ? product.finalPrice * product.count || product.finalPrice
                   : product.price}
               </SalePriceText>
             </Stack>

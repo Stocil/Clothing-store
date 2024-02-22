@@ -1,6 +1,8 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, IconButton, Stack, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useProduct } from "./hooks/useProduct";
 import { SalePriceText } from "../../components/Uikit/SalePriceText";
@@ -156,15 +158,19 @@ export function Product() {
                   Add to cart
                 </AddButton>
 
-                <AddButton
+                <IconButton
                   onClick={
                     !isProductInFavourite
                       ? handleAddToFavourite
                       : handleDeleteProductFromFavourite
                   }
                 >
-                  Add to favorites
-                </AddButton>
+                  {!isProductInFavourite ? (
+                    <FavoriteBorderIcon color="secondary" fontSize="large" />
+                  ) : (
+                    <FavoriteIcon color="secondary" fontSize="large" />
+                  )}
+                </IconButton>
               </Stack>
             </Stack>
 

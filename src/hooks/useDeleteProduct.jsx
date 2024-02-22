@@ -80,8 +80,8 @@ export function useDeleteProduct({ productId = null, selectSize = null }) {
     updatedUserFullDataForStorage[currentUserIndex].favourite =
       updatedFavourite;
 
-    // setCurrentUserStorage(updatedCurrentUser);
-    // setUsersStorage(updatedUserFullDataForStorage);
+    setCurrentUserStorage(updatedCurrentUser);
+    setUsersStorage(updatedUserFullDataForStorage);
 
     dispatch(updateCurrentUserFavourite(updatedFavourite));
     dispatch(
