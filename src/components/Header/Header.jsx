@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {
+  Badge,
   Button,
   Container,
   IconButton,
@@ -20,6 +21,11 @@ export function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.currentUser);
+
+  let userBasketSize = 0;
+  user.basket?.map((product) => {
+    userBasketSize += product.count;
+  });
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
@@ -44,7 +50,9 @@ export function Header() {
                 </Link>
 
                 <Link to="/basket">
-                  <ShoppingBasketIcon />
+                  <Badge badgeContent={userBasketSize} color="secondary">
+                    <ShoppingBasketIcon />
+                  </Badge>
                 </Link>
               </Stack>
 
