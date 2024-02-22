@@ -15,6 +15,8 @@ import {
 import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
 import { Products } from "../../components/Products/Products";
 import { AlertSnackbar } from "../../components/Uikit/AlertSnackbar";
+import { useAddProduct } from "../../hooks/useAddProduct";
+import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 
 export function Product() {
   const {
@@ -30,11 +32,24 @@ export function Product() {
     allSizes,
     newPrice,
     worthSeeingProducts,
+  } = useProduct();
 
+  const {
     handleAddToBasket,
+    handleAddToFavourite,
+    isProductInFavourite,
     handleToggleSnack,
     snackOpen,
-  } = useProduct();
+  } = useAddProduct({
+    product,
+    newPrice,
+    selectSize,
+  });
+
+  const { handleDeleteProductFromFavourite } = useDeleteProduct({
+    productId: product.id,
+    selectSize: selectSize,
+  });
 
   const renderImages = () => {
     if (!product.images) return;
@@ -141,7 +156,15 @@ export function Product() {
                   Add to cart
                 </AddButton>
 
-                <AddButton>Add to favorites</AddButton>
+                <AddButton
+                  onClick={
+                    !isProductInFavourite
+                      ? handleAddToFavourite
+                      : handleDeleteProductFromFavourite
+                  }
+                >
+                  Add to favorites
+                </AddButton>
               </Stack>
             </Stack>
 

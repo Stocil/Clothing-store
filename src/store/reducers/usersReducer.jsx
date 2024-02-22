@@ -89,7 +89,7 @@ export function usersReducer(state = initialState, action) {
         if (user.id === action.payload.id) {
           return {
             ...user,
-            favourite: action.payload.favourite,
+            favourite: action.payload.products,
           };
         }
 

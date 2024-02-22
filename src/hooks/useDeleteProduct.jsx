@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
+import {
+  updateCurrentUserBasket,
+  updateCurrentUserFavourite,
+  updateUsersBasket,
+  updateUsersFavourite,
+} from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
 
 export function useDeleteProduct({ productId = null, selectSize = null }) {
@@ -11,6 +16,7 @@ export function useDeleteProduct({ productId = null, selectSize = null }) {
 
   const currentUser = useSelector((state) => state.currentUser);
   const currentUserBasket = currentUser.basket;
+  const currentUserFavourite = currentUser.favourite;
   let users = useSelector((state) => state.users);
   users = users[0] ? users : [];
 
@@ -58,5 +64,33 @@ export function useDeleteProduct({ productId = null, selectSize = null }) {
     );
   }
 
-  return { handleDeleteProductFromBasket };
+  function handleDeleteProductFromFavourite() {
+    const updatedFavourite = currentUserFavourite.filter((favouriteProduct) => {
+      if (
+        productId === favouriteProduct.id &&
+        selectSize === favouriteProduct.size
+      )
+        return null;
+
+      return favouriteProduct;
+    });
+
+    // Update data for storage
+    updatedCurrentUser.favourite = updatedFavourite;
+    updatedUserFullDataForStorage[currentUserIndex].favourite =
+      updatedFavourite;
+
+    // setCurrentUserStorage(updatedCurrentUser);
+    // setUsersStorage(updatedUserFullDataForStorage);
+
+    dispatch(updateCurrentUserFavourite(updatedFavourite));
+    dispatch(
+      updateUsersFavourite({
+        products: updatedFavourite,
+        id: currentUser.id,
+      })
+    );
+  }
+
+  return { handleDeleteProductFromBasket, handleDeleteProductFromFavourite };
 }

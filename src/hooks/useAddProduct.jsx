@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentUserBasket, updateUsersBasket } from "../store/actions";
+import {
+  updateCurrentUserBasket,
+  updateCurrentUserFavourite,
+  updateUsersBasket,
+  updateUsersFavourite,
+} from "../store/actions";
 import { useLocalStorage } from "./useLocalStorage";
 import { useState } from "react";
 
@@ -15,6 +20,7 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
 
   const currentUser = useSelector((state) => state.currentUser);
   const currentUserBasket = currentUser.basket;
+  const currentUserFavourite = currentUser.favourite;
   let users = useSelector((state) => state.users);
   users = users[0] ? users : [];
 
@@ -30,6 +36,16 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
 
     return user;
   });
+
+  const isProductInFavourite =
+    currentUserFavourite.filter((favouriteProduct) => {
+      if (
+        product.id === favouriteProduct.id &&
+        selectSize === favouriteProduct.size
+      ) {
+        return favouriteProduct;
+      }
+    })[0] || false;
 
   function handleAddToBasket({ amount = null }) {
     if (!currentUser.id) return;
@@ -90,9 +106,47 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
     handleToggleSnack();
   }
 
+  function handleAddToFavourite() {
+    if (!currentUser.id) return;
+
+    let updatedFavourite = currentUserFavourite;
+
+    const fullProductData = {
+      ...product,
+      size: selectSize ? selectSize : null,
+      finalPrice: finalPrice ? finalPrice : product.price,
+    };
+
+    updatedFavourite.unshift(fullProductData);
+
+    // Update data for storage
+    updatedCurrentUser.favourite = updatedFavourite;
+    updatedUserFullDataForStorage[currentUserIndex].favourite =
+      updatedFavourite;
+
+    // setCurrentUserStorage(updatedCurrentUser);
+    // setUsersStorage(updatedUserFullDataForStorage);
+
+    dispatch(updateCurrentUserFavourite(updatedFavourite));
+    dispatch(
+      updateUsersFavourite({
+        products: updatedFavourite,
+        id: currentUser.id,
+      })
+    );
+
+    handleToggleSnack();
+  }
+
   function handleToggleSnack() {
     setSnackOpen((current) => !current);
   }
 
-  return { handleAddToBasket, handleToggleSnack, snackOpen };
+  return {
+    handleAddToBasket,
+    handleAddToFavourite,
+    isProductInFavourite,
+    handleToggleSnack,
+    snackOpen,
+  };
 }

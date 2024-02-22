@@ -9,7 +9,6 @@ import {
 import { getSizes } from "../../../utils/getSizes.js";
 import { getShuffledArray } from "../../../utils/getShuffledArray.js";
 import { useUpdateUsersData } from "../../../hooks/useUpdateUsersData.jsx";
-import { useAddProduct } from "../../../hooks/useAddProduct.jsx";
 
 export function useProduct() {
   const { id } = useParams();
@@ -33,12 +32,6 @@ export function useProduct() {
   const [mainImage, setMainImage] = useState(0);
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
   const allSizes = getSizes(product.category?.name) || [];
-
-  const { handleAddToBasket, handleToggleSnack, snackOpen } = useAddProduct({
-    product,
-    newPrice,
-    selectSize,
-  });
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
@@ -70,9 +63,5 @@ export function useProduct() {
     allSizes,
     newPrice,
     worthSeeingProducts,
-
-    handleAddToBasket,
-    handleToggleSnack,
-    snackOpen,
   };
 }
