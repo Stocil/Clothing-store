@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {
   Badge,
+  Box,
   Button,
   Container,
   IconButton,
@@ -38,7 +39,16 @@ export function Header() {
             width={1}
           >
             <Link to="/">
-              <img src="../../assets/Logo.svg" alt="logo" />
+              <Box fontWeight="700" fontSize="40px">
+                Spark
+                <Box
+                  display="inline"
+                  sx={{ color: (theme) => theme.palette.primary.dark }}
+                >
+                  {" store"}
+                </Box>
+              </Box>
+              {/* <img src="../../assets/Logo.svg" alt="logo" /> */}
             </Link>
 
             <SearchBar />
