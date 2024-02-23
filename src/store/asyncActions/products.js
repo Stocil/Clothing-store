@@ -5,6 +5,9 @@ import {
   getProductsData,
   getProductsDataError,
   getProductsDataSuccess,
+  getSearchProductsData,
+  getSearchProductsDataError,
+  getSearchProductsDataSuccess,
   getSingleProductData,
   getSingleProductDataError,
   getSingleProductDataSuccess,
@@ -99,6 +102,27 @@ export function updateProductList({ id = null, currentOffset, limit = 6 }) {
       }
     } catch (e) {
       dispatch(getPartOfProductsError("Error to upload new products"));
+    }
+  };
+}
+
+export function getSearchProducts(search) {
+  return async function getSearchProductsThunk(dispatch) {
+    try {
+      dispatch(getSearchProductsData());
+
+      if (search === "") {
+        throw new Error(res.status);
+      }
+
+      const res = await fetch(
+        `https://api.escuelajs.co/api/v1/products/?title=${search}`
+      );
+      const searchList = await res.json();
+
+      dispatch(getSearchProductsDataSuccess(searchList));
+    } catch {
+      dispatch(getSearchProductsDataError());
     }
   };
 }

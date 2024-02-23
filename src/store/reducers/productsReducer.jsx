@@ -8,6 +8,9 @@ import {
   GET_PRODUCTS,
   GET_PRODUCTS_ERROR,
   GET_PRODUCTS_SUCCESS,
+  GET_SEARCH_PRODUCTS,
+  GET_SEARCH_PRODUCTS_ERROR,
+  GET_SEARCH_PRODUCTS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -18,6 +21,9 @@ const initialState = {
   error: null,
 
   oneProduct: {},
+
+  searchProducts: [],
+  searchProductsLoading: false,
 };
 
 export function productsReducer(state = initialState, action) {
@@ -89,6 +95,22 @@ export function productsReducer(state = initialState, action) {
         loading: false,
         error: action.payload,
       };
+    }
+
+    case GET_SEARCH_PRODUCTS: {
+      return { ...state, searchProducts: [], searchProductsLoading: true };
+    }
+
+    case GET_SEARCH_PRODUCTS_SUCCESS: {
+      return {
+        ...state,
+        searchProducts: action.payload,
+        searchProductsLoading: false,
+      };
+    }
+
+    case GET_SEARCH_PRODUCTS_ERROR: {
+      return { ...state, searchProducts: [], searchProductsLoading: false };
     }
 
     default: {

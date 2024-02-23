@@ -24,6 +24,9 @@ import {
   UPDATE_USERS_BASKET,
   UPDATE_USER_FAVOURITE,
   UPDATE_USERS_FAVOURITE,
+  GET_SEARCH_PRODUCTS,
+  GET_SEARCH_PRODUCTS_SUCCESS,
+  GET_SEARCH_PRODUCTS_ERROR,
 } from "./types";
 
 export const switchTheme = () => ({
@@ -138,6 +141,22 @@ export const getSingleProductDataSuccess = (payload) => ({
 
 export const getSingleProductDataError = (payload) => ({
   type: GET_ONE_PRODUCT_ERROR,
+  payload,
+});
+
+// Search products
+
+export const getSearchProductsData = () => ({
+  type: GET_SEARCH_PRODUCTS,
+});
+
+export const getSearchProductsDataSuccess = (payload) => ({
+  type: GET_SEARCH_PRODUCTS_SUCCESS,
+  payload,
+});
+
+export const getSearchProductsDataError = (payload) => ({
+  type: GET_SEARCH_PRODUCTS_ERROR,
   payload,
 });
 

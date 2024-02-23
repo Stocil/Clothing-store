@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {
   Badge,
@@ -7,6 +6,7 @@ import {
   Button,
   Container,
   IconButton,
+  Paper,
   Stack,
   Toolbar,
   Typography,
@@ -16,17 +16,22 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import { SearchBar } from "./Header.styles";
-import { logoutUser } from "../../store/actions";
+import { useHeader } from "./hooks/useHeader";
 
 export function Header() {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const user = useSelector((state) => state.currentUser);
+  const {
+    user,
+    userBasketSize,
+    searchOpen,
 
-  let userBasketSize = 0;
-  user.basket?.map((product) => {
-    userBasketSize += product.count;
-  });
+    location,
+    searchProducts,
+    searchProductsIsLoading,
+
+    handleLogOut,
+    setSearchParams,
+    setSearchOpen,
+  } = useHeader();
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
@@ -48,10 +53,63 @@ export function Header() {
                   {" store"}
                 </Box>
               </Box>
-              {/* <img src="../../assets/Logo.svg" alt="logo" /> */}
             </Link>
 
-            <SearchBar />
+            <Box position="relative">
+              <SearchBar
+                onChange={setSearchParams}
+                toggleOpenSearchRes={setSearchOpen}
+              />
+
+              {searchOpen ? (
+                <Paper
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+
+                    position: "absolute",
+                    ml: "5px",
+                    bgcolor: "main",
+                    p: "10px",
+                  }}
+                >
+                  {searchProducts.length > 0 && !searchProductsIsLoading ? (
+                    searchProducts.map((product) => {
+                      return (
+                        <Paper
+                          variant="outlined"
+                          sx={{ p: 1, display: "flex", gap: 1, width: 1 }}
+                          key={product.id}
+                        >
+                          <img
+                            className="header__search-image"
+                            src={
+                              product.images[0].startsWith("https")
+                                ? product.images[0]
+                                : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+                            }
+                          />
+
+                          <Typography variant="h6" component="p">
+                            {product.title}
+                          </Typography>
+                        </Paper>
+                      );
+                    })
+                  ) : (
+                    <Typography
+                      variant="h5"
+                      component="p"
+                      fontWeight="700"
+                      width="250px"
+                    >
+                      {searchProductsIsLoading ? "Loading..." : "No results"}
+                    </Typography>
+                  )}
+                </Paper>
+              ) : null}
+            </Box>
 
             <Stack direction="row" spacing={5} alignItems={"center"}>
               <Stack direction="row" spacing={2}>
@@ -105,9 +163,4 @@ export function Header() {
       </Container>
     </AppBar>
   );
-
-  function handleLogOut() {
-    localStorage.removeItem("currentUser");
-    dispatch(logoutUser());
-  }
 }
