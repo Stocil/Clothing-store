@@ -63,16 +63,20 @@ export const ProductsTitleText = styled(Typography)({
   wordWrap: "break-word",
 });
 
-export const ProductBasketAmountInput = ({ count, onChange, pKey }) => {
+export const ProductBasketAmountInput = ({ count, setCount, onChange }) => {
   return (
     <TextField
-      key={pKey}
       type="number"
       variant="outlined"
       color="secondary"
-      defaultValue={count}
-      onChange={(e) => onChange({ amount: +e.target.value })}
-      onBlur={(e) => (e.target.value = count)}
+      value={count}
+      onChange={(e) => {
+        onChange({ amount: +e.target.value });
+        setCount(e.target.value);
+      }}
+      onBlur={(e) =>
+        e.target.value <= 0 ? setCount(1) : setCount(e.target.value)
+      }
       inputProps={{
         style: {
           fontSize: "24px",

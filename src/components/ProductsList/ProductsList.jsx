@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -21,10 +22,8 @@ import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
 
 export function ProductsList({ product, direction, favourite }) {
+  const [count, setCount] = useState(product.count);
   const notInBasket = useLocation().pathname.substr(1) !== "basket";
-  const productKey = `${product.id}-${product.size ? product.size : 0}-${
-    product.count
-  }`;
 
   const { handleDeleteProductFromBasket, handleDeleteProductFromFavourite } =
     useDeleteProduct({
@@ -138,23 +137,27 @@ export function ProductsList({ product, direction, favourite }) {
                     size="small"
                     sx={{ py: "10px" }}
                     disabled={product.count === 1}
-                    onClick={() =>
-                      handleAddProductCount({ amount: product.count - 1 })
-                    }
+                    onClick={() => {
+                      setCount((current) => current - 1);
+                      handleAddProductCount({ amount: product.count - 1 });
+                    }}
                   >
                     <RemoveIcon fontSize="small" />
                   </Button>
 
                   <ProductBasketAmountInput
-                    count={product.count}
+                    count={count}
+                    setCount={setCount}
                     onChange={handleAddProductCount}
-                    pKey={productKey}
                   />
 
                   <Button
                     size="small"
                     sx={{ py: "10px" }}
-                    onClick={handleAddProductCount}
+                    onClick={() => {
+                      setCount((current) => current + 1);
+                      handleAddProductCount({});
+                    }}
                   >
                     <AddIcon fontSize="small" />
                   </Button>
