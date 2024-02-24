@@ -23,6 +23,7 @@ export function Header() {
     user,
     userBasketSize,
     searchOpen,
+    searchValue,
 
     location,
     searchProducts,
@@ -57,6 +58,7 @@ export function Header() {
 
             <Box position="relative">
               <SearchBar
+                value={searchValue}
                 onChange={setSearchParams}
                 toggleOpenSearchRes={setSearchOpen}
               />
@@ -82,16 +84,18 @@ export function Header() {
                           sx={{ p: 1, display: "flex", gap: 1, width: 1 }}
                           key={product.id}
                         >
-                          <img
-                            className="header__search-image"
-                            src={
-                              product.images[0].startsWith("https")
-                                ? product.images[0]
-                                : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-                            }
-                          />
+                          <Link to={`/product/${product.id}`}>
+                            <img
+                              className="header__search-image"
+                              src={
+                                product.images[0].startsWith("https")
+                                  ? product.images[0]
+                                  : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+                              }
+                            />
+                          </Link>
 
-                          <Typography variant="h6" component="p">
+                          <Typography variant="p" maxWidth="60%">
                             {product.title}
                           </Typography>
                         </Paper>

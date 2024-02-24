@@ -38,6 +38,7 @@ export function useHeader() {
     user,
     userBasketSize,
     searchOpen,
+    searchValue,
 
     location,
     searchProducts,

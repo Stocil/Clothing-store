@@ -43,18 +43,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export function SearchBar({ onChange, toggleOpenSearchRes }) {
+export function SearchBar({ onChange, value, toggleOpenSearchRes }) {
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
+        value={value || ""}
         onChange={(e) =>
           onChange({ search: e.target.value }, { replace: true })
         }
         onFocus={() => toggleOpenSearchRes(true)}
-        onBlur={() => toggleOpenSearchRes(false)}
+        onBlur={() => setTimeout(() => toggleOpenSearchRes(false), 100)}
         placeholder="Search for anything..."
         inputProps={{ "aria-label": "search" }}
       />
