@@ -102,14 +102,20 @@ export function Header() {
                       );
                     })
                   ) : (
-                    <Typography
-                      variant="h5"
-                      component="p"
-                      fontWeight="700"
-                      width="250px"
-                    >
-                      {searchProductsIsLoading ? "Loading..." : "No results"}
-                    </Typography>
+                    <Box className="search-wrapper" width="250px">
+                      {searchProductsIsLoading ? (
+                        <Box className="search-load" />
+                      ) : (
+                        <Typography
+                          variant="h5"
+                          component="p"
+                          fontWeight="700"
+                          width="250px"
+                        >
+                          No results
+                        </Typography>
+                      )}
+                    </Box>
                   )}
                 </Paper>
               ) : null}
