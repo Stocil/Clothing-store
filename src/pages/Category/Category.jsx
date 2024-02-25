@@ -17,7 +17,7 @@ export function Category() {
   } = useCategory();
 
   return (
-    <Stack alignItems="center">
+    <Stack component="section" alignItems="center">
       <Products
         products={products}
         isError={isError}

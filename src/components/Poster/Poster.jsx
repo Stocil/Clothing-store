@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 export function Poster() {
   return (
-    <Box position="relative">
+    <Box component="section" position="relative">
       <Typography
         variant="h1"
         position="absolute"
