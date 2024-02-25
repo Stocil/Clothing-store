@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 import { getProducts } from "../../../store/asyncActions/products";
-import { getSortedProducts } from "../../../utils/getSortedProducts";
 import { getShuffledArray } from "../../../utils/getShuffledArray";
 import { getSale } from "../../../utils/getSale";
 

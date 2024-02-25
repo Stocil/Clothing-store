@@ -2,6 +2,7 @@ import {
   Box,
   IconButton,
   Paper,
+  Skeleton,
   Stack,
   TextField,
   Typography,
@@ -43,7 +44,11 @@ const ProductCardButtonStyle = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-export const ProductCardButton = ({ onClick }) => {
+export const ProductCardButton = ({ onClick, isLoading }) => {
+  if (isLoading) {
+    return <Skeleton width={40} height={40} variant="circular" />;
+  }
+
   return (
     <ProductCardButtonStyle onClick={onClick}>
       <AddShoppingCartIcon />

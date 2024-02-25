@@ -20,8 +20,9 @@ import { SalePriceText } from "../Uikit/SalePriceText";
 import { useAddProduct } from "../../hooks/useAddProduct.jsx";
 import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
+import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
 
-export function ProductsList({ product, direction, favourite }) {
+export function ProductsList({ product, direction, favourite, isLoading }) {
   const [count, setCount] = useState(product.count);
   const notInBasket = useLocation().pathname.substr(1) !== "basket";
 
@@ -40,6 +41,10 @@ export function ProductsList({ product, direction, favourite }) {
     newPrice: product.newPrice ? product.newPrice + "$" : null,
     selectSize: product.size,
   });
+
+  if (isLoading) {
+    return <LoadingProduct />;
+  }
 
   return (
     <Grid item xs={1} display={direction === "row" ? "flex" : null}>

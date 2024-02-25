@@ -1,4 +1,9 @@
+.category__link {
+  border-radius: 15px;
+}
+
 .active {
   background-color: #ab47bc;
-  border-radius: 50%;
+
+  transition: border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }

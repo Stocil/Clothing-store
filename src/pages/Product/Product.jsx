@@ -1,4 +1,10 @@
-import { Container, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Container,
+  IconButton,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -91,6 +97,10 @@ export function Product() {
 
   const renderSizes = () => {
     const sizeButtons = allSizes.map((size) => {
+      if (isLoading) {
+        return <Skeleton key={size} width={40} height={50} />;
+      }
+
       return (
         <SizeButton
           key={size}
@@ -106,7 +116,7 @@ export function Product() {
 
     return (
       <Stack direction="row" spacing={1} alignItems="center">
-        <TransparentText>Sizes: </TransparentText>
+        <TransparentText>{isLoading ? null : "Sizes: "}</TransparentText>
 
         {sizeButtons}
       </Stack>
@@ -115,34 +125,40 @@ export function Product() {
 
   return (
     <Container sx={{ my: 5, position: "relative", pt: 8 }}>
-      {isLoading || isError ? (
-        <ErrorTypography isError={isError}>
-          {isLoading ? "Loading..." : isError}
-        </ErrorTypography>
+      {isError ? (
+        <ErrorTypography isError={isError}>{isError}</ErrorTypography>
       ) : (
         <CardInner>
-          {renderImages()}
+          {isLoading ? (
+            <Skeleton width={600} height={600} variant="rounded" />
+          ) : (
+            renderImages()
+          )}
 
-          <Stack justifyContent="space-between">
+          <Stack justifyContent="space-between" flexGrow={1}>
             <Stack spacing={3}>
               <Typography variant="h4" fontWeight="700">
-                {product.title}
+                {isLoading ? <Skeleton animation="wave" /> : product.title}
               </Typography>
 
               <Stack>
                 <Typography variant="h6" component="p" sx={{ opacity: 0.6 }}>
-                  Price
+                  {isLoading ? <Skeleton animation="wave" /> : "Price"}
                 </Typography>
 
                 <Stack direction="row" spacing={2} alignItems="end">
                   {newPrice ? (
                     <Typography variant="h4" component="p" fontWeight="700">
-                      {newPrice}
+                      {isLoading ? (
+                        <Skeleton width={40} height={70} />
+                      ) : (
+                        newPrice
+                      )}
                     </Typography>
                   ) : null}
 
                   <SalePriceText isSale={newPrice} variant="h5">
-                    {product.price}$
+                    {isLoading ? null : `${product.price}$`}
                   </SalePriceText>
                 </Stack>
               </Stack>
@@ -150,32 +166,44 @@ export function Product() {
               {renderSizes()}
 
               <TransparentText variant="h6">
-                {product.description}
+                {isLoading ? (
+                  <Skeleton animation="wave" />
+                ) : (
+                  product.description
+                )}
               </TransparentText>
 
-              <Stack direction="row" spacing={3}>
-                <AddButton color="secondary" onClick={handleAddToBasket}>
-                  Add to cart
-                </AddButton>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Stack direction="row" spacing={3}>
+                  <AddButton color="secondary" onClick={handleAddToBasket}>
+                    Add to cart
+                  </AddButton>
 
-                <IconButton
-                  onClick={
-                    !isProductInFavourite
-                      ? handleAddToFavourite
-                      : handleDeleteProductFromFavourite
-                  }
-                >
-                  {!isProductInFavourite ? (
-                    <FavoriteBorderIcon color="secondary" fontSize="large" />
-                  ) : (
-                    <FavoriteIcon color="secondary" fontSize="large" />
-                  )}
-                </IconButton>
-              </Stack>
+                  <IconButton
+                    onClick={
+                      !isProductInFavourite
+                        ? handleAddToFavourite
+                        : handleDeleteProductFromFavourite
+                    }
+                  >
+                    {!isProductInFavourite ? (
+                      <FavoriteBorderIcon color="secondary" fontSize="large" />
+                    ) : (
+                      <FavoriteIcon color="secondary" fontSize="large" />
+                    )}
+                  </IconButton>
+                </Stack>
+              )}
             </Stack>
 
             <TransparentText>
-              {peoplePurchased} people purchased
+              {isLoading ? (
+                <Skeleton animation="wave" />
+              ) : (
+                `${peoplePurchased} people purchased`
+              )}
             </TransparentText>
           </Stack>
         </CardInner>

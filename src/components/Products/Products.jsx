@@ -3,6 +3,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
 import { ProductsList } from "../ProductsList/ProductsList.jsx";
+import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
 
 export function Products({
   products = [],
@@ -41,6 +42,7 @@ export function Products({
         product={product}
         direction={direction}
         favourite={favourite}
+        isLoading={isLoading}
       />
     );
   });
@@ -54,14 +56,15 @@ export function Products({
           {isError}
         </ErrorMessage>
       );
-    } else if (productsList.length === 0) {
+    } else if (productsList.length === 0 && !isLoading) {
       content = (
         <ErrorMessage variant="h4" m={errorJustify ? "40px auto" : "40px 0"}>
           There are no products
         </ErrorMessage>
       );
     } else {
-      content = productsList;
+      content =
+        productsList.length === 0 ? <LoadingProduct count={3} /> : productsList;
     }
 
     return (
@@ -81,13 +84,7 @@ export function Products({
 
   return (
     <Container component="div" maxWidth="lg" sx={{ mt: mt, mb: 2 }}>
-      {isLoading ? (
-        <Typography variant="h4" fontWeight={700}>
-          Loading...
-        </Typography>
-      ) : (
-        renderContent()
-      )}
+      {renderContent()}
     </Container>
   );
 }
