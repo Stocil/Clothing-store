@@ -1,8 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import {
   registerUser,
   addUserInUsers,
@@ -19,11 +18,8 @@ export function useForm(
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { setStorageItem: setCurrentUser } = useLocalStorage("currentUser");
-  const { setStorageItem: setUsers, getStorageItem: getUsers } =
-    useLocalStorage("users");
-
-  const users = getUsers()[0] ? getUsers() : [];
+  const isUsers = useSelector((state) => state.users);
+  const users = isUsers[0] ? isUsers : [];
   const usersUsernames = users.map((user) => user.name);
 
   function handleSubmitForm(e) {
@@ -68,34 +64,7 @@ export function useForm(
           id: id,
         };
 
-        const userForStorage = [
-          ...users,
-          {
-            name: form.userName.value,
-            email: form.email.value,
-            password: form.password.value,
-            avatarUrl: null,
-            id: id,
-            recentProducts: [],
-            basket: [],
-            favourite: [],
-          },
-        ];
-
-        const currentUser = {
-          name: form.userName.value,
-          email: form.email.value,
-          avatarUrl: null,
-          id: id,
-          recentProducts: [],
-          basket: [],
-          favourite: [],
-        };
-
-        setCurrentUser(currentUser);
-        setUsers(userForStorage);
-
-        dispatch(registerUser(currentUser));
+        dispatch(registerUser(user));
         dispatch(addUserInUsers(user));
 
         navigate(pathToNavigate, { replace: true });
@@ -120,17 +89,6 @@ export function useForm(
             }
           })[0];
 
-          const currentUserData = {
-            name: currentUser.name,
-            email: currentUser.email,
-            avatarUrl: currentUser.avatarUrl,
-            id: currentUser.id,
-            recentProducts: currentUser.recentProducts,
-            basket: currentUser.basket,
-            favourite: currentUser.favourite,
-          };
-
-          setCurrentUser(currentUserData);
           dispatch(loginUser(currentUser));
 
           navigate(pathToNavigate, { replace: true });
