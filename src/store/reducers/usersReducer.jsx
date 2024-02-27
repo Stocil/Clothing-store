@@ -55,8 +55,6 @@ export function usersReducer(state = initialState, action) {
             newRecentProducts = newRecentProducts.filter(
               (product) => product !== action.payload.productId
             );
-          } else {
-            newRecentProducts = user.recentProducts;
           }
 
           newRecentProducts.unshift(action.payload.productId);
