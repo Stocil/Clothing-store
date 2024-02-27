@@ -1,21 +1,13 @@
-import { useDispatch } from "react-redux";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser, updateUserInUsers } from "../../../store/actions";
 
 export function useUserpageForm(changeUsernameError) {
   const dispatch = useDispatch();
 
-  const {
-    setStorageItem: setCurrentUserStorage,
-    getStorageItem: getCurrentUser,
-  } = useLocalStorage("currentUser");
-
-  const { setStorageItem: setUsersStorage, getStorageItem: getUsers } =
-    useLocalStorage("users");
-
-  const users = getUsers()[0] ? getUsers() : [];
+  const isUsers = useSelector((state) => state.users);
+  const users = isUsers[0] ? isUsers : [];
   const usersUsernames = users.map((user) => user.name);
-  const currentUser = getCurrentUser();
+  const currentUser = useSelector((state) => state.currentUser);
   const currentUserFullData = users.filter((user) => {
     if (user.name === currentUser.name) {
       return user;
@@ -39,42 +31,15 @@ export function useUserpageForm(changeUsernameError) {
     }
 
     if (canSubmit) {
-      const updatedCurrentUser = {
+      const updatedUser = {
         name: form.Name.value,
         email: form.Email.value,
         avatarUrl: form.Avatar.value ? form.Avatar.value : null,
         id: currentUser.id,
-        recentProducts: currentUser.recentProducts,
-        basket: currentUser.basket,
-        favourite: currentUser.favourite,
       };
 
-      const updatedUserFullData = {
-        name: form.Name.value,
-        email: form.Email.value,
-        avatarUrl: form.Avatar.value ? form.Avatar.value : null,
-        id: currentUser.id,
-        password: currentUserFullData.password,
-      };
-
-      const updatedUserFullDataForStorage = users.map((user) => {
-        if (user.id === updatedUserFullData.id) {
-          return {
-            ...user,
-            name: updatedUserFullData.name,
-            email: updatedUserFullData.email,
-            avatarUrl: updatedUserFullData.avatarUrl,
-          };
-        }
-
-        return user;
-      });
-
-      setCurrentUserStorage(updatedCurrentUser);
-      setUsersStorage(updatedUserFullDataForStorage);
-
-      dispatch(updateUser(updatedCurrentUser));
-      dispatch(updateUserInUsers(updatedUserFullData));
+      dispatch(updateUser(updatedUser));
+      dispatch(updateUserInUsers(updatedUser));
     }
   }
 
@@ -133,18 +98,6 @@ export function useUserpageForm(changeUsernameError) {
           password: form.NewPassword.value,
         };
 
-        const updatedUserFullDataForStorage = users.map((user) => {
-          if (user.id === currentUserFullData.id) {
-            return {
-              ...user,
-              password: form.NewPassword.value,
-            };
-          }
-
-          return user;
-        });
-
-        setUsersStorage(updatedUserFullDataForStorage);
         dispatch(updateUserInUsers(updatedUserFullData));
 
         handleCloseModal();
