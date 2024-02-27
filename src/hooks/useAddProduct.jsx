@@ -5,7 +5,6 @@ import {
   updateUsersBasket,
   updateUsersFavourite,
 } from "../store/actions";
-import { useLocalStorage } from "./useLocalStorage";
 import { useState } from "react";
 
 export function useAddProduct({ product, newPrice = null, selectSize = null }) {
@@ -14,28 +13,9 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
   const [snackOpen, setSnackOpen] = useState(false);
   const finalPrice = newPrice ? +newPrice.substr(0, newPrice.length - 1) : null;
 
-  const { setStorageItem: setUsersStorage } = useLocalStorage("users");
-  const { setStorageItem: setCurrentUserStorage } =
-    useLocalStorage("currentUser");
-
   const currentUser = useSelector((state) => state.currentUser);
   const currentUserBasket = currentUser.basket;
   const currentUserFavourite = currentUser.favourite;
-  let users = useSelector((state) => state.users);
-  users = users[0] ? users : [];
-
-  const updatedCurrentUser = currentUser;
-
-  let currentUserIndex;
-  const updatedUserFullDataForStorage = users.map((user, index) => {
-    if (user.id === currentUser.id) {
-      currentUserIndex = index;
-
-      return user;
-    }
-
-    return user;
-  });
 
   const isProductInFavourite =
     currentUserFavourite?.filter((favouriteProduct) => {
@@ -71,7 +51,11 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
           return {
             ...basketProduct,
             count:
-              amount || amount === 0 ? amount || 1 : basketProduct.count + 1,
+              amount !== null
+                ? amount === 0
+                  ? 1
+                  : amount
+                : basketProduct.count + 1,
           };
         }
 
@@ -87,13 +71,6 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
 
       updatedBasket.unshift(fullProductData);
     }
-
-    // Update data for storage
-    updatedCurrentUser.basket = updatedBasket;
-    updatedUserFullDataForStorage[currentUserIndex].basket = updatedBasket;
-
-    setCurrentUserStorage(updatedCurrentUser);
-    setUsersStorage(updatedUserFullDataForStorage);
 
     dispatch(updateCurrentUserBasket(updatedBasket));
     dispatch(
@@ -118,14 +95,6 @@ export function useAddProduct({ product, newPrice = null, selectSize = null }) {
     };
 
     updatedFavourite.unshift(fullProductData);
-
-    // Update data for storage
-    updatedCurrentUser.favourite = updatedFavourite;
-    updatedUserFullDataForStorage[currentUserIndex].favourite =
-      updatedFavourite;
-
-    setCurrentUserStorage(updatedCurrentUser);
-    setUsersStorage(updatedUserFullDataForStorage);
 
     dispatch(updateCurrentUserFavourite(updatedFavourite));
     dispatch(
