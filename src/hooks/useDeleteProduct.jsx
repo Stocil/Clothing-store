@@ -6,8 +6,6 @@ import {
   updateUsersFavourite,
 } from "../store/actions";
 
-//
-
 export function useDeleteProduct({ productId = null, selectSize = null }) {
   const dispatch = useDispatch();
 
