@@ -18,7 +18,28 @@ const rootReducer = combineReducers({
   products: productsReducer,
 });
 
+const persistedCurrentUser = localStorage.getItem("currentUser")
+  ? JSON.parse(localStorage.getItem("currentUser"))
+  : {};
+
+const persistedUsers = localStorage.getItem("users")
+  ? JSON.parse(localStorage.getItem("users"))
+  : [];
+
 export const store = createStore(
   rootReducer,
+  {
+    currentUser: persistedCurrentUser,
+    users: persistedUsers,
+  },
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+store.subscribe(() => {
+  localStorage.setItem(
+    "currentUser",
+    JSON.stringify(store.getState().currentUser)
+  );
+
+  localStorage.setItem("users", JSON.stringify(store.getState().users));
+});
