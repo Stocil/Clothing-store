@@ -1,11 +1,15 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getCategories } from "../../store/asyncActions/categories";
-import { CategoryInner, LoadingCategory } from "./Categories.styles";
 import { NavLink } from "react-router-dom";
 
 import "../Categories/Categories.scss";
+import { getCategories } from "../../store/asyncActions/categories";
+import {
+  CategoriesInner,
+  CategoryInner,
+  LoadingCategory,
+} from "./Categories.styles";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 
 export function Categories() {
@@ -58,21 +62,13 @@ export function Categories() {
           Categories
         </Typography>
 
-        <Stack
-          direction="row"
-          justifyContent="space-around"
-          spacing={1}
-          mt={5}
-          borderTop="2px solid #ab47bc"
-          borderBottom="2px solid #ab47bc"
-          p="50px 0"
-        >
+        <CategoriesInner>
           {isError ? (
             <ErrorMessage variant="h5">{isError}</ErrorMessage>
           ) : (
             categoriesList
           )}
-        </Stack>
+        </CategoriesInner>
       </Container>
     </>
   );

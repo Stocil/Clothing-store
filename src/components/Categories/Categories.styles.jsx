@@ -27,3 +27,13 @@ export function LoadingCategory({ count = 1 }) {
 
   return products;
 }
+
+export const CategoriesInner = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  justifyContent: "space-around",
+  gap: 8,
+  marginTop: 40,
+  borderTop: `2px solid ${theme.palette.primary.dark}`,
+  borderBottom: `2px solid ${theme.palette.primary.dark}`,
+  padding: "50px 0",
+}));

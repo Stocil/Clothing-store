@@ -4,7 +4,6 @@ import {
   Paper,
   Skeleton,
   Stack,
-  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -14,6 +13,7 @@ export const ProductItemInner = styled(Paper)({
   padding: "20px",
   display: "flex",
   gap: "30px",
+  position: "relative",
 });
 
 export const ProductImageInner = styled(Box)({
@@ -25,6 +25,11 @@ export const ProductImageInner = styled(Box)({
 export const ProductInfoInner = styled(Stack)({
   gap: "8px",
   position: "relative",
+});
+
+export const ProductPriceText = styled(Typography)({
+  fontSize: 12,
+  opacity: 0.6,
 });
 
 export const ProductLastSectionInner = styled(Stack)({
@@ -56,42 +61,22 @@ export const ProductCardButton = ({ onClick, isLoading }) => {
   );
 };
 
-export const ProductCategoryLabel = styled(Typography)({
-  alignSelf: "start",
-  padding: "6px 12px",
-  border: "1px solid",
-  borderRadius: "25px",
-});
+export const ProductCategoryLabel = styled(Typography)(
+  ({ bgcolor = null, theme }) => ({
+    alignSelf: "start",
+    padding: "6px 12px",
+    border: "1px solid",
+    borderRadius: "25px",
+    backgroundColor: bgcolor ? theme.palette.primary.dark : null,
+  })
+);
 
 export const ProductsTitleText = styled(Typography)({
   fontWeight: "700",
   wordWrap: "break-word",
 });
 
-export const ProductBasketAmountInput = ({ count, setCount, onChange }) => {
-  return (
-    <TextField
-      type="number"
-      variant="outlined"
-      color="secondary"
-      value={count}
-      onChange={(e) => {
-        onChange({ amount: +e.target.value });
-        setCount(e.target.value);
-      }}
-      onBlur={(e) =>
-        e.target.value <= 0 ? setCount(1) : setCount(e.target.value)
-      }
-      inputProps={{
-        style: {
-          fontSize: "24px",
-          textAlign: "center",
-          padding: "5px 10px",
-        },
-      }}
-      sx={{
-        maxWidth: "70px",
-      }}
-    />
-  );
-};
+export const ProductsLabelsInner = styled(Stack)({
+  flexDirection: "row",
+  gap: 8,
+});

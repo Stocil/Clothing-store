@@ -8,9 +8,5 @@ export function useLocalStorage(key) {
     return data ? JSON.parse(data) : {};
   }
 
-  function removeStorageItem() {
-    localStorage.removeItem(key);
-  }
-
   return { setStorageItem, getStorageItem };
 }

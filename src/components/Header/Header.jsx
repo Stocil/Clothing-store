@@ -6,7 +6,6 @@ import {
   Button,
   Container,
   IconButton,
-  Paper,
   Stack,
   Toolbar,
   Typography,
@@ -15,111 +14,26 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import { SearchBar } from "./Header.styles";
+import { HeaderColoredTitle, HeaderInner } from "./Header.styles";
 import { useHeader } from "./hooks/useHeader";
+import { SearchBar } from "../SearchBar/SearchBar";
 
 export function Header() {
-  const {
-    user,
-    userBasketSize,
-    searchOpen,
-    searchValue,
-
-    location,
-    searchProducts,
-    searchProductsIsLoading,
-
-    handleLogOut,
-    setSearchParams,
-    setSearchOpen,
-  } = useHeader();
+  const { user, userBasketSize, location, handleLogOut } = useHeader();
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
       <Container>
         <Toolbar disableGutters>
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            alignItems={"center "}
-            width={1}
-          >
+          <HeaderInner>
             <Link to="/">
               <Box fontWeight="700" fontSize="40px">
                 Spark
-                <Box
-                  display="inline"
-                  sx={{ color: (theme) => theme.palette.primary.dark }}
-                >
-                  {" store"}
-                </Box>
+                <HeaderColoredTitle>{" store"}</HeaderColoredTitle>
               </Box>
             </Link>
 
-            <Box position="relative">
-              <SearchBar
-                value={searchValue}
-                onChange={setSearchParams}
-                toggleOpenSearchRes={setSearchOpen}
-              />
-
-              {searchOpen ? (
-                <Paper
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-
-                    position: "absolute",
-                    ml: "5px",
-                    bgcolor: "main",
-                    p: "10px",
-                  }}
-                >
-                  {searchProducts.length > 0 && !searchProductsIsLoading ? (
-                    searchProducts.map((product) => {
-                      return (
-                        <Paper
-                          variant="outlined"
-                          sx={{ p: 1, display: "flex", gap: 1, width: 1 }}
-                          key={product.id}
-                        >
-                          <Link to={`/product/${product.id}`}>
-                            <img
-                              className="header__search-image"
-                              src={
-                                product.images[0].startsWith("https")
-                                  ? product.images[0]
-                                  : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-                              }
-                            />
-                          </Link>
-
-                          <Typography variant="p" maxWidth="60%">
-                            {product.title}
-                          </Typography>
-                        </Paper>
-                      );
-                    })
-                  ) : (
-                    <Box className="search-wrapper" width="250px">
-                      {searchProductsIsLoading ? (
-                        <Box className="search-load" />
-                      ) : (
-                        <Typography
-                          variant="h5"
-                          component="p"
-                          fontWeight="700"
-                          width="250px"
-                        >
-                          No results
-                        </Typography>
-                      )}
-                    </Box>
-                  )}
-                </Paper>
-              ) : null}
-            </Box>
+            <SearchBar />
 
             <Stack direction="row" spacing={5} alignItems={"center"}>
               <Stack direction="row" spacing={2}>
@@ -168,7 +82,7 @@ export function Header() {
                 </Link>
               )}
             </Stack>
-          </Stack>
+          </HeaderInner>
         </Toolbar>
       </Container>
     </AppBar>

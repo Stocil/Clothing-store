@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Grid, IconButton, Stack, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import {
-  ProductBasketAmountInput,
   ProductCardButton,
   ProductCategoryLabel,
   ProductImageInner,
   ProductInfoInner,
   ProductItemInner,
   ProductLastSectionInner,
+  ProductPriceText,
+  ProductsLabelsInner,
   ProductsTitleText,
 } from "./ProductsList.styles";
 import { SalePriceText } from "../Uikit/SalePriceText";
@@ -21,6 +19,7 @@ import { useAddProduct } from "../../hooks/useAddProduct.jsx";
 import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
 import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
+import { BasketCountManager } from "../BasketInputs/BasketInputs.jsx";
 
 export function ProductsList({ product, direction, favourite, isLoading }) {
   const [count, setCount] = useState(product.count);
@@ -50,10 +49,7 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
     <Grid item xs={1} display={direction === "row" ? "flex" : null}>
       <ProductItemInner
         variant="outlined"
-        sx={{
-          flexDirection: direction === "row" ? "column" : "row",
-          position: "relative",
-        }}
+        sx={{ flexDirection: direction === "row" ? "column" : "row" }}
       >
         <ProductImageInner>
           <Link
@@ -94,13 +90,11 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
             ) : null}
           </ProductLastSectionInner>
 
-          <Stack direction="row" spacing={1}>
+          <ProductsLabelsInner>
             <ProductCategoryLabel>{product.category.name}</ProductCategoryLabel>
 
             {product.size ? (
-              <ProductCategoryLabel
-                bgcolor={(theme) => theme.palette.primary.dark}
-              >
+              <ProductCategoryLabel bgcolor="main-dark">
                 {product.size}
               </ProductCategoryLabel>
             ) : null}
@@ -113,12 +107,10 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
                 <FavoriteIcon color="secondary" fontSize="large" />
               </IconButton>
             ) : null}
-          </Stack>
+          </ProductsLabelsInner>
 
           <Stack>
-            <Typography fontSize="12px" sx={{ opacity: 0.6 }}>
-              Price
-            </Typography>
+            <ProductPriceText>Price</ProductPriceText>
 
             <Stack direction="row" spacing={1}>
               {product.sale && !product.finalPrice ? (
@@ -136,45 +128,13 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
             </Stack>
 
             {product.count ? (
-              <Stack direction="row" alignItems="end" gap="20px">
-                <Stack direction="row" alignItems="center" spacing={1} mt={2}>
-                  <Button
-                    size="small"
-                    sx={{ py: "10px" }}
-                    disabled={product.count === 1}
-                    onClick={() => {
-                      setCount((current) => current - 1);
-                      handleAddProductCount({ amount: product.count - 1 });
-                    }}
-                  >
-                    <RemoveIcon fontSize="small" />
-                  </Button>
-
-                  <ProductBasketAmountInput
-                    count={count}
-                    setCount={setCount}
-                    onChange={handleAddProductCount}
-                  />
-
-                  <Button
-                    size="small"
-                    sx={{ py: "10px" }}
-                    onClick={() => {
-                      setCount((current) => current + 1);
-                      handleAddProductCount({});
-                    }}
-                  >
-                    <AddIcon fontSize="small" />
-                  </Button>
-                </Stack>
-
-                <IconButton
-                  size="small"
-                  onClick={handleDeleteProductFromBasket}
-                >
-                  <DeleteIcon color="error" fontSize="large" />
-                </IconButton>
-              </Stack>
+              <BasketCountManager
+                product={product}
+                count={count}
+                setCount={setCount}
+                handleAddProductCount={handleAddProductCount}
+                handleDeleteProductFromBasket={handleDeleteProductFromBasket}
+              />
             ) : null}
           </Stack>
         </ProductInfoInner>
