@@ -1,34 +1,50 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 
 import { Products } from "../../components/Products/Products";
 import { useBasket } from "./hooks/useBasket";
-import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import { AlertSnackbar } from "../../components/Uikit/AlertSnackbar";
 import { Link } from "react-router-dom";
+import { BasketInner } from "./Basket.styles";
+import { BasketTotal } from "../../components/BasketTotal/BasketTotal";
+
+function EmptyBasketContent({ isLogged }) {
+  return (
+    <Box textAlign="center">
+      <Typography variant="h2">The basket is empty</Typography>
+
+      <Typography variant="h6" component="p" mt={2}>
+        Use the search to find everything you need
+      </Typography>
+
+      {!isLogged ? (
+        <Typography variant="h6" component="p" mt={2}>
+          If you had products in your shopping cart,
+          <Link
+            className="header__link"
+            to="/sign-in"
+            state={{ prevPath: "/basket" }}
+          >
+            {" log in "}
+          </Link>
+          to your profile
+        </Typography>
+      ) : null}
+    </Box>
+  );
+}
 
 export function Basket() {
   const {
+    isLogged,
     basketProducts: products,
     totalPrice,
     totalProducts,
-    isLogged,
-
     isAgree,
     handleToggleAgree,
-
     isBasketSnackOpen,
     handleToggleSnack,
+    handleBuyProducts,
   } = useBasket();
-  const { handleDeleteProductFromBasket } = useDeleteProduct({});
 
   return (
     <Container sx={{ my: 7, pt: 8 }}>
@@ -38,12 +54,7 @@ export function Basket() {
             Basket
           </Typography>
 
-          <Stack
-            direction="row"
-            spacing={3}
-            alignItems="start"
-            justifyContent="space-between"
-          >
+          <BasketInner>
             <Paper sx={{ p: 1, width: "100%" }}>
               <Products
                 products={products}
@@ -54,68 +65,17 @@ export function Basket() {
               />
             </Paper>
 
-            <Paper sx={{ p: 3, maxWidth: "350px" }}>
-              <Stack spacing={2}>
-                <Typography variant="h6" component="p" fontWeight="700">
-                  Your basket
-                </Typography>
-
-                <Typography variant="p">Products: {totalProducts}</Typography>
-
-                <Typography variant="h4" component="p" fontWeight="700">
-                  Total: {totalPrice} $
-                </Typography>
-
-                <FormControlLabel
-                  label="I agree with the terms of use of the trading platform"
-                  control={
-                    <Checkbox
-                      color="secondary"
-                      checked={isAgree}
-                      onClick={handleToggleAgree}
-                    />
-                  }
-                />
-
-                <Button
-                  sx={{ p: "16px 24px", fontSize: 16, fontWeight: 700 }}
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    handleToggleSnack();
-                    if (isAgree) {
-                      handleDeleteProductFromBasket({ all: true });
-                    }
-                  }}
-                >
-                  Order
-                </Button>
-              </Stack>
-            </Paper>
-          </Stack>
+            <BasketTotal
+              totalProducts={totalProducts}
+              totalPrice={totalPrice}
+              isAgree={isAgree}
+              onAgree={handleToggleAgree}
+              handleBuyProducts={handleBuyProducts}
+            />
+          </BasketInner>
         </>
       ) : (
-        <Box textAlign="center">
-          <Typography variant="h2">The basket is empty</Typography>
-
-          <Typography variant="h6" component="p" mt={2}>
-            Use the search to find everything you need
-          </Typography>
-
-          {!isLogged ? (
-            <Typography variant="h6" component="p" mt={2}>
-              If you had products in your shopping cart,
-              <Link
-                className="header__link"
-                to="/sign-in"
-                state={{ prevPath: "/basket" }}
-              >
-                {" log in "}
-              </Link>
-              to your profile
-            </Typography>
-          ) : null}
-        </Box>
+        <EmptyBasketContent isLogged={isLogged} />
       )}
 
       <AlertSnackbar

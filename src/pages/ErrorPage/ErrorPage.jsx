@@ -1,5 +1,6 @@
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ErrorNumbers } from "./ErrorPage.styles";
 
 export function ErrorPage() {
   return (
@@ -13,27 +14,9 @@ export function ErrorPage() {
         </Typography>
 
         <Stack direction="row" justifyContent="center" spacing={12}>
-          <Typography
-            className="error__numbers"
-            sx={{ fontWeight: "700", fontSize: "300px" }}
-            color={(theme) => theme.palette.primary.dark}
-          >
-            4
-          </Typography>
-          <Typography
-            className="error__numbers"
-            sx={{ fontWeight: "700", fontSize: "300px" }}
-            color={(theme) => theme.palette.secondary.main}
-          >
-            0
-          </Typography>
-          <Typography
-            color={(theme) => theme.palette.primary.dark}
-            className="error__numbers"
-            sx={{ fontWeight: "700", fontSize: "300px" }}
-          >
-            4
-          </Typography>
+          <ErrorNumbers className="error__numbers">4</ErrorNumbers>
+          <ErrorNumbers className="error__numbers">0</ErrorNumbers>
+          <ErrorNumbers className="error__numbers">4</ErrorNumbers>
         </Stack>
 
         <Link to="/">

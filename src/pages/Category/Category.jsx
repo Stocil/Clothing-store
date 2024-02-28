@@ -4,6 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { Products } from "../../components/Products/Products";
 import { useCategory } from "./hooks/useCategory";
+import { PaginationButtonsInner } from "./Category.styles";
 
 export function Category() {
   const {
@@ -26,7 +27,7 @@ export function Category() {
       />
 
       {!isLoading && !isError ? (
-        <Stack direction="row" gap={7} mt={5}>
+        <PaginationButtonsInner>
           {currentOffset !== 0 ? (
             <Button color="secondary" size="large" onClick={handlePreviousPage}>
               <ArrowBackIcon sx={{ mr: 1 }} />
@@ -40,7 +41,7 @@ export function Category() {
               <ArrowForwardIcon sx={{ ml: 1 }} />
             </Button>
           ) : null}
-        </Stack>
+        </PaginationButtonsInner>
       ) : null}
     </Stack>
   );

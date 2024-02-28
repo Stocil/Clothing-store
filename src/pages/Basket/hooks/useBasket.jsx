@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useDeleteProduct } from "../../../hooks/useDeleteProduct";
 
 export function useBasket() {
   const currentUser = useSelector((state) => state.currentUser);
@@ -9,6 +10,8 @@ export function useBasket() {
 
   const [isAgree, setAgree] = useState(false);
   const [isBasketSnackOpen, setBasketSnackOpen] = useState(false);
+
+  const { handleDeleteProductFromBasket } = useDeleteProduct({});
 
   let totalPrice = 0;
   let totalProducts = 0;
@@ -25,7 +28,15 @@ export function useBasket() {
     setBasketSnackOpen((current) => !current);
   }
 
+  function handleBuyProducts() {
+    handleToggleSnack();
+    if (isAgree) {
+      handleDeleteProductFromBasket({ all: true });
+    }
+  }
+
   return {
+    isLogged,
     basketProducts,
     totalPrice,
     totalProducts,
@@ -33,6 +44,6 @@ export function useBasket() {
     handleToggleAgree,
     isBasketSnackOpen,
     handleToggleSnack,
-    isLogged,
+    handleBuyProducts,
   };
 }

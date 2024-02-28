@@ -1,4 +1,3 @@
-// maybe remove
 export function useLocalStorage(key) {
   function setStorageItem(value) {
     localStorage.setItem(key, JSON.stringify(value));
