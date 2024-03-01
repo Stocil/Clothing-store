@@ -7,6 +7,7 @@ export function useHeader() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((state) => state.currentUser);
+  const theme = useSelector((state) => state.theme);
 
   let userBasketSize = 0;
   user.basket?.map((product) => {
@@ -22,5 +23,12 @@ export function useHeader() {
     dispatch(switchTheme());
   }
 
-  return { user, userBasketSize, location, handleLogOut, handleSwitchTheme };
+  return {
+    user,
+    userBasketSize,
+    location,
+    theme,
+    handleLogOut,
+    handleSwitchTheme,
+  };
 }

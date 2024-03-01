@@ -20,8 +20,14 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ThemeSwitch } from "../ThemeSwitch/ThemeSwitch";
 
 export function Header() {
-  const { user, userBasketSize, location, handleLogOut, handleSwitchTheme } =
-    useHeader();
+  const {
+    user,
+    userBasketSize,
+    location,
+    theme,
+    handleLogOut,
+    handleSwitchTheme,
+  } = useHeader();
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
@@ -49,7 +55,7 @@ export function Header() {
                   </Badge>
                 </Link>
 
-                <ThemeSwitch onSwitch={handleSwitchTheme} />
+                <ThemeSwitch onSwitch={handleSwitchTheme} theme={theme} />
               </Stack>
 
               {user.name ? (
