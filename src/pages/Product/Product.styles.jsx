@@ -1,28 +1,4 @@
-import { Button, IconButton, Paper, Typography, styled } from "@mui/material";
-
-export const SizeButton = ({ onClick, selected, children }) => {
-  const color = selected ? "secondary" : "primary";
-
-  const StyledSizeButton = styled(Button)({
-    minWidth: "40px",
-    fontSize: "16px",
-  });
-
-  return (
-    <StyledSizeButton
-      color={color}
-      size="small"
-      variant="contained"
-      onClick={onClick}
-    >
-      {children}
-    </StyledSizeButton>
-  );
-};
-
-export const TransparentText = styled(Typography)({
-  opacity: 0.5,
-});
+import { IconButton, Paper, Stack, Typography, styled } from "@mui/material";
 
 export const ErrorTypography = ({ isError, children }) => {
   return (
@@ -50,25 +26,6 @@ export const CardInner = styled(Paper)({
   gap: "32px",
 });
 
-export const AddButton = ({ children, color, onClick }) => {
-  const StyledAddButton = styled(Button)({
-    textTransform: "none",
-    fontWeight: "700",
-    fontSize: "16px",
-  });
-
-  return (
-    <StyledAddButton
-      variant="contained"
-      size="large"
-      color={color}
-      onClick={onClick}
-    >
-      {children}
-    </StyledAddButton>
-  );
-};
-
 export const GoBackButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
   top: " 64px",
@@ -77,3 +34,8 @@ export const GoBackButton = styled(IconButton)(({ theme }) => ({
   ":hover": { backgroundColor: theme.palette.primary.dark },
   transition: `all 300ms ${theme.transitions.easing.easeInOut}`,
 }));
+
+export const CardInfo = styled(Stack)({
+  justifyContent: "space-between",
+  flexGrow: 1,
+});

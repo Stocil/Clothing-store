@@ -1,30 +1,24 @@
-import {
-  Container,
-  IconButton,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Container, Skeleton, Stack, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useProduct } from "./hooks/useProduct";
-import { SalePriceText } from "../../components/Uikit/SalePriceText";
+import { useAddProduct } from "../../hooks/useAddProduct";
+import { useDeleteProduct } from "../../hooks/useDeleteProduct";
 import {
-  AddButton,
+  CardInfo,
   CardInner,
   ErrorTypography,
   GoBackButton,
-  SizeButton,
-  TransparentText,
 } from "./Product.styles";
-import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
 import { Products } from "../../components/Products/Products";
+import { SingleProductImages } from "../../components/SingleProductImages/SingleProductImages";
+import { SingleProductSizes } from "../../components/SingleProductSizes/SingleProductSizes";
+import { SingleProductButtons } from "../../components/SingleProductButtons/SingleProductButtons";
+import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
+import { SalePriceText } from "../../components/Uikit/SalePriceText";
 import { AlertSnackbar } from "../../components/Uikit/AlertSnackbar";
-import { useAddProduct } from "../../hooks/useAddProduct";
-import { useDeleteProduct } from "../../hooks/useDeleteProduct";
+import { TransparentText } from "../../components/Uikit/TransparentText";
 
 export function Product() {
   const {
@@ -59,83 +53,20 @@ export function Product() {
     selectSize: selectSize,
   });
 
-  const renderImages = () => {
-    if (!product.images) return;
-
-    const images = product.images.map((imageUrl, index) => {
-      if (!imageUrl.startsWith("https")) return null;
-
-      return (
-        <img
-          key={imageUrl}
-          onClick={() => setMainImage(index)}
-          src={imageUrl}
-          className="product__side-image"
-        />
-      );
-    });
-
-    return (
-      <Stack gap={2} maxWidth="600px" flexShrink="0">
-        <Stack>
-          <img
-            src={
-              product.images[mainImage].startsWith("https")
-                ? product.images[mainImage]
-                : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-            }
-            className="product__main-image"
-          />
-        </Stack>
-
-        <Stack direction="row" justifyContent="center" gap={2}>
-          {images}
-        </Stack>
-      </Stack>
-    );
-  };
-
-  const renderSizes = () => {
-    const sizeButtons = allSizes.map((size) => {
-      if (isLoading) {
-        return <Skeleton key={size} width={40} height={50} />;
-      }
-
-      return (
-        <SizeButton
-          key={size}
-          selected={size === selectSize}
-          onClick={() => setSearchParams({ size: size }, { replace: true })}
-        >
-          {size}
-        </SizeButton>
-      );
-    });
-
-    if (!sizeButtons[0]) return null;
-
-    return (
-      <Stack direction="row" spacing={1} alignItems="center">
-        <TransparentText>{isLoading ? null : "Sizes: "}</TransparentText>
-
-        {sizeButtons}
-      </Stack>
-    );
-  };
-
   return (
     <Container sx={{ my: 5, position: "relative", pt: 8 }}>
       {isError ? (
         <ErrorTypography isError={isError}>{isError}</ErrorTypography>
       ) : (
         <CardInner>
-          {isLoading ? (
-            <Skeleton width={600} height={600} variant="rounded" />
-          ) : (
-            renderImages()
-          )}
+          <SingleProductImages
+            product={product}
+            mainImage={mainImage}
+            handleMainImage={setMainImage}
+            isLoading={isLoading}
+          />
 
-          <Stack justifyContent="space-between" flexGrow={1}>
+          <CardInfo>
             <Stack spacing={3}>
               <Typography variant="h4" fontWeight="700">
                 {isLoading ? <Skeleton animation="wave" /> : product.title}
@@ -163,49 +94,32 @@ export function Product() {
                 </Stack>
               </Stack>
 
-              {renderSizes()}
+              <SingleProductSizes
+                allSizes={allSizes}
+                selectSize={selectSize}
+                isLoading={isLoading}
+                setSearchParams={setSearchParams}
+              />
 
-              <TransparentText variant="h6">
-                {isLoading ? (
-                  <Skeleton animation="wave" />
-                ) : (
-                  product.description
-                )}
+              <TransparentText variant="h6" isLoading={isLoading}>
+                {product.description}
               </TransparentText>
 
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Stack direction="row" spacing={3}>
-                  <AddButton color="secondary" onClick={handleAddToBasket}>
-                    Add to cart
-                  </AddButton>
-
-                  <IconButton
-                    onClick={
-                      !isProductInFavourite
-                        ? handleAddToFavourite
-                        : handleDeleteProductFromFavourite
-                    }
-                  >
-                    {!isProductInFavourite ? (
-                      <FavoriteBorderIcon color="secondary" fontSize="large" />
-                    ) : (
-                      <FavoriteIcon color="secondary" fontSize="large" />
-                    )}
-                  </IconButton>
-                </Stack>
-              )}
+              <SingleProductButtons
+                isLoading={isLoading}
+                isProductInFavourite={isProductInFavourite}
+                handleAddToBasket={handleAddToBasket}
+                handleAddToFavourite={handleAddToFavourite}
+                handleDeleteProductFromFavourite={
+                  handleDeleteProductFromFavourite
+                }
+              />
             </Stack>
 
-            <TransparentText>
-              {isLoading ? (
-                <Skeleton animation="wave" />
-              ) : (
-                `${peoplePurchased} people purchased`
-              )}
+            <TransparentText isLoading={isLoading}>
+              {`${peoplePurchased} people purchased`}
             </TransparentText>
-          </Stack>
+          </CardInfo>
         </CardInner>
       )}
 
