@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-import { logoutUser } from "../../../store/actions";
+import { logoutUser, switchTheme } from "../../../store/actions";
 
 export function useHeader() {
   const dispatch = useDispatch();
@@ -18,5 +18,9 @@ export function useHeader() {
     dispatch(logoutUser());
   }
 
-  return { user, userBasketSize, location, handleLogOut };
+  function handleSwitchTheme() {
+    dispatch(switchTheme());
+  }
+
+  return { user, userBasketSize, location, handleLogOut, handleSwitchTheme };
 }

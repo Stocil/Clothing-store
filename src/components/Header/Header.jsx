@@ -17,9 +17,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { HeaderColoredTitle, HeaderInner } from "./Header.styles";
 import { useHeader } from "./hooks/useHeader";
 import { SearchBar } from "../SearchBar/SearchBar";
+import { ThemeSwitch } from "../ThemeSwitch/ThemeSwitch";
 
 export function Header() {
-  const { user, userBasketSize, location, handleLogOut } = useHeader();
+  const { user, userBasketSize, location, handleLogOut, handleSwitchTheme } =
+    useHeader();
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
@@ -36,7 +38,7 @@ export function Header() {
             <SearchBar />
 
             <Stack direction="row" spacing={5} alignItems={"center"}>
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" alignItems="center" spacing={3}>
                 <Link to="/favorite">
                   <FavoriteBorderIcon />
                 </Link>
@@ -46,6 +48,8 @@ export function Header() {
                     <ShoppingBasketIcon />
                   </Badge>
                 </Link>
+
+                <ThemeSwitch onSwitch={handleSwitchTheme} />
               </Stack>
 
               {user.name ? (
