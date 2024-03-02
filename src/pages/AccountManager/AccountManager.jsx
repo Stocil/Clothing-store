@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { Container, Paper, TextField, Typography } from "@mui/material";
+import { Container, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
 
-import { PasswordField, SubmitButton } from "./AccountManager.styles";
+import {
+  AuthTipInner,
+  AuthTip,
+  PasswordField,
+  SubmitButton,
+  FieldWrapper,
+} from "./AccountManager.styles";
 import { useForm } from "./hooks/useForm";
 
 export function AccountManager() {
@@ -69,11 +75,8 @@ export function AccountManager() {
     }
 
     return (
-      <Stack direction={"row"} justifyContent={"center"} mt={2}>
-        <Typography
-          variant="body2"
-          sx={{ display: "flex", alignItems: "center", gap: "5px" }}
-        >
+      <AuthTipInner>
+        <AuthTip variant="body2">
           {text}
           <Link
             className="form__link"
@@ -82,8 +85,8 @@ export function AccountManager() {
           >
             {linkText}
           </Link>
-        </Typography>
-      </Stack>
+        </AuthTip>
+      </AuthTipInner>
     );
   };
 
@@ -190,9 +193,9 @@ export function AccountManager() {
   };
 
   return (
-    <Container sx={{ my: 12, pt: 8 }}>
+    <Container sx={{ my: { xs: 0, sm: 12 }, pt: 8 }}>
       <Stack alignItems={"center"}>
-        <Paper sx={{ p: 4, width: { sm: "450px" } }}>
+        <FieldWrapper>
           <Typography variant="h4" component={"h2"} textAlign={"center"}>
             {renderTitle()}
           </Typography>
@@ -205,7 +208,7 @@ export function AccountManager() {
           </form>
 
           {renderTip()}
-        </Paper>
+        </FieldWrapper>
       </Stack>
     </Container>
   );

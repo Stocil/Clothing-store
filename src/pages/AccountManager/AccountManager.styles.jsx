@@ -7,7 +7,10 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Paper,
+  Stack,
   Typography,
+  styled,
 } from "@mui/material";
 
 export function SubmitButton({ children }) {
@@ -71,3 +74,37 @@ export function PasswordField({
     </FormControl>
   );
 }
+
+export const FieldWrapper = styled(Paper)(({ theme }) => ({
+  [theme.breakpoints.up("xs")]: {
+    width: "80%",
+    padding: theme.spacing(3, 2),
+  },
+
+  [theme.breakpoints.up("sm")]: {
+    width: "450px",
+    padding: theme.spacing(4),
+  },
+}));
+
+export const AuthTipInner = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  justifyContent: "center",
+  textAlign: "center",
+  marginTop: theme.spacing(2),
+}));
+
+export const AuthTip = styled(Typography)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+
+  [theme.breakpoints.up("xs")]: {
+    gap: "10px",
+    flexDirection: "column",
+  },
+
+  [theme.breakpoints.up("sm")]: {
+    gap: "5px",
+    flexDirection: "row",
+  },
+}));

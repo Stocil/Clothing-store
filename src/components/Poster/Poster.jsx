@@ -14,7 +14,7 @@ export function Poster() {
 
       <img
         style={{ width: "100%", height: "400px" }}
-        src="../../../assets/poster3.jpg"
+        src="../../../assets/bg1.png"
       ></img>
     </Box>
   );
