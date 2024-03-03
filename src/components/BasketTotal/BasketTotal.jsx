@@ -26,6 +26,7 @@ export function BasketTotal({
           control={
             <Checkbox color="secondary" checked={isAgree} onClick={onAgree} />
           }
+          componentsProps={{ typography: { fontSize: { xs: 12, ss: 16 } } }}
         />
 
         <BasketBuyButton

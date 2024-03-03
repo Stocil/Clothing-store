@@ -83,7 +83,11 @@ export function Products({
   };
 
   return (
-    <Container component="div" maxWidth="lg" sx={{ mt: mt, mb: 2 }}>
+    <Container
+      component="div"
+      maxWidth="lg"
+      sx={{ mt: mt, mb: 2, px: { xs: 0, sm: 2 } }}
+    >
       {renderContent()}
     </Container>
   );

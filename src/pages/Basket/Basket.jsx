@@ -4,7 +4,7 @@ import { Products } from "../../components/Products/Products";
 import { useBasket } from "./hooks/useBasket";
 import { AlertSnackbar } from "../../components/Uikit/AlertSnackbar";
 import { Link } from "react-router-dom";
-import { BasketInner } from "./Basket.styles";
+import { BasketInner, BasketTitle } from "./Basket.styles";
 import { BasketTotal } from "../../components/BasketTotal/BasketTotal";
 
 function EmptyBasketContent({ isLogged }) {
@@ -47,12 +47,10 @@ export function Basket() {
   } = useBasket();
 
   return (
-    <Container sx={{ my: 7, pt: 8 }}>
+    <Container sx={{ my: { xs: 0, sm: 7 }, pt: 8 }}>
       {products?.length ? (
         <>
-          <Typography variant="h2" mb={2}>
-            Basket
-          </Typography>
+          <BasketTitle variant="h2">Basket</BasketTitle>
 
           <BasketInner>
             <Paper sx={{ p: 1, width: "100%" }}>

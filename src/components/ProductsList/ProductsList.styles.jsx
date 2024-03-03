@@ -9,23 +9,41 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-export const ProductItemInner = styled(Paper)({
+export const ProductItemInner = styled(Paper)(({ theme }) => ({
   padding: "20px",
   display: "flex",
   gap: "30px",
   position: "relative",
-});
+  justifyContent: "start",
+
+  [theme.breakpoints.down("lg")]: {
+    gap: "10px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    justifyContent: "space-between",
+  },
+
+  [theme.breakpoints.down("ss")]: {
+    flexDirection: "column",
+  },
+}));
 
 export const ProductImageInner = styled(Box)({
   overflow: "hidden",
   borderRadius: "20px",
   display: "flex",
+  height: "100%",
 });
 
-export const ProductInfoInner = styled(Stack)({
+export const ProductInfoInner = styled(Stack)(({ theme }) => ({
   gap: "8px",
   position: "relative",
-});
+
+  [theme.breakpoints.down("sm")]: {
+    justifyContent: "space-between",
+  },
+}));
 
 export const ProductPriceText = styled(Typography)({
   fontSize: 12,
@@ -68,13 +86,26 @@ export const ProductCategoryLabel = styled(Typography)(
     border: "1px solid",
     borderRadius: "25px",
     backgroundColor: bgcolor ? theme.palette.primary.dark : null,
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "14px",
+      padding: "3px 6px",
+    },
   })
 );
 
-export const ProductsTitleText = styled(Typography)({
+export const ProductsTitleText = styled(Typography)(({ theme }) => ({
   fontWeight: "700",
   wordWrap: "break-word",
-});
+
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "20px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "16px",
+  },
+}));
 
 export const ProductsLabelsInner = styled(Stack)({
   flexDirection: "row",

@@ -1,8 +1,9 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
+  BasketCountButton,
   BasketCountManagerInner,
   BasketCountManagerInputs,
   ProductBasketAmountInput,
@@ -18,9 +19,8 @@ export function BasketCountManager({
   return (
     <BasketCountManagerInner>
       <BasketCountManagerInputs>
-        <Button
+        <BasketCountButton
           size="small"
-          sx={{ py: "10px" }}
           disabled={product.count === 1}
           onClick={() => {
             setCount((current) => +current - 1);
@@ -28,7 +28,7 @@ export function BasketCountManager({
           }}
         >
           <RemoveIcon fontSize="small" />
-        </Button>
+        </BasketCountButton>
 
         <ProductBasketAmountInput
           count={count}
@@ -36,16 +36,15 @@ export function BasketCountManager({
           onChange={handleAddProductCount}
         />
 
-        <Button
+        <BasketCountButton
           size="small"
-          sx={{ py: "10px" }}
           onClick={() => {
             setCount((current) => +current + 1);
             handleAddProductCount({});
           }}
         >
           <AddIcon fontSize="small" />
-        </Button>
+        </BasketCountButton>
       </BasketCountManagerInputs>
 
       <IconButton size="small" onClick={handleDeleteProductFromBasket}>

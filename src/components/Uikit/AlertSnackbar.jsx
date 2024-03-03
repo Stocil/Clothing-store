@@ -11,6 +11,9 @@ export function AlertSnackbar({ handleClose, open, children, error = false }) {
         onClose={handleClose}
         severity={error ? "error" : "success"}
         variant="filled"
+        sx={{
+          m: { xs: "0 auto", sm: "auto" },
+        }}
       >
         {children}
       </Alert>
