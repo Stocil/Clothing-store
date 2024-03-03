@@ -36,14 +36,10 @@ export const ProductImageInner = styled(Box)({
   height: "100%",
 });
 
-export const ProductInfoInner = styled(Stack)(({ theme }) => ({
+export const ProductInfoInner = styled(Stack)({
   gap: "8px",
   position: "relative",
-
-  [theme.breakpoints.down("sm")]: {
-    justifyContent: "space-between",
-  },
-}));
+});
 
 export const ProductPriceText = styled(Typography)({
   fontSize: 12,
@@ -81,15 +77,13 @@ export const ProductCardButton = ({ onClick, isLoading }) => {
 
 export const ProductCategoryLabel = styled(Typography)(
   ({ bgcolor = null, theme }) => ({
-    alignSelf: "start",
     padding: "6px 12px",
     border: "1px solid",
     borderRadius: "25px",
     backgroundColor: bgcolor ? theme.palette.primary.dark : null,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("ss")]: {
       fontSize: "14px",
-      padding: "3px 6px",
     },
   })
 );
@@ -109,5 +103,6 @@ export const ProductsTitleText = styled(Typography)(({ theme }) => ({
 
 export const ProductsLabelsInner = styled(Stack)({
   flexDirection: "row",
+  alignItems: "center",
   gap: 8,
 });

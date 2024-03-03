@@ -1,6 +1,7 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
 import { useFavourite } from "./hooks/useFavourite";
 import { Products } from "../../components/Products/Products";
+import { FavouriteTitle } from "./Favourite.styles";
 
 export function Favourite() {
   const { favouriteProducts } = useFavourite();
@@ -9,9 +10,9 @@ export function Favourite() {
     <Container sx={{ pt: 8, my: 7 }}>
       {favouriteProducts?.length ? (
         <>
-          <Typography variant="h2" mb={2}>
+          <FavouriteTitle variant="h2">
             Favorite ({favouriteProducts.length})
-          </Typography>
+          </FavouriteTitle>
 
           <Paper sx={{ p: 1, width: "100%" }}>
             <Products
