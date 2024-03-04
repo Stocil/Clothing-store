@@ -27,6 +27,14 @@
   }
 }
 
+@media (max-width: 599.5px) {
+  .product {
+    &__image {
+      max-height: 350px;
+    }
+  }
+}
+
 @media (max-width: 499.5px) {
   .product {
     &__image {

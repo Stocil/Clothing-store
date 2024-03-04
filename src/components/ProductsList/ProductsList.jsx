@@ -49,7 +49,10 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
     <Grid item xs={1} display={direction === "row" ? "flex" : null}>
       <ProductItemInner
         variant="outlined"
-        sx={{ flexDirection: direction === "row" ? "column" : "row" }}
+        sx={{
+          flexDirection: direction === "row" ? "column" : "row",
+          margin: direction === "row" ? { xs: "0 20px", ss: "0" } : "0",
+        }}
       >
         <ProductImageInner>
           <Link
@@ -80,7 +83,7 @@ export function ProductsList({ product, direction, favourite, isLoading }) {
           <ProductLastSectionInner>
             <ProductsTitleText
               fontSize={direction === "row" ? "16px" : "22px"}
-              maxWidth={direction === "row" ? "250px" : null}
+              maxWidth={direction === "row" ? "calc(100% - 40px)" : null}
             >
               {product.title}
             </ProductsTitleText>

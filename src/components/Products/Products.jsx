@@ -1,9 +1,10 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
 import { ProductsList } from "../ProductsList/ProductsList.jsx";
 import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
+import { GridWrapper } from "./Products.styles.jsx";
 
 export function Products({
   products = [],
@@ -75,9 +76,13 @@ export function Products({
           </Typography>
         ) : null}
 
-        <Grid container spacing={5} columns={direction === "row" ? 3 : 1}>
+        <GridWrapper
+          container
+          spacing={5}
+          columns={direction === "row" ? { xs: 1, sm: 2, md: 3 } : 1}
+        >
           {content}
-        </Grid>
+        </GridWrapper>
       </>
     );
   };

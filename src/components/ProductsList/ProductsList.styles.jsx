@@ -33,7 +33,6 @@ export const ProductImageInner = styled(Box)({
   overflow: "hidden",
   borderRadius: "20px",
   display: "flex",
-  height: "100%",
 });
 
 export const ProductInfoInner = styled(Stack)({
