@@ -6,8 +6,10 @@ export function Poster() {
       <Typography
         variant="h1"
         position="absolute"
-        top="150px"
-        left="calc(50% - 250px);"
+        sx={{ transform: { xs: "translateX(-50%)", sm: "none" } }}
+        top={{ xs: "240px", sm: "150px" }}
+        left={{ xs: "55%", sm: "calc(50% - 250px)" }}
+        fontSize={{ xs: "4rem", ss: "5rem", sm: "6rem" }}
       >
         Spark store
       </Typography>
