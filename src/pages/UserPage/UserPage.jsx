@@ -7,6 +7,7 @@ import { useUserpage } from "./hooks/useUserpage";
 import { SubmitButton } from "../AccountManager/AccountManager.styles";
 import { ProductSectionInner } from "../../components/Uikit/ProductSectionInner";
 import { Products } from "../../components/Products/Products";
+import { UserInfoWrapper } from "./UserPage.styles";
 
 export function UserPage() {
   const [usernameHelperText, setUsernameHelperText] = useState(false);
@@ -28,7 +29,7 @@ export function UserPage() {
 
   return (
     <Container sx={{ my: 7, pt: 8 }}>
-      <Stack direction="row" justifyContent="space-between">
+      <UserInfoWrapper>
         <img className="user__avatar" src={userAvatar}></img>
 
         <form className="user__form" onSubmit={handleSubmitForm}>
@@ -93,7 +94,7 @@ export function UserPage() {
             </Button>
           </Stack>
         </form>
-      </Stack>
+      </UserInfoWrapper>
 
       <ProductSectionInner variant="outlined" sx={{ mt: 15 }}>
         <Products

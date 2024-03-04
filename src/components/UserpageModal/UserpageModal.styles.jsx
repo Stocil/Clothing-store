@@ -35,4 +35,13 @@ export const ModalInner = styled(Stack)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   gap: 40,
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 0,
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));

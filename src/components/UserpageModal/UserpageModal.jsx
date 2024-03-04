@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Button, Modal, Stack, Typography } from "@mui/material";
-import { UiPasswordButton } from "../Uikit/UiPasswordButton";
+import { Button, IconButton, Modal, Stack, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
+import { UiPasswordButton } from "../Uikit/UiPasswordButton";
 import { BorderLinearProgress, ModalInner } from "./UserpageModal.styles";
 
 export function UserpageModal({ isOpen, handleClose, onSubmit }) {
@@ -102,7 +103,14 @@ export function UserpageModal({ isOpen, handleClose, onSubmit }) {
       onClose={() => handleCloseModal()}
     >
       <ModalInner>
-        <Stack alignItems="center" spacing={2}>
+        <Stack alignItems="center" spacing={2} position="relative">
+          <IconButton
+            onClick={handleCloseModal}
+            sx={{ position: "absolute", right: 0, padding: 0 }}
+          >
+            <CloseIcon fontSize="large" />
+          </IconButton>
+
           <Typography variant="h6" component="h2" textAlign="center">
             {stage}/2
           </Typography>

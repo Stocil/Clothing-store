@@ -67,6 +67,7 @@ export function Theme({ children }) {
         xs: 0,
         ss: 500,
         sm: 600,
+        big: 700,
         md: 900,
         lg: 1200,
         xl: 1536,
