@@ -1,0 +1,10 @@
+.poster__image {
+  width: 100%;
+  height: 400px;
+}
+
+@media (max-width: 599.5px) {
+  .poster__image {
+    height: 250px;
+  }
+}
