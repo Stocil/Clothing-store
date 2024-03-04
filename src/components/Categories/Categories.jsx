@@ -8,6 +8,7 @@ import { getCategories } from "../../store/asyncActions/categories";
 import {
   CategoriesInner,
   CategoryInner,
+  CategoryTitle,
   LoadingCategory,
 } from "./Categories.styles";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
@@ -32,7 +33,11 @@ export function Categories() {
           to={`/categories/${category.id}`}
         >
           <CategoryInner>
-            <Typography variant="h6" component="p">
+            <Typography
+              variant="h6"
+              component="p"
+              fontSize={{ xs: "1rem", ss: "1.25rem" }}
+            >
               {category.name}
             </Typography>
           </CategoryInner>
@@ -58,9 +63,7 @@ export function Categories() {
   return (
     <>
       <Container sx={{ mt: 10 }}>
-        <Typography variant="h3" fontWeight={700} textAlign="center">
-          Categories
-        </Typography>
+        <CategoryTitle variant="h3">Categories</CategoryTitle>
 
         <CategoriesInner>
           {isError ? (

@@ -5,8 +5,8 @@ export const ProductsTitle = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2, 0),
   textAlign: "center",
 
-  [theme.breakpoints.down("xs")]: {
-    fontSize: theme.typography.h3.fontSize,
+  [theme.breakpoints.down("ss")]: {
+    fontSize: theme.typography.h4.fontSize,
   },
 }));
 

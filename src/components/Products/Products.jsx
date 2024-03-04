@@ -1,10 +1,10 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
 import { ProductsList } from "../ProductsList/ProductsList.jsx";
 import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
-import { GridWrapper } from "./Products.styles.jsx";
+import { GridWrapper, ProductsTitle } from "./Products.styles.jsx";
 
 export function Products({
   products = [],
@@ -70,11 +70,7 @@ export function Products({
 
     return (
       <>
-        {title ? (
-          <Typography fontWeight="700" variant="h3" py={2} textAlign="center">
-            {title}
-          </Typography>
-        ) : null}
+        {title ? <ProductsTitle variant="h3">{title}</ProductsTitle> : null}
 
         <GridWrapper
           container

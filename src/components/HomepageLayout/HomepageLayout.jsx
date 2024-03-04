@@ -7,7 +7,7 @@ export function HomepageLayout() {
   return (
     <>
       <Poster />
-      {/* <Categories /> */}
+      <Categories />
 
       <Outlet />
 

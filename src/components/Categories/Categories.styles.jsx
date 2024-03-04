@@ -1,4 +1,13 @@
-import { Skeleton, Stack, styled } from "@mui/material";
+import { Skeleton, Stack, Typography, styled } from "@mui/material";
+
+export const CategoryTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: "700",
+  textAlign: "center",
+
+  [theme.breakpoints.down("ss")]: {
+    fontSize: "2.5rem",
+  },
+}));
 
 export const CategoryInner = styled(Stack)(({ theme }) => ({
   cursor: "pointer",
@@ -13,6 +22,25 @@ export const CategoryInner = styled(Stack)(({ theme }) => ({
   transition: `background-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut}`,
   "&:hover": {
     backgroundColor: theme.palette.secondary.main,
+  },
+
+  [theme.breakpoints.down("lg")]: {
+    width: "135px",
+    height: "135px",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "250px",
+    height: "120px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    width: "200px",
+  },
+
+  [theme.breakpoints.down("ss")]: {
+    width: "280px",
+    height: "50px",
   },
 }));
 
@@ -36,4 +64,9 @@ export const CategoriesInner = styled(Stack)(({ theme }) => ({
   borderTop: `2px solid ${theme.palette.primary.dark}`,
   borderBottom: `2px solid ${theme.palette.primary.dark}`,
   padding: "50px 0",
+
+  [theme.breakpoints.down("md")]: {
+    flexWrap: "wrap",
+    gap: theme.spacing(2),
+  },
 }));

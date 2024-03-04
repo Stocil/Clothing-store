@@ -31,3 +31,14 @@
   border-radius: 5px;
   background-color: #ab47bc;
 }
+
+@media (max-width: 400px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper__image {
+    height: 200px;
+  }
+}
