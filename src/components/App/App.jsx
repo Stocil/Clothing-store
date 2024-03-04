@@ -8,7 +8,7 @@ function App() {
     <>
       {/* <Header /> */}
 
-      <Box component="main">
+      <Box component="main" className="main">
         <AppRoutes />
       </Box>
     </>

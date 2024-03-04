@@ -3,6 +3,9 @@ import { Skeleton, Stack, Typography, styled } from "@mui/material";
 export const CategoryTitle = styled(Typography)(({ theme }) => ({
   fontWeight: "700",
   textAlign: "center",
+  background: `linear-gradient(130deg, ${theme.palette.primary.dark} 40%, #fa4d88 60%)`,
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
 
   [theme.breakpoints.down("ss")]: {
     fontSize: "2.5rem",

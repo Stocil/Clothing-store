@@ -37,7 +37,8 @@ export function Theme({ children }) {
           }),
     },
     typography: {
-      fontFamily: "'Quicksand', sans-serif",
+      // fontFamily: "'Quicksand', sans-serif",
+      fontFamily: "'Inter', sans-serif",
     },
     shape: {
       borderRadius: 10,
