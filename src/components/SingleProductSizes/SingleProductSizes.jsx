@@ -27,10 +27,16 @@ export function SingleProductSizes({
   if (!sizeButtons[0]) return null;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack
+      direction={{ xs: "column", ss: "row" }}
+      spacing={1}
+      alignItems={{ xs: "start", ss: "center" }}
+    >
       <TransparentText>{isLoading ? null : "Sizes: "}</TransparentText>
 
-      {sizeButtons}
+      <Stack direction="row" spacing={1}>
+        {sizeButtons}
+      </Stack>
     </Stack>
   );
 }

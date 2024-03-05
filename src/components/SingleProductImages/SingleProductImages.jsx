@@ -1,4 +1,5 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton } from "@mui/material";
+import { ImagesInner, SideImagesInner } from "./SingleProductImages.styles";
 
 export function SingleProductImages({
   product,
@@ -20,27 +21,32 @@ export function SingleProductImages({
         key={imageUrl}
         onClick={() => handleMainImage(index)}
         src={imageUrl}
+        // src="https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
         className="product__side-image"
       />
     );
   });
 
-  return (
-    <Stack gap={2} maxWidth="600px" flexShrink="0">
-      <Stack>
-        <img
-          src={
-            product.images[mainImage].startsWith("https")
-              ? product.images[mainImage]
-              : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-          }
-          className="product__main-image"
-        />
-      </Stack>
+  // images.unshift(
+  //   <img
+  //     key={"1"}
+  //     src="https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+  //     className="product__side-image"
+  //   />
+  // );
 
-      <Stack direction="row" justifyContent="center" gap={2}>
-        {images}
-      </Stack>
-    </Stack>
+  return (
+    <ImagesInner>
+      <img
+        src={
+          product.images[mainImage].startsWith("https")
+            ? product.images[mainImage]
+            : "https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
+        }
+        className="product__main-image"
+      />
+
+      <SideImagesInner>{images}</SideImagesInner>
+    </ImagesInner>
   );
 }

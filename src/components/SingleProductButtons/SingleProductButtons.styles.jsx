@@ -9,7 +9,7 @@ export const AddButton = ({ children, color, onClick }) => {
 
   return (
     <StyledAddButton
-      variant="contained"
+      variant="gradient-dark"
       size="large"
       color={color}
       onClick={onClick}

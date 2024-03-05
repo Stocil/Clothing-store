@@ -52,6 +52,23 @@ export function Theme({ children }) {
         },
       },
       MuiButton: {
+        variants: [
+          {
+            props: { variant: "gradient-dark" },
+            style: {
+              backgroundImage:
+                "linear-gradient(to right, #ab47bc 0%, #bfe9ff  51%, #ab47bc  100%)",
+              transition: "0.5s",
+              backgroundSize: "200% auto",
+              boxShadow: "0 0 10px #eee",
+              padding: "4px 10px",
+
+              ":hover": {
+                backgroundPosition: "right center",
+              },
+            },
+          },
+        ],
         defaultProps: {
           variant: "contained",
         },

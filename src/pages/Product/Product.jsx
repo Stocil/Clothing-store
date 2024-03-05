@@ -10,6 +10,8 @@ import {
   CardInner,
   ErrorTypography,
   GoBackButton,
+  ProductPriceTypography,
+  ProductTitle,
 } from "./Product.styles";
 import { Products } from "../../components/Products/Products";
 import { SingleProductImages } from "../../components/SingleProductImages/SingleProductImages";
@@ -68,14 +70,14 @@ export function Product() {
 
           <CardInfo>
             <Stack spacing={3}>
-              <Typography variant="h4" fontWeight="700">
+              <ProductTitle variant="h4">
                 {isLoading ? <Skeleton animation="wave" /> : product.title}
-              </Typography>
+              </ProductTitle>
 
               <Stack>
-                <Typography variant="h6" component="p" sx={{ opacity: 0.6 }}>
+                <ProductPriceTypography variant="h6" component="p">
                   {isLoading ? <Skeleton animation="wave" /> : "Price"}
-                </Typography>
+                </ProductPriceTypography>
 
                 <Stack direction="row" spacing={2} alignItems="end">
                   {newPrice ? (

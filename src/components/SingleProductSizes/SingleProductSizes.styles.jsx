@@ -12,7 +12,8 @@ export const SizeButton = ({ onClick, selected, children }) => {
     <StyledSizeButton
       color={color}
       size="small"
-      variant="contained"
+      variant={selected ? "gradient-dark" : "contained"}
+      // variant="contained"
       onClick={onClick}
     >
       {children}
