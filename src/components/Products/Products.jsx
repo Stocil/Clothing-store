@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { ErrorMessage } from "../Uikit/ErrorMessage";
 import { getSale } from "../../utils/getSale.js";
 import { ProductsList } from "../ProductsList/ProductsList.jsx";
-import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
+import { LoadingProduct } from "../Uikit/LoadingProduct/LoadingProduct.jsx";
 import { GridWrapper, ProductsTitle } from "./Products.styles.jsx";
 
 export function Products({

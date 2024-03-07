@@ -1,4 +1,4 @@
-import { Stack, styled } from "@mui/material";
+import { Skeleton, Stack, styled } from "@mui/material";
 
 export const ImagesInner = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(2),
@@ -45,5 +45,25 @@ export const SideImagesInner = styled(Stack)(({ theme }) => ({
 
   [theme.breakpoints.down("ss")]: {
     flexDirection: "row",
+  },
+}));
+
+export const LoadingMainImage = styled(Skeleton)(({ theme }) => ({
+  width: 600,
+  height: 600,
+
+  [theme.breakpoints.down("md")]: {
+    width: 500,
+    height: 500,
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    width: 400,
+    height: 400,
+  },
+
+  [theme.breakpoints.down("ss")]: {
+    width: 230,
+    height: 230,
   },
 }));

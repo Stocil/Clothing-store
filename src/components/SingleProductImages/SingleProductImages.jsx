@@ -1,5 +1,8 @@
-import { Skeleton } from "@mui/material";
-import { ImagesInner, SideImagesInner } from "./SingleProductImages.styles";
+import {
+  ImagesInner,
+  LoadingMainImage,
+  SideImagesInner,
+} from "./SingleProductImages.styles";
 
 export function SingleProductImages({
   product,
@@ -8,7 +11,7 @@ export function SingleProductImages({
   isLoading,
 }) {
   if (isLoading) {
-    return <Skeleton width={600} height={600} variant="rounded" />;
+    return <LoadingMainImage variant="rounded" />;
   }
 
   if (!product.images) return;
@@ -21,19 +24,10 @@ export function SingleProductImages({
         key={imageUrl}
         onClick={() => handleMainImage(index)}
         src={imageUrl}
-        // src="https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
         className="product__side-image"
       />
     );
   });
-
-  // images.unshift(
-  //   <img
-  //     key={"1"}
-  //     src="https://uhdpapers.com/wp-content/uploads/2018/01/blur1-1024x576.png"
-  //     className="product__side-image"
-  //   />
-  // );
 
   return (
     <ImagesInner>

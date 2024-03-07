@@ -1,4 +1,11 @@
-import { IconButton, Paper, Stack, Typography, styled } from "@mui/material";
+import {
+  IconButton,
+  Paper,
+  Skeleton,
+  Stack,
+  Typography,
+  styled,
+} from "@mui/material";
 
 export const ErrorTypography = ({ isError, children }) => {
   return (
@@ -58,13 +65,15 @@ export const GoBackButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-export const CardInfo = styled(Stack)({
+export const CardInfo = styled(Stack)(({ theme }) => ({
   justifyContent: "space-between",
   flexGrow: 1,
   gap: "24px",
 
-  width: "100%",
-});
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+  },
+}));
 
 export const ProductTitle = styled(Typography)(({ theme }) => ({
   fontWeight: "700",
@@ -86,3 +95,7 @@ export const ProductPriceTypography = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.body1.fontSize,
   },
 }));
+
+export const ProductLoadingTitle = styled(Skeleton)({
+  width: "90%",
+});

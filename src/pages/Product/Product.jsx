@@ -10,6 +10,7 @@ import {
   CardInner,
   ErrorTypography,
   GoBackButton,
+  ProductLoadingTitle,
   ProductPriceTypography,
   ProductTitle,
 } from "./Product.styles";
@@ -71,7 +72,11 @@ export function Product() {
           <CardInfo>
             <Stack spacing={3}>
               <ProductTitle variant="h4">
-                {isLoading ? <Skeleton animation="wave" /> : product.title}
+                {isLoading ? (
+                  <ProductLoadingTitle animation="wave" />
+                ) : (
+                  product.title
+                )}
               </ProductTitle>
 
               <Stack>
