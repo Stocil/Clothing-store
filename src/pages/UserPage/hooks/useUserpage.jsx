@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../store/actions";
 
@@ -26,7 +26,9 @@ export function useUserpage(setModalOpen) {
     (state) => state.currentUser.recentProducts
   );
 
-  productsData.products = getProductsByIds(products, recentProductsList);
+  productsData.products = useMemo(() => {
+    return getProductsByIds(products, recentProductsList);
+  }, [products, recentProductsList]);
   const recentProductsMaxPage = Math.ceil(productsData.products.length / 3);
 
   useEffect(() => {
@@ -43,10 +45,8 @@ export function useUserpage(setModalOpen) {
   }
 
   function handleChangeRecentProductsPage() {
-    setSearchParams(
-      { recentProductsPage: +recentProductsPage + 1 },
-      { replace: true }
-    );
+    searchParams.set("recentProductsPage", +recentProductsPage + 1);
+    setSearchParams(searchParams, { replace: true });
   }
 
   return {

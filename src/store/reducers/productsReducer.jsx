@@ -74,6 +74,7 @@ export function productsReducer(state = initialState, action) {
     case GET_PART_OF_PRODUCTS: {
       return {
         ...state,
+        products: [],
         loading: true,
         error: false,
         productsOver: false,

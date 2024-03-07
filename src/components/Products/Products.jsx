@@ -5,6 +5,7 @@ import { getSale } from "../../utils/getSale.js";
 import { ProductsList } from "../ProductsList/ProductsList.jsx";
 import { LoadingProduct } from "../Uikit/LoadingProduct/LoadingProduct.jsx";
 import { GridWrapper, ProductsTitle } from "./Products.styles.jsx";
+import { useMemo } from "react";
 
 export function Products({
   products = [],
@@ -18,35 +19,40 @@ export function Products({
   sales = true,
   favourite = false,
 }) {
-  const sortedProducts = products
-    .map((product, index) => {
-      if (maxProduct && index >= maxProduct) {
-        return null;
+  // Memo for static sales
+  const sortedProducts = useMemo(() => {
+    return products
+      .map((product, index) => {
+        if (maxProduct && index >= maxProduct) {
+          return null;
+        }
+
+        return product;
+      })
+      .filter((product) => product);
+  }, [products, maxProduct]);
+
+  const sortedProductsWithSales = useMemo(() => {
+    return sales ? getSale(sortedProducts) : sortedProducts;
+  }, [sortedProducts, sales]);
+
+  const productsList = useMemo(() => {
+    return sortedProductsWithSales.map((product) => {
+      if (product.title?.length > 29) {
+        product.title = product.title.substr(0, 26) + "...";
       }
 
-      return product;
-    })
-    .filter((product) => product);
-
-  const sortedProductsWithSales = sales
-    ? getSale(sortedProducts)
-    : sortedProducts;
-
-  const productsList = sortedProductsWithSales.map((product) => {
-    if (product.title?.length > 29) {
-      product.title = product.title.substr(0, 26) + "...";
-    }
-
-    return (
-      <ProductsList
-        key={product.size ? product.size + product.id : product.id}
-        product={product}
-        direction={direction}
-        favourite={favourite}
-        isLoading={isLoading}
-      />
-    );
-  });
+      return (
+        <ProductsList
+          key={product.size ? product.size + product.id : product.id}
+          product={product}
+          direction={direction}
+          favourite={favourite}
+          isLoading={isLoading}
+        />
+      );
+    });
+  }, [sortedProductsWithSales, direction, favourite, isLoading]);
 
   const renderContent = () => {
     let content;
