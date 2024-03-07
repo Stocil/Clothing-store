@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
@@ -12,6 +12,7 @@ import { useUpdateRecentProducts } from "../../../hooks/useUpdateRecentProducts.
 
 export function useProduct() {
   const { id } = useParams();
+  const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
   const product = useSelector((state) => state.products.oneProduct);
@@ -19,9 +20,11 @@ export function useProduct() {
   const isLoading = useSelector((state) => state.products.loading);
 
   const products = useSelector((state) => state.products.products);
-  const worthSeeingProducts = getShuffledArray(products).filter((product) => {
-    if (product.id !== +id) return product;
-  });
+  const worthSeeingProducts = useMemo(() => {
+    return getShuffledArray(products).filter((product) => {
+      if (product.id !== +id) return product;
+    });
+  }, [products, id]);
 
   const [newPrice] = useState(useLocation().state?.newPrice);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,6 +53,7 @@ export function useProduct() {
   useUpdateRecentProducts(id);
 
   return {
+    theme,
     product,
     isError,
     isLoading,
