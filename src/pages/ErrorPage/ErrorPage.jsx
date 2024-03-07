@@ -1,30 +1,30 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { Link } from "react-router-dom";
-import { ErrorNumbers } from "./ErrorPage.styles";
+import {
+  ErrorInner,
+  ErrorNumbers,
+  ErrorNumbersInner,
+  ErrorTitle,
+} from "./ErrorPage.styles";
 
 export function ErrorPage() {
   return (
-    <Container sx={{ pt: 8 }}>
-      <Stack alignItems="center" gap={5}>
-        <Typography
-          variant="h2"
-          sx={{ mt: 5, textAlign: "center", fontWeight: "700" }}
-        >
-          The page was not found
-        </Typography>
+    <Container sx={{ pt: { xs: 0, sm: 8 } }}>
+      <ErrorInner>
+        <ErrorTitle variant="h2">The page was not found</ErrorTitle>
 
-        <Stack direction="row" justifyContent="center" spacing={12}>
+        <ErrorNumbersInner>
           <ErrorNumbers className="error__numbers">4</ErrorNumbers>
           <ErrorNumbers className="error__numbers">0</ErrorNumbers>
           <ErrorNumbers className="error__numbers">4</ErrorNumbers>
-        </Stack>
+        </ErrorNumbersInner>
 
         <Link to="/">
-          <Button color="secondary" sx={{ fontSize: "24px" }}>
+          <Button variant="gradient-dark" sx={{ fontSize: "24px" }}>
             Home
           </Button>
         </Link>
-      </Stack>
+      </ErrorInner>
     </Container>
   );
 }
