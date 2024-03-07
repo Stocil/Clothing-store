@@ -6,7 +6,7 @@ import { AppRoutes } from "../Routes/Routes";
 function App() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
 
       <Box component="main" className="main">
         <AppRoutes />

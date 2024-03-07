@@ -25,11 +25,13 @@ export function useCategory() {
   }, [dispatch, id, currentOffset]);
 
   function handleNextPage() {
-    setSearchParams({ offset: currentOffset + 6 }, { replace: true });
+    searchParams.set("offset", currentOffset + 6);
+    setSearchParams(searchParams, { replace: true });
   }
 
   function handlePreviousPage() {
-    setSearchParams({ offset: currentOffset - 6 }, { replace: true });
+    searchParams.set("offset", currentOffset - 6);
+    setSearchParams(searchParams, { replace: true });
   }
 
   return {

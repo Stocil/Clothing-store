@@ -14,7 +14,7 @@ export function SearchBar() {
     searchValue,
     searchOpen,
     searchProducts,
-    setSearchParams,
+    handleChangeSearchValue,
     setSearchOpen,
     searchProductsIsLoading,
   } = useSearchBar();
@@ -23,7 +23,7 @@ export function SearchBar() {
     <Box position="relative">
       <SearchBarInput
         value={searchValue}
-        onChange={setSearchParams}
+        onChange={handleChangeSearchValue}
         toggleOpenSearchRes={setSearchOpen}
       />
 

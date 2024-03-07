@@ -51,9 +51,7 @@ export function SearchBarInput({ onChange, value, toggleOpenSearchRes }) {
       </SearchIconWrapper>
       <StyledInputBase
         value={value || ""}
-        onChange={(e) =>
-          onChange({ search: e.target.value }, { replace: true })
-        }
+        onChange={(e) => onChange(e.target.value)}
         onFocus={() => toggleOpenSearchRes(true)}
         onBlur={() => setTimeout(() => toggleOpenSearchRes(false), 100)}
         placeholder="Search for anything..."

@@ -8,7 +8,7 @@ export function useSearchBar() {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchValue = searchParams.get("search");
+  const searchValue = searchParams.get("search") || "";
 
   const searchProducts =
     useSelector((state) => state.products.searchProducts).filter(
@@ -22,12 +22,17 @@ export function useSearchBar() {
     dispatch(getSearchProducts(searchValue));
   }, [dispatch, searchValue]);
 
+  function handleChangeSearchValue(value) {
+    searchParams.set("search", value);
+    setSearchParams(searchParams, { replace: true });
+  }
+
   return {
     searchValue,
     searchOpen,
     searchProducts,
-    setSearchParams,
     setSearchOpen,
     searchProductsIsLoading,
+    handleChangeSearchValue,
   };
 }
