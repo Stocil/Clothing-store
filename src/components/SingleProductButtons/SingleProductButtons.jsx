@@ -10,6 +10,7 @@ export function SingleProductButtons({
   handleAddToBasket,
   handleAddToFavourite,
   handleDeleteProductFromFavourite,
+  theme = "light",
 }) {
   if (isLoading) {
     return <Skeleton width={150} height={70} />;
@@ -17,7 +18,7 @@ export function SingleProductButtons({
 
   return (
     <Stack direction="row" spacing={3}>
-      <AddButton color="secondary" onClick={handleAddToBasket}>
+      <AddButton color="secondary" onClick={handleAddToBasket} theme={theme}>
         Add to cart
       </AddButton>
 

@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import { purple, red } from "@mui/material/colors";
+import { pink, purple } from "@mui/material/colors";
 
 export function Theme({ children }) {
   const mode = useSelector((state) => state.theme);
@@ -24,20 +24,19 @@ export function Theme({ children }) {
           }
         : {
             primary: {
-              main: red[100],
-              dark: red[400],
+              main: pink[100],
+              dark: pink[200],
             },
             secondary: {
-              main: red[500],
+              main: pink[300],
             },
             background: {
-              default: red[100],
-              paper: red[50],
+              default: "rgb(246,246,246)",
+              paper: pink[50],
             },
           }),
     },
     typography: {
-      // fontFamily: "'Quicksand', sans-serif",
       fontFamily: "'Inter', sans-serif",
     },
     shape: {
@@ -61,6 +60,22 @@ export function Theme({ children }) {
               transition: "0.5s",
               backgroundSize: "200% auto",
               boxShadow: "0 0 10px #eee",
+              padding: "4px 10px",
+
+              ":hover": {
+                backgroundPosition: "right center",
+              },
+            },
+          },
+
+          {
+            props: { variant: "gradient-light" },
+            style: {
+              backgroundImage:
+                "linear-gradient(to right, #f06292 0%, #bfe9ff  51%, #f06292  100%)",
+              transition: "0.5s",
+              backgroundSize: "200% auto",
+              boxShadow: "0 0 10px #ef7bd3",
               padding: "4px 10px",
 
               ":hover": {

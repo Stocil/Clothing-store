@@ -1,6 +1,6 @@
 import { Button, styled } from "@mui/material";
 
-export const AddButton = ({ children, color, onClick }) => {
+export const AddButton = ({ children, color, onClick, theme = "light" }) => {
   const StyledAddButton = styled(Button)({
     textTransform: "none",
     fontWeight: "700",
@@ -9,7 +9,7 @@ export const AddButton = ({ children, color, onClick }) => {
 
   return (
     <StyledAddButton
-      variant="gradient-dark"
+      variant={theme === "dark" ? "gradient-dark" : "gradient-light"}
       size="large"
       color={color}
       onClick={onClick}

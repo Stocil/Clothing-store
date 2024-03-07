@@ -16,6 +16,8 @@ import { ErrorMessage } from "../Uikit/ErrorMessage";
 export function Categories() {
   const dispatch = useDispatch();
 
+  const theme = useSelector((state) => state.theme);
+
   const categoryList = useSelector((state) => state.categories.categories);
   const isError = useSelector((state) => state.categories.error);
   const isLoading = useSelector((state) => state.categories.loading);
@@ -28,6 +30,7 @@ export function Categories() {
     if (index < 5) {
       return (
         <NavLink
+          data-theme={theme}
           className="category__link"
           key={category.id}
           to={`/categories/${category.id}`}

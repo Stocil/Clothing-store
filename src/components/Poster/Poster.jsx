@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export function Poster() {
+  const theme = useSelector((state) => state.theme);
+
   return (
     <Box component="section" position="relative">
       <Typography
@@ -14,7 +17,11 @@ export function Poster() {
         Spark store
       </Typography>
 
-      <img className="poster__image" src="../../../assets/bg1.png"></img>
+      {theme === "dark" ? (
+        <img className="poster__image" src="../../../assets/bg1.png"></img>
+      ) : (
+        <img className="poster__image" src="../../../assets/poster_light.jpg" />
+      )}
     </Box>
   );
 }

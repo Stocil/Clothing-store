@@ -25,6 +25,7 @@ import { TransparentText } from "../../components/Uikit/TransparentText";
 
 export function Product() {
   const {
+    theme,
     product,
     isError,
     isLoading,
@@ -102,6 +103,7 @@ export function Product() {
               </Stack>
 
               <SingleProductSizes
+                theme={theme}
                 allSizes={allSizes}
                 selectSize={selectSize}
                 isLoading={isLoading}
@@ -113,6 +115,7 @@ export function Product() {
               </TransparentText>
 
               <SingleProductButtons
+                theme={theme}
                 isLoading={isLoading}
                 isProductInFavourite={isProductInFavourite}
                 handleAddToBasket={handleAddToBasket}

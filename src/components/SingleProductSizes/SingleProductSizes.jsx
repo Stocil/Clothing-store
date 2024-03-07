@@ -3,6 +3,7 @@ import { SizeButton } from "./SingleProductSizes.styles";
 import { TransparentText } from "../Uikit/TransparentText";
 
 export function SingleProductSizes({
+  theme = "light",
   allSizes,
   selectSize,
   isLoading,
@@ -15,6 +16,7 @@ export function SingleProductSizes({
 
     return (
       <SizeButton
+        theme={theme}
         key={size}
         selected={size === selectSize}
         onClick={() => setSearchParams({ size: size }, { replace: true })}

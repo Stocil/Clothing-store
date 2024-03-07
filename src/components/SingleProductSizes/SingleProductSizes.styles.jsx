@@ -1,7 +1,8 @@
 import { Button, styled } from "@mui/material";
 
-export const SizeButton = ({ onClick, selected, children }) => {
+export const SizeButton = ({ theme, onClick, selected, children }) => {
   const color = selected ? "secondary" : "primary";
+  const variant = theme === "dark" ? "gradient-dark" : "gradient-light";
 
   const StyledSizeButton = styled(Button)({
     minWidth: "40px",
@@ -12,8 +13,7 @@ export const SizeButton = ({ onClick, selected, children }) => {
     <StyledSizeButton
       color={color}
       size="small"
-      variant={selected ? "gradient-dark" : "contained"}
-      // variant="contained"
+      variant={selected ? variant : "contained"}
       onClick={onClick}
     >
       {children}
