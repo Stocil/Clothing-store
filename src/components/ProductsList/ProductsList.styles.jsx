@@ -17,11 +17,16 @@ export const ProductItemInner = styled(Paper)(({ theme }) => ({
   justifyContent: "start",
 
   [theme.breakpoints.down("lg")]: {
-    gap: "10px",
+    minHeight: "540px",
+  },
+
+  [theme.breakpoints.down("big")]: {
+    minHeight: "480px",
   },
 
   [theme.breakpoints.down("sm")]: {
     justifyContent: "space-between",
+    minHeight: "unset",
   },
 
   [theme.breakpoints.down("ss")]: {

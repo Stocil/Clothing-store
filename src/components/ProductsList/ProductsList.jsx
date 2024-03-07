@@ -18,7 +18,7 @@ import { SalePriceText } from "../Uikit/SalePriceText";
 import { useAddProduct } from "../../hooks/useAddProduct.jsx";
 import { AlertSnackbar } from "../Uikit/AlertSnackbar.jsx";
 import { useDeleteProduct } from "../../hooks/useDeleteProduct.jsx";
-import { LoadingProduct } from "../Uikit/LoadingProduct.jsx";
+import { LoadingProduct } from "../Uikit/LoadingProduct/LoadingProduct.jsx";
 import { BasketCountManager } from "../BasketInputs/BasketInputs.jsx";
 
 export function ProductsList({ product, direction, favourite, isLoading }) {

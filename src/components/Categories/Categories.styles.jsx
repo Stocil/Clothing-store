@@ -21,12 +21,10 @@ export const CategoryInner = styled(Stack)(({ theme }) => ({
   width: "150px",
   height: "150px",
   textAlign: "center",
-  background: `repeating-linear-gradient( 45deg, ${theme.palette.primary.dark}, ${theme.palette.primary.dark} 10px, #251f33 10px, #251f33 20px)`,
 
   transition: `background-color ${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut}`,
   "&:hover": {
-    // backgroundColor: theme.palette.secondary.main,
-    background: `repeating-linear-gradient( 45deg, #000000, #000000 10px, #251f33 10px, #251f33 20px)`,
+    backgroundColor: theme.palette.secondary.main,
   },
 
   [theme.breakpoints.down("lg")]: {
