@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { logoutUser, switchTheme } from "../../../store/actions";
+import { useState } from "react";
 
 export function useHeader() {
   const dispatch = useDispatch();
@@ -13,6 +14,12 @@ export function useHeader() {
   user.basket?.map((product) => {
     userBasketSize += product.count;
   });
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function handleToggleMenu() {
+    setMenuOpen((current) => !current);
+  }
 
   function handleLogOut() {
     localStorage.removeItem("currentUser");
@@ -30,5 +37,7 @@ export function useHeader() {
     theme,
     handleLogOut,
     handleSwitchTheme,
+    menuOpen,
+    handleToggleMenu,
   };
 }

@@ -2,22 +2,30 @@ import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {
   Badge,
-  Box,
   Button,
   Container,
+  Hidden,
   IconButton,
   Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import { HeaderColoredTitle, HeaderInner } from "./Header.styles";
+import {
+  HeaderColoredTitle,
+  HeaderIconsInner,
+  HeaderImageInner,
+  HeaderInner,
+  HeaderTitleInner,
+} from "./Header.styles";
 import { useHeader } from "./hooks/useHeader";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ThemeSwitch } from "../ThemeSwitch/ThemeSwitch";
+import { HeaderBurger } from "../HeaderBurger/HeaderBurger";
 
 export function Header() {
   const {
@@ -27,24 +35,32 @@ export function Header() {
     theme,
     handleLogOut,
     handleSwitchTheme,
+    menuOpen,
+    handleToggleMenu,
   } = useHeader();
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
       <Container>
         <Toolbar disableGutters>
+          <Hidden mdUp>
+            <IconButton size="large" color="inherit" onClick={handleToggleMenu}>
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
+
           <HeaderInner>
             <Link to="/">
-              <Box fontWeight="700" fontSize="40px">
+              <HeaderTitleInner display={{ xs: "none", md: "block" }}>
                 Spark
                 <HeaderColoredTitle>{" store"}</HeaderColoredTitle>
-              </Box>
+              </HeaderTitleInner>
             </Link>
 
             <SearchBar />
 
             <Stack direction="row" spacing={5} alignItems={"center"}>
-              <Stack direction="row" alignItems="center" spacing={3}>
+              <HeaderIconsInner display={{ xs: "none", md: "flex" }}>
                 <Link to="/favorite">
                   <FavoriteBorderIcon />
                 </Link>
@@ -56,12 +72,12 @@ export function Header() {
                 </Link>
 
                 <ThemeSwitch onSwitch={handleSwitchTheme} theme={theme} />
-              </Stack>
+              </HeaderIconsInner>
 
               {user.name ? (
                 <Stack direction="row" alignItems="center" gap={1}>
                   <Link to="/userpage">
-                    <Stack direction="row" spacing={1} alignItems={"center"}>
+                    <HeaderImageInner>
                       <img
                         className="header__avatar"
                         src={
@@ -72,11 +88,19 @@ export function Header() {
                         alt="avatar"
                       />
 
-                      <Typography width={1}>{user.name}</Typography>
-                    </Stack>
+                      <Typography
+                        width={1}
+                        display={{ xs: "none", big: "block" }}
+                      >
+                        {user.name}
+                      </Typography>
+                    </HeaderImageInner>
                   </Link>
 
-                  <IconButton onClick={() => handleLogOut()}>
+                  <IconButton
+                    onClick={() => handleLogOut()}
+                    sx={{ display: { xs: "none", md: "flex" } }}
+                  >
                     <LogoutIcon />
                   </IconButton>
                 </Stack>
@@ -95,6 +119,14 @@ export function Header() {
           </HeaderInner>
         </Toolbar>
       </Container>
+
+      <HeaderBurger
+        menuOpen={menuOpen}
+        theme={theme}
+        userBasketSize={userBasketSize}
+        handleToggleMenu={handleToggleMenu}
+        handleSwitchTheme={handleSwitchTheme}
+      />
     </AppBar>
   );
 }

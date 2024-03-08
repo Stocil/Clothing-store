@@ -3,7 +3,7 @@ import { ThemeSwitchInput } from "./ThemeSwitch.styles";
 
 export function ThemeSwitch({ theme, onSwitch }) {
   return (
-    <FormGroup sx={{ ml: 40 }}>
+    <FormGroup>
       <FormControlLabel
         control={
           <ThemeSwitchInput onChange={onSwitch} checked={theme === "dark"} />

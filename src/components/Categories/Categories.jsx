@@ -50,7 +50,12 @@ export function Categories() {
   });
 
   categoriesList.unshift(
-    <NavLink className="category__link" key="0" to={`/categories/0`}>
+    <NavLink
+      data-theme={theme}
+      className="category__link"
+      key="0"
+      to={`/categories/0`}
+    >
       <CategoryInner>
         <Typography variant="h6" component="p">
           All

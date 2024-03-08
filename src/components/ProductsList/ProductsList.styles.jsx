@@ -16,14 +16,6 @@ export const ProductItemInner = styled(Paper)(({ theme }) => ({
   position: "relative",
   justifyContent: "start",
 
-  [theme.breakpoints.down("lg")]: {
-    minHeight: "540px",
-  },
-
-  [theme.breakpoints.down("big")]: {
-    minHeight: "480px",
-  },
-
   [theme.breakpoints.down("sm")]: {
     justifyContent: "space-between",
     minHeight: "unset",
@@ -98,10 +90,12 @@ export const ProductsTitleText = styled(Typography)(({ theme }) => ({
 
   [theme.breakpoints.down("lg")]: {
     fontSize: "20px",
+    minHeight: "60px",
   },
 
   [theme.breakpoints.down("sm")]: {
     fontSize: "16px",
+    minHeight: "unset",
   },
 }));
 

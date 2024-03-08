@@ -71,7 +71,7 @@ export function Products({
       );
     } else {
       content =
-        productsList.length === 0 ? <LoadingProduct count={3} /> : productsList;
+        productsList.length === 0 ? <LoadingProduct count={6} /> : productsList;
     }
 
     return (
