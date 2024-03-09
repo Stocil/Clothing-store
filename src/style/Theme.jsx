@@ -1,7 +1,7 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { pink, purple } from "@mui/material/colors";
-import { createTheme } from "@mui/material/styles";
+// import { createTheme } from "@mui/material/styles";
 
 export function Theme({ children }) {
   const mode = useSelector((state) => state.theme);
@@ -10,21 +10,21 @@ export function Theme({ children }) {
 
   // if (mode === "dark") {
   theme = createTheme({
-    palette: {
-      mode,
+    // palette: {
+    //   mode,
 
-      // primary: {
-      //   main: "#191919",
-      //   dark: purple[400],
-      // },
-      secondary: {
-        main: purple[300],
-      },
-      background: {
-        default: "#212123",
-        paper: "#212123",
-      },
-    },
+    //   primary: {
+    //     main: "#191919",
+    //     dark: purple[400],
+    //   },
+    //   secondary: {
+    //     main: purple[300],
+    //   },
+    //   background: {
+    //     default: "#212123",
+    //     paper: "#212123",
+    //   },
+    // },
     typography: {
       fontFamily: "'Inter', sans-serif",
     },
@@ -91,6 +91,8 @@ export function Theme({ children }) {
       },
     },
   });
+
+  console.log(theme);
 
   // light
 
