@@ -3,18 +3,18 @@
 ### Online store made with fake api
 
 ### The main purpose of creation:
--Create a large project for the reactor
--Learn how to work with asynchronous requests
--Learn how to use Redux state manager
--Learn how to create a design using MUI
+- Create a large project for the reactor
+- Learn how to work with asynchronous requests
+- Learn how to use Redux state manager
+- Learn how to create a design using MUI
 
 ### Stack:
--JS
--SCSS
--React
--Redux
--ReduxThunk
--MUI
+- JS
+- SCSS
+- React
+- Redux
+- ReduxThunk
+- MUI
 
 Link to the website - https://stocil.github.io/React-store/#/
 
