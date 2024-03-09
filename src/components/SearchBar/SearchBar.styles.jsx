@@ -61,15 +61,26 @@ export function SearchBarInput({ onChange, value, toggleOpenSearchRes }) {
   );
 }
 
-export const SearchBarResults = styled(Paper)({
+export const SearchBarResults = styled(Paper)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
   position: "absolute",
   marginLeft: "5px",
-  backgroundColor: "main",
   padding: "10px",
-});
+
+  overflowY: "scroll",
+  overflowX: "hidden",
+  maxHeight: "520px",
+
+  [theme.breakpoints.down("md")]: {
+    maxHeight: 320,
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    maxHeight: 300,
+  },
+}));
 
 export const SearchBarResultsWrapper = styled(Paper)({
   padding: 8,

@@ -151,7 +151,7 @@ export function Product() {
             products={worthSeeingProducts}
             isError={isError}
             isLoading={isLoading}
-            maxProduct={3}
+            maxProduct={6}
             mt={1}
             title={"Worth Seeing"}
             errorJustify="center"

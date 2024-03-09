@@ -15,7 +15,7 @@ export function Homepage() {
           products={trandingProducts}
           isError={isError}
           isLoading={isLoading}
-          maxProduct={3}
+          maxProduct={6}
           mt={1}
           title={"Trending"}
           errorJustify="center"
@@ -29,7 +29,7 @@ export function Homepage() {
           products={saleProducts}
           isError={isError}
           isLoading={isLoading}
-          maxProduct={3}
+          maxProduct={6}
           mt={1}
           title={"Sale"}
           errorJustify="center"

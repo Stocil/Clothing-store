@@ -41,7 +41,7 @@ export function Header() {
 
   return (
     <AppBar sx={{ bgcolor: "transparent", backdropFilter: "blur(5px)" }}>
-      <Container>
+      <Container sx={{ px: { xs: 0, ss: 2, sm: 3 } }}>
         <Toolbar disableGutters>
           <Hidden mdUp>
             <IconButton size="large" color="inherit" onClick={handleToggleMenu}>
@@ -59,7 +59,11 @@ export function Header() {
 
             <SearchBar />
 
-            <Stack direction="row" spacing={5} alignItems={"center"}>
+            <Stack
+              direction="row"
+              spacing={{ xs: 1, big: 5 }}
+              alignItems={"center"}
+            >
               <HeaderIconsInner display={{ xs: "none", md: "flex" }}>
                 <Link to="/favorite">
                   <FavoriteBorderIcon />

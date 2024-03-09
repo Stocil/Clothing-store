@@ -49,10 +49,24 @@ export const CategoryInner = styled(Stack)(({ theme }) => ({
 
 export function LoadingCategory({ count = 1 }) {
   const products = [];
+  const CategorySkeleton = styled(Skeleton)(({ theme }) => ({
+    width: 150,
+    height: 150,
+
+    [theme.breakpoints.down("sm")]: {
+      width: 200,
+      height: 120,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      width: 280,
+      height: 50,
+    },
+  }));
 
   for (let i = 0; i < count; i++) {
     products.push(
-      <Skeleton key={i} variant="rounded" width={150} height={150}></Skeleton>
+      <CategorySkeleton key={i} variant="rounded"></CategorySkeleton>
     );
   }
 

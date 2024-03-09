@@ -10,10 +10,7 @@ export function useSearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchValue = searchParams.get("search") || "";
 
-  const searchProducts =
-    useSelector((state) => state.products.searchProducts).filter(
-      (_, index) => index < 5
-    ) || [];
+  const searchProducts = useSelector((state) => state.products.searchProducts);
   const searchProductsIsLoading = useSelector(
     (state) => state.products.searchProductsLoading
   );

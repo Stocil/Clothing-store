@@ -39,7 +39,11 @@ export function HeaderBurger({
         </HeaderTitleInner>
 
         <Stack spacing={5}>
-          <Link to="/" className="header-burger__link">
+          <Link
+            to="/"
+            className="header-burger__link"
+            onClick={handleToggleMenu}
+          >
             <HomeIcon />
 
             <Typography variant="h4" component="p">
@@ -47,7 +51,11 @@ export function HeaderBurger({
             </Typography>
           </Link>
 
-          <Link to="/categories/0" className="header-burger__link">
+          <Link
+            to="/categories/0"
+            className="header-burger__link"
+            onClick={handleToggleMenu}
+          >
             <CategoryIcon />
 
             <Typography variant="h4" component="p">
@@ -55,7 +63,11 @@ export function HeaderBurger({
             </Typography>
           </Link>
 
-          <Link to="/favorite" className="header-burger__link">
+          <Link
+            to="/favorite"
+            className="header-burger__link"
+            onClick={handleToggleMenu}
+          >
             <FavoriteIcon />
 
             <Typography variant="h4" component="p">
@@ -63,7 +75,11 @@ export function HeaderBurger({
             </Typography>
           </Link>
 
-          <Link to="/basket" className="header-burger__link">
+          <Link
+            to="/basket"
+            className="header-burger__link"
+            onClick={handleToggleMenu}
+          >
             <Badge badgeContent={userBasketSize} color="secondary">
               <ShoppingBasketIcon />
             </Badge>
@@ -73,7 +89,11 @@ export function HeaderBurger({
             </Typography>
           </Link>
 
-          <Link to="/userpage" className="header-burger__link">
+          <Link
+            to="/userpage"
+            className="header-burger__link"
+            onClick={handleToggleMenu}
+          >
             <AccountCircleIcon />
 
             <Typography variant="h4" component="p">
