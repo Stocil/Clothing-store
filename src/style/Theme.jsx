@@ -13,10 +13,10 @@ export function Theme({ children }) {
     palette: {
       mode,
 
-      primary: {
-        main: "#191919",
-        dark: purple[400],
-      },
+      // primary: {
+      //   main: "#191919",
+      //   dark: purple[400],
+      // },
       secondary: {
         main: purple[300],
       },
