@@ -21,11 +21,7 @@ export function StocksSlider() {
         pagination={{ clickable: true }}
       >
         <SwiperSlide>
-          <img
-            alt="stock"
-            src="React-store/assets/stock1.png"
-            className="swiper__image"
-          />
+          <img alt="stock" src="/assets/stock1.png" className="swiper__image" />
         </SwiperSlide>
 
         <SwiperSlide>
@@ -54,11 +50,7 @@ export function StocksSlider() {
             Now the time to snatch cutting-edge tech.
           </Typography>
 
-          <img
-            alt="stock"
-            src="React-store/assets/stock2.png"
-            className="swiper__image"
-          />
+          <img alt="stock" src="/assets/stock2.png" className="swiper__image" />
         </SwiperSlide>
 
         <SwiperSlide>
@@ -77,19 +69,11 @@ export function StocksSlider() {
             Enjoy stunning image quality and enhanced graphics
           </Typography>
 
-          <img
-            alt="stock"
-            src="React-store/assets/stock3.png"
-            className="swiper__image"
-          />
+          <img alt="stock" src="/assets/stock3.png" className="swiper__image" />
         </SwiperSlide>
 
         <SwiperSlide>
-          <img
-            alt="stock"
-            src="React-store/assets/stock4.png"
-            className="swiper__image"
-          />
+          <img alt="stock" src="/assets/stock4.png" className="swiper__image" />
         </SwiperSlide>
       </Swiper>
     </Container>
