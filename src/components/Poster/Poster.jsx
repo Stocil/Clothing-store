@@ -18,9 +18,12 @@ export function Poster() {
       </Typography>
 
       {theme === "dark" ? (
-        <img className="poster__image" src="../../../assets/bg1.png"></img>
+        <img className="poster__image" src="React-store/assets/bg1.png"></img>
       ) : (
-        <img className="poster__image" src="../../../assets/poster_light.jpg" />
+        <img
+          className="poster__image"
+          src="React-store/assets/poster_light.jpg"
+        />
       )}
     </Box>
   );

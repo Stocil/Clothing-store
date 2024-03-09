@@ -23,7 +23,7 @@ export function StocksSlider() {
         <SwiperSlide>
           <img
             alt="stock"
-            src="../../../assets/stock1.png"
+            src="React-store/assets/stock1.png"
             className="swiper__image"
           />
         </SwiperSlide>
@@ -56,7 +56,7 @@ export function StocksSlider() {
 
           <img
             alt="stock"
-            src="../../../assets/stock2.png"
+            src="React-store/assets/stock2.png"
             className="swiper__image"
           />
         </SwiperSlide>
@@ -79,7 +79,7 @@ export function StocksSlider() {
 
           <img
             alt="stock"
-            src="../../../assets/stock3.png"
+            src="React-store/assets/stock3.png"
             className="swiper__image"
           />
         </SwiperSlide>
@@ -87,7 +87,7 @@ export function StocksSlider() {
         <SwiperSlide>
           <img
             alt="stock"
-            src="../../../assets/stock4.png"
+            src="React-store/assets/stock4.png"
             className="swiper__image"
           />
         </SwiperSlide>
