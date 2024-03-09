@@ -1,6 +1,7 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { pink, purple } from "@mui/material/colors";
+import { createTheme } from "@mui/material/styles";
 
 export function Theme({ children }) {
   const mode = useSelector((state) => state.theme);
