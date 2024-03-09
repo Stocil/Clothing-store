@@ -17,6 +17,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Theme>
       </HashRouter>
     </Provider>
-    <div>прив</div>
   </React.StrictMode>
 );
