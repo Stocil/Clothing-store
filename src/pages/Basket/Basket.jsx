@@ -47,7 +47,7 @@ export function Basket() {
   } = useBasket();
 
   return (
-    <Container sx={{ my: { xs: 0, sm: 7 }, pt: 8 }}>
+    <Container sx={{ my: { xs: 0, sm: 7 }, pt: 8, minHeight: "100vh" }}>
       {products?.length ? (
         <>
           <BasketTitle variant="h2">Basket</BasketTitle>

@@ -6,7 +6,7 @@ export const BasketTitle = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
 
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("lg")]: {
     textAlign: "center",
   },
 }));

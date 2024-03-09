@@ -51,7 +51,7 @@ export function SearchBar() {
               );
             })
           ) : (
-            <Box width={{ xs: "150px", ss: "250px" }}>
+            <Box maxWidth={200} minWidth={100}>
               {searchProductsIsLoading ? (
                 <Box className="search-load" />
               ) : (

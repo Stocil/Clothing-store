@@ -195,8 +195,8 @@ export function AccountManager() {
   return (
     <Container
       sx={{
-        mt: { xs: 0, sm: 12 },
-        pt: 8,
+        mt: { xs: 0, sm: 8 },
+        pt: "100px",
         height: { xs: "100vh", sm: "calc(100vh - 96px)" },
       }}
     >

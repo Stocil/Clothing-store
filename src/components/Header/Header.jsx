@@ -114,7 +114,10 @@ export function Header() {
                   replace
                   state={{ prevPath: location.pathname }}
                 >
-                  <Button variant="contained" sx={{ textTransform: "none" }}>
+                  <Button
+                    variant="contained"
+                    sx={{ px: { xs: "10px", ss: "16px" } }}
+                  >
                     Log in
                   </Button>
                 </Link>

@@ -7,7 +7,7 @@ export function Favourite() {
   const { favouriteProducts } = useFavourite();
 
   return (
-    <Container sx={{ pt: 8, my: 7 }}>
+    <Container sx={{ pt: 8, my: 7, minHeight: "100vh" }}>
       {favouriteProducts?.length ? (
         <>
           <FavouriteTitle variant="h2">

@@ -6,7 +6,7 @@ export const HeaderBurgerInner = styled(Paper)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
-  height: "100%",
+  minHeight: "100%",
   gap: "100px",
   width: 370,
 

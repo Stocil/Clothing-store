@@ -38,7 +38,7 @@ export function HeaderBurger({
           <HeaderColoredTitle>{" store"}</HeaderColoredTitle>
         </HeaderTitleInner>
 
-        <Stack spacing={5}>
+        <Stack spacing={4}>
           <Link
             to="/"
             className="header-burger__link"

@@ -58,7 +58,7 @@ export function Product() {
   });
 
   return (
-    <Container sx={{ my: 5, position: "relative", pt: 8 }}>
+    <Container sx={{ my: 5, position: "relative", pt: 8, minHeight: "100vh" }}>
       {isError ? (
         <ErrorTypography isError={isError}>{isError}</ErrorTypography>
       ) : (
