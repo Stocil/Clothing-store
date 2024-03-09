@@ -52,6 +52,7 @@ export function PasswordField({
         color="secondary"
         type={isShowPassword ? "text" : "password"}
         fullWidth
+        autoComplete="off"
         endAdornment={
           <InputAdornment position="end">
             <IconButton

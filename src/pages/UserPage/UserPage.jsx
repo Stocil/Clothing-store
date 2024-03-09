@@ -45,6 +45,7 @@ export function UserPage() {
             defaultValue={user.name}
             error={!!usernameHelperText}
             helperText={usernameHelperText}
+            autoComplete="off"
           />
 
           <TextField
@@ -58,6 +59,7 @@ export function UserPage() {
             required
             inputProps={{ style: { fontSize: "26px" } }}
             defaultValue={user.email}
+            autoComplete="off"
           />
 
           <TextField
@@ -69,6 +71,7 @@ export function UserPage() {
             fullWidth
             inputProps={{ style: { fontSize: "26px" } }}
             defaultValue={user.avatarUrl}
+            autoComplete="off"
           />
 
           <Stack spacing={2}>

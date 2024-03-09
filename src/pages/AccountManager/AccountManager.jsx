@@ -151,6 +151,7 @@ export function AccountManager() {
             label={field.label}
             variant="outlined"
             color="secondary"
+            autoComplete="off"
             required
             fullWidth
           />
@@ -173,6 +174,7 @@ export function AccountManager() {
             color="secondary"
             error={isUsernameError}
             helperText={isUsernameError ? usernameHelperText : false}
+            autoComplete="off"
             required
             fullWidth
           />
