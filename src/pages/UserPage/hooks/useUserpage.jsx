@@ -15,7 +15,7 @@ export function useUserpage(setModalOpen) {
   const user = useSelector((state) => state.currentUser);
   const userAvatar = user.avatarUrl
     ? user.avatarUrl
-    : "../../assets/defAvatar.svg";
+    : "/React-store/assets/defAvatar.svg";
 
   const products = useSelector((state) => state.products.products);
   const productsData = {

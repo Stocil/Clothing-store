@@ -87,7 +87,7 @@ export function Header() {
                         src={
                           user.avatarUrl
                             ? user.avatarUrl
-                            : "../../assets/defAvatar.svg"
+                            : "/React-store/assets/defAvatar.svg"
                         }
                         alt="avatar"
                       />
