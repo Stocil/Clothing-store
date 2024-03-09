@@ -1,9 +1,9 @@
 export function getSizes(category) {
-  if (category?.toLowerCase() === "clothes") {
+  if (category === 1) {
     return ["S", "M", "L", "XL", "XXL"];
   }
 
-  if (category?.toLowerCase() === "shoes") {
+  if (category === 4) {
     return ["36", "37", "38", "39", "40"];
   }
 

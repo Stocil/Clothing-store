@@ -32,7 +32,7 @@ export function useProduct() {
 
   const [mainImage, setMainImage] = useState(0);
   const [peoplePurchased] = useState(() => Math.floor(Math.random() * 60));
-  const allSizes = getSizes(product.category?.name) || [];
+  const allSizes = getSizes(product.category?.id) || [];
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
