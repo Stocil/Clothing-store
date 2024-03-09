@@ -10,13 +10,13 @@ import { Theme } from "./style/Theme";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <Provider store={store}>
+    <Provider store={store}>
       <HashRouter>
         <Theme>
           <App />
         </Theme>
       </HashRouter>
-    </Provider> */}
+    </Provider>
     <div>прив</div>
   </React.StrictMode>
 );
