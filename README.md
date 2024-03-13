@@ -12,6 +12,7 @@
 - JS
 - SCSS
 - React
+- React-router
 - Redux
 - ReduxThunk
 - MUI
