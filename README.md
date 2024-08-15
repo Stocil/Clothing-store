@@ -2,12 +2,6 @@
 
 ### Online store made with fake api
 
-### The main purpose of creation:
-- Create a large project using react
-- Learn how to work with asynchronous requests
-- Learn how to use Redux state manager
-- Learn how to create a design using MUI
-
 ### Stack:
 - JS
 - SCSS
